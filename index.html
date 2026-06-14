@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>AFKC Planner</title>
+<style>
+  :root{
+    --bg:#13151b; --panel:#1b1e27; --panel2:#222632; --line:#2b303d;
+    --ink:#e8ebf2; --mut:#969cab; --soft:#c4c9d6;
+    --lb:#e6b94a; --mauler:#e8743b; --wilder:#46c47a; --graveborn:#9bc23f;
+    --celestial:#d8c489; --hypogean:#a877e0; --dimensional:#4fa6ec;
+    --ok:#46c47a; --warn:#e8a23b;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+  body{padding:0 0 92px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 14px}
+  header{position:sticky;top:0;z-index:30;background:rgba(19,21,27,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .hbar{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:680px;margin:0 auto;padding:11px 14px}
+  .title{font-weight:700;font-size:18px}
+  .title span{color:var(--mut);font-weight:500;font-size:11px;display:block;letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+  .save{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
+  .save.flash{color:var(--ok)}
+  .hr{display:flex;align-items:center;gap:10px}
+  .resetic{background:var(--panel2);border:1px solid var(--line);color:var(--soft);border-radius:8px;width:30px;height:30px;font-size:16px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;font-family:inherit}
+  .resetic:active{opacity:.6}
+  .resetic.arm{border-color:var(--mauler);color:var(--mauler)}
+  .tabs{display:flex;max-width:680px;margin:0 auto;padding:0 14px;gap:6px}
+  .tab{flex:1;text-align:center;padding:10px;font-size:13px;font-weight:700;color:var(--mut);
+    border:1px solid var(--line);border-bottom:none;border-radius:10px 10px 0 0;background:var(--panel);cursor:pointer}
+  .tab.on{color:var(--ink);background:var(--panel2);border-color:var(--line)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:14px 0;overflow:hidden}
+  .card>.cap{padding:11px 14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);border-bottom:1px solid var(--line)}
+  .readycard{border:1px solid var(--ok);box-shadow:0 0 0 2px rgba(70,196,122,.12)}
+  .readycard>.cap{color:var(--ok);border-bottom-color:rgba(70,196,122,.35)}
+  .toggleall{font-size:12px;color:var(--dimensional);cursor:pointer;text-align:left;padding:2px 4px 0;user-select:none}
+  .toggleall:active{opacity:.6}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px}
+  .field{display:flex;flex-direction:column;gap:5px}
+  .field.full{grid-column:1/-1}
+  .field label{font-size:11px;color:var(--mut)}
+  input,select{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:9px 10px;font-size:14px;width:100%;font-family:inherit}
+  input:focus,select:focus{outline:2px solid var(--dimensional);outline-offset:-1px;border-color:transparent}
+  select{-webkit-appearance:none;-moz-appearance:none;appearance:none;cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23969cab' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 11px center;padding-right:32px}
+  input[type=number]{-moz-appearance:textfield;appearance:textfield}
+  input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .fac{margin:14px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}
+  .fac>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:13px 14px;border-left:4px solid var(--fc,#555)}
+  .fac>summary::-webkit-details-marker{display:none}
+  .fac .fname{font-weight:700;font-size:15px;color:var(--fc)}
+  .fac .fcount{margin-left:auto;font-size:12px;color:var(--mut);background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:2px 9px}
+  .fac .chev{color:var(--mut);transition:transform .15s}
+  .fac[open] .chev{transform:rotate(90deg)}
+  .body{padding:6px 10px 12px}
+  .hrow{display:grid;grid-template-columns:1fr 64px 64px 52px 30px;gap:7px;align-items:center;padding:7px 4px;border-top:1px solid var(--line)}
+  .hrow:first-child{border-top:none}
+  .hrow .nm{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hrow input{padding:7px 6px;font-size:13px;text-align:center}
+  .hrow select{padding:7px 20px 7px 6px;font-size:13px;text-align:center;background-position:right 6px center}
+  .hrow .rm{background:none;border:none;color:var(--mut);font-size:18px;cursor:pointer;padding:4px}
+  .colhead{display:grid;grid-template-columns:1fr 64px 64px 52px 30px;gap:7px;padding:2px 4px 6px;font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+  .colhead span{text-align:center}.colhead span:first-child{text-align:left}
+  .noE .hrow{grid-template-columns:1fr 64px 64px 30px}
+  .noE .colhead{grid-template-columns:1fr 64px 64px 30px}
+  .add{display:grid;grid-template-columns:1fr auto;gap:7px;padding:10px 4px 4px;border-top:1px dashed var(--line);margin-top:6px}
+  .add button{background:var(--panel2);border:1px solid var(--line);color:var(--soft);border-radius:8px;padding:0 14px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .wl{padding:12px 14px}.wlf{margin-bottom:12px}.wlf:last-child{margin-bottom:0}
+  .wlf .wlh{font-size:12px;font-weight:700;color:var(--fc);margin-bottom:6px}
+  .wlslots{display:grid;grid-template-columns:1fr 1fr;gap:7px}.wlslots input{font-size:13px;padding:8px 9px}.wlslots select{font-size:13px;padding:8px 30px 8px 9px}
+  .controls{display:flex;gap:8px;padding:10px 0;flex-wrap:wrap;position:sticky;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);margin-bottom:4px}
+  .controls label{font-size:11px;color:var(--mut);display:block;margin-bottom:4px}
+  .controls .c{flex:1;min-width:160px}
+  .seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .seg button{flex:1;background:var(--panel2);color:var(--mut);border:none;border-left:1px solid var(--line);padding:9px 6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
+  .seg button:first-child{border-left:none}
+  .seg button.on{background:var(--dimensional);color:#08121c}
+  .p-now{background:transparent;border:1px solid var(--line);color:var(--mut)}
+  .rrow{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:9px;align-items:center;padding:8px 4px;border-top:1px solid var(--line)}
+  .rrow:first-child{border-top:none}
+  .rrow .nm{font-weight:600;font-size:14px;min-width:0;overflow:hidden;text-overflow:ellipsis}
+  .rrow .nm small{display:block;color:var(--mut);font-weight:500;font-size:11px}
+  .rrow .tgt{font-size:12px;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+  .rrow .tgt .tline{white-space:nowrap;display:flex;align-items:center}
+  .rrow .met{font-size:12px;font-weight:700;text-align:right;min-width:34px}
+  .arr{color:var(--mut);margin:0 2px}
+  .paren{color:var(--mut);font-size:11px;white-space:nowrap}
+  .ready{color:var(--warn);font-weight:700}
+  .pill{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap}
+  .p-opt{background:rgba(70,196,122,.16);color:var(--ok)}
+  .p-min{background:rgba(232,162,59,.16);color:var(--warn)}
+  .p-comp{background:rgba(79,166,236,.16);color:var(--dimensional)}
+  .p-done{background:var(--panel2);color:var(--mut)}
+  .p-ready{background:rgba(232,162,59,.22);color:var(--warn)}
+  .p-none{background:rgba(150,156,171,.14);color:var(--mut)}
+  .note{font-size:11px;color:var(--mut);padding:6px 4px 0;line-height:1.45}
+  .bar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(19,21,27,.95);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:12px 14px;display:flex;gap:10px;max-width:680px;margin:0 auto}
+  .btn{flex:1;border-radius:10px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;border:1px solid var(--line)}
+  .btn.primary{background:var(--dimensional);border-color:var(--dimensional);color:#08121c}
+  .btn.ghost{background:var(--panel);color:var(--soft)}
+  .drawer{position:fixed;inset:0;z-index:50;background:rgba(8,9,12,.7);display:none}
+  .drawer.on{display:block}
+  .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--panel);border-top:1px solid var(--line);border-radius:16px 16px 0 0;padding:16px;max-height:82vh;display:flex;flex-direction:column;max-width:680px;margin:0 auto}
+  .sheet h3{margin:0 0 4px;font-size:15px}.sheet p{margin:0 0 10px;font-size:12px;color:var(--mut)}
+  textarea{flex:1;min-height:240px;background:var(--bg);color:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.5;resize:none;width:100%}
+  .drow{display:flex;gap:10px;margin-top:12px}
+  .impmsg{font-size:12px;min-height:16px;margin-top:8px;color:var(--mauler)}
+  .impmsg.ok{color:var(--ok)}
+  .hide{display:none}
+  .foot{font-size:11px;color:var(--mut);line-height:1.5;padding:18px 4px 8px;margin-top:8px;border-top:1px solid var(--line)}
+  .foot a{color:var(--dimensional);text-decoration:none}
+  .foot a:hover{text-decoration:underline}
+  .howto p{font-size:12px;color:var(--soft);line-height:1.5;margin:0 0 8px}
+  .howto p:last-child{margin:0;color:var(--mut)}
+</style>
+</head>
+<body>
+<header>
+  <div class="hbar">
+    <div class="title">AFK Companions Planner</div>
+    <div class="hr">
+      <button class="resetic" id="resetBtn" title="Reset everything (clears your roster)" aria-label="Reset everything (clears your roster)">⟲</button>
+      <div class="save" id="save">saved</div>
+    </div>
+  </div>
+  <div class="tabs">
+    <div class="tab on" id="tabRoster">Roster</div>
+    <div class="tab" id="tabRecs">Recommendations</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div id="rosterPane"></div>
+  <div id="recsPane" class="hide"></div>
+  <footer class="foot">
+    Unofficial fan-made tool — not affiliated with, endorsed, or sponsored by Lilith Games. AFK Arena: Companions and all related content are the property of Lilith Games.<br>
+    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-06-13.<br>
+    Your roster is stored only in this browser — use Export to back it up.
+  </footer>
+</div>
+
+<div class="bar" id="barRoster">
+  <button class="btn ghost" id="importBtn">Import Roster</button>
+  <button class="btn primary" id="exportBtn">Export Roster</button>
+</div>
+
+<div class="drawer" id="drawer">
+  <div class="sheet">
+    <h3>Export</h3><p>Copy to export the current wishlist and roster.</p>
+    <textarea id="out" readonly></textarea>
+    <div class="drow"><button class="btn ghost" id="closeDrawer">Close</button><button class="btn primary" id="copyBtn">Copy</button></div>
+  </div>
+</div>
+
+<div class="drawer" id="impDrawer">
+  <div class="sheet">
+    <h3>Import</h3><p>Paste your current wishlist and roster from a previous export.</p>
+    <textarea id="impIn" placeholder="Paste exported text here…"></textarea>
+    <div id="impMsg" class="impmsg"></div>
+    <div class="drow"><button class="btn ghost" id="impClose">Close</button><button class="btn primary" id="impDo">Import</button></div>
+  </div>
+</div>
+
+<script>
+const TIERS=["—","E","E+","L","L+","M","M+","A0","A1","A2","A3","A4","A5","T"];
+const SIS=[0,10,20,30];
+const FAC_ORDER=["Lightbearer","Mauler","Wilder","Graveborn","Celestial","Hypogean","Dimensional"];
+const BASE_FACS=["Lightbearer","Mauler","Wilder","Graveborn"];
+const STAR_FACS=["Celestial","Hypogean"];
+const FAC_VAR={Lightbearer:"--lb",Mauler:"--mauler",Wilder:"--wilder",Graveborn:"--graveborn",Celestial:"--celestial",Hypogean:"--hypogean",Dimensional:"--dimensional"};
+const LBASE={"—":0,E:1,"E+":2,L:4,"L+":4,M:6,"M+":6,A0:10,A1:12,A2:14,A3:16,A4:18,A5:20,T:28,T1:38};
+const LSG  ={"—":0,E:1,"E+":2,L:4,"L+":6,M:8,"M+":10,A0:14,A1:16,A2:18,A3:20,A4:22,A5:24,T:32};
+const ASCO=["—","E","E+","L","L+","M","M+","A0","A1","A2","A3","A4","A5","T","T1"];
+const ai=a=>ASCO.indexOf(a);
+const RANKN={SSS:0,SS:1,"S+":2,S:3,"S-":4,"A+":5,A:6,B:7,C:8,D:9,E:10,F:11,X:12};
+const MODES=[["camp","Campaign"],["ff","Forked Fate"],["tower","Faction Tower"],["dr","Dream Realm"],["gh","Guild Hunt"],["abex","AbEx"],["arena","Arena"],["tr","Temporal Rift"]];
+const MIDX={camp:0,ff:1,tower:2,dr:3,gh:4,abex:5,arena:6,tr:7};
+const NON_SUMMON=new Set(["Awakened Brutus","Solise","Maetria","Awakened Talene"]);
+/* Renamed heroes: map an OLD display name -> the CURRENT one. Applied when loading a saved
+   roster and when importing, so a tier-list rename never silently drops a user's hero/data.
+   Add an entry whenever a hero's display name changes (e.g. {"Wukong":"Wu Kong"}). */
+const ALIASES={};
+
+/* breakpoint parser: handles ranges like "Elite < A1", "A3 < A5 SI 20 < SI 30", "A5 T / SI 30" */
+function parseBP(str){
+  if(str==null) return null; const t=(""+str).trim(); if(t===""||t==="-") return null;
+  const s=t.replace(/\*/g,"").replace(/Elite\s*\+/gi,"Elite+");
+  const sis=[...s.matchAll(/\b(\d{1,2})\b/g)].map(m=>+m[1]); // all bare numbers are SI levels
+  const si=sis.length?Math.max(...sis):0;
+  const ascs=[]; const re=/(Elite\+|Elite|Mythic|Legendary|A[0-5]|\bA\b|\bT\b|\bM\b|\bL\b)/g; let m;
+  while((m=re.exec(s))){const tok=m[1];
+    const code=tok==="Elite+"?"E+":tok==="Elite"?"E":(tok==="Mythic"||tok==="M")?"M":(tok==="Legendary"||tok==="L")?"L":tok==="A"?"A0":tok;
+    ascs.push(code);}
+  const dedup=ascs.filter((a,i)=>i===0||a!==ascs[i-1]);
+  return {ascs:dedup, si};
+}
+
+/* tier rows: [name, fac, score, rank, Min, Opt, Comp, modes(camp,ff,tower,dr,gh,abex,arena,tr)] */
+const TIER_ROWS=[
+["Dracula","Dimensional",77.0,"SS","Mythic < A5 SI 20","A5 SI 30","T SI 30","SS,SS,SS,SS,SS,SS,SS,X"],
+["Lucilla","Hypogean",75.7,"S+","M < A1 SI 20","A3 < A5 SI 20 < SI 30","A5 SI 30","SS,SS,SS,S+,SS,SS,SS,X"],
+["Trishea","Wilder",72.1,"S+","A1 SI 20","A3 < A5 SI 20","A5 T / SI 30","S+,S,SS,SS,S+,S,S+,S"],
+["Sung Jinwoo","Dimensional",71.9,"S+","A3 SI 20","A5 SI 20 < SI 30","T SI 30","S+,S+,SS,S,S+,S,SS,SS"],
+["Liberta","Celestial",71.1,"S","Mythic SI 20 < SI 30","A3 < A5 SI 30","A5 SI 30","S+,S+,S+,S+,SSS,SS,S,X"],
+["Terrible Tornado","Dimensional",71.1,"S","A1 SI 20 < SI 30","A5 SI 30","","SS,SS,SS,SS,SS,S-,A+,S+"],
+["Awakened Talene","Celestial",69.6,"S","A SI 20","A SI 30","A5 SI 30","S,SS,S,S,S+,S-,S+,S"],
+["Awakened Brutus","Mauler",68.64,"S","A SI 20","A SI 20","A5 SI 30","SS,SS,SS,B,D,S+,SS,SS"],
+["Saitama","Dimensional",68.0,"S","M < A3 SI 20","A3 < A5 SI 20","A5 SI 30","S,S,S,S+,SS,S+,S,S"],
+["Lyca","Wilder",67.3,"S","Mythic SI 0","A3 < A5 SI 20 < SI 30","A5 T / SI 30","S,S,S,S+,S+,A,S,S"],
+["Mira","Graveborn",66.2,"S","A1 SI 0 < SI 20","A3 < A5 SI 20","A5 SI 30","S+,S+,SS,S,A,A,S-,S-"],
+["Albedo","Dimensional",66.1,"S","Mythic SI 20 < SI 30","A3 SI 30","A5 T / SI 30","S+,S+,S,A,A,S+,SS,S+"],
+["Marcille","Dimensional",64.5,"S-","A3 SI 20","A5 SI 20","A5 SI 30","S,S,S,S+,S+,A,A+,SS"],
+["Talene","Celestial",64.1,"S-","Elite","Mythic SI 20 / SI 30","A5 SI 30","A+,S,S,S,S+,A+,S,C"],
+["Merlin","Dimensional",63.04,"S-","A5 SI 0","A5 SI 30","","SS,SS,SS,D,F,S,SS,SS"],
+["Haelus","Celestial",63.0,"S-","Elite","A3 SI 20","A5 SI 30","S,S,S,S-,S-,S,S-,S"],
+["Palmer","Lightbearer",62.5,"S-","Mythic SI 20","A3 < A5 SI 20","","A+,A+,S,S+,SS,S,S-,X"],
+["Maetria","Hypogean",62.5,"S-","A SI 30","A SI 30","A5 SI 30","S,S+,S+,B,B,S+,S+,S"],
+["Shalltear","Dimensional",61.98,"S-","A1 SI 10","A3 SI 20","A5 T / SI 30","S+,SS,SS,D,F,S,SS,SS"],
+["Lorsan","Wilder",58.5,"A+","Elite","Elite < A5 SI 0 < SI 20","A5 SI 20","A,A,S,S+,S+,A,A+,X"],
+["Salaki","Mauler",58.1,"A+","Elite < A1 SI 0","A3 < A5 SI 0","A5 SI 30","S,S,S,B,D,A,S,S"],
+["Solise","Wilder",58.0,"A+","A SI 30","A SI 30","A5 SI 30","S,S-,S+,A,C,A,S-,S"],
+["Rowan","Lightbearer",57.5,"A+","Mythic < A1 SI 0 < SI 20","A5 SI 20","A5 SI 30","S,S-,S,S+,S,B,C,S-"],
+["Nevanthi","Wilder",57.2,"A+","A1 < A3 SI 0","A5 SI 10 < 20","T SI 30","A+,A+,S,A,A+,A,S,S+"],
+["Arthur","Dimensional",57.1,"A+","Mythic SI 20","Mythic < A5 SI 20","A5 SI 20 < 30","S,S,S,A,C,B,A+,SS"],
+["Gwyneth","Lightbearer",56.9,"A+","A1 SI 10","A3 SI 20","A5 SI 20 < SI 30","S,S-,S,S-,C,D,A,A"],
+["Cha Hae-In","Dimensional",56.4,"A+","A5 SI 20","A5 SI 30","","S-,S-,S-,A+,A+,SS,A,S"],
+["Framton","Hypogean",56.3,"A+","Elite < A1 SI 20","A3 SI 20 < SI 30","A5 SI 30","S+,S+,S+,D,E,S-,S+,S+"],
+["Laios","Dimensional",54.8,"A","Elite < Mythic SI 20","A1 < A3 SI 20","A5 SI 20","A+,A,A+,SS,S+,S+,C,S+"],
+["Selene","Celestial",54.3,"A","Elite < Mythic SI 20","A3 SI 20","A5 SI 30","S-,A+,S-,A+,B,A,A,S"],
+["Zolrath","Hypogean",53.6,"A","Elite < A1 SI 30","A1 SI 30","A5 SI 30","A+,A+,S,C,C,A+,S+,S"],
+["Thane","Lightbearer",53.5,"A","A3 SI 10","A5 SI 20","","A,B,S,S-,S,S,A,B"],
+["Rosaline","Lightbearer",53.5,"A","Mythic < A SI 0","A5 SI 20","A5 SI 30","A,B,S,SS,SS,A,C,A"],
+["Satrana","Mauler",52.9,"A","Elite","A1 SI 0","A5 SI 20 < SI 30","S-,A+,S,B,C,A,A+,A+"],
+["Brutus","Mauler",52.4,"A","Elite","Elite < A1 SI 0","A5 SI 0 < SI 20","S,S+,S-,B,D,E,B,B"],
+["Skriath","Mauler",52.2,"A","Elite < A1 SI 0","A5 SI 0 < SI 20","A5 SI 30","S-,A+,S-,S,B,D,C,A"],
+["Mishka","Wilder",52.1,"A","A3 SI 10","A5 SI 20","","A+,A+,S,A,B,C,A,A+"],
+["Raine","Lightbearer",52.1,"A","Elite < Mythic SI 10","A3 SI 10","A5 SI 10 < SI 20","A,B,S,S+,SS,B,C,A+"],
+["Flora","Celestial",50.6,"A","A1 SI 10","A1 SI 30","","S,S+,S,D,F,E,S-,A+"],
+["Skreg","Mauler",50.4,"A","A1 SI 0","A5 SI 0 < SI 20","A5 SI 30","A+,A+,S,C,C,C,S-,S-"],
+["Audrae","Celestial",49.8,"A","Elite < A1 SI 20","A3 < A5 SI 20","A5 SI 30","A,A,S-,A+,B,B,B,S-"],
+["Crassio","Mauler",49.6,"A","A1 SI 0 < SI 10","A3 < A5 SI 10 < SI 20","A5 T / SI 30","A+,A+,S,B,B,B,B,A"],
+["Estrilda","Lightbearer",49.0,"B","Elite < A1 SI 0","A3 < A5 SI 0 / SI 10","","A,B,B,S-,A,C,B,B"],
+["Mehira","Hypogean",47.6,"B","Elite","Elite","M A5 / SI 30","B,B,S-,A+,B,C,B,A"],
+["Orthros","Celestial",47.5,"B","A3 SI 0","A5 SI 0","A5 SI 30","B,C,S-,A+,A,B,A,A+"],
+["Lucretia","Hypogean",47.2,"B","A1 SI 30","A3 < A5 SI 30","A5 SI 30","S,B,S,B,A+,C,C,S-"],
+["Mortas","Hypogean",46.4,"B","Elite","Elite Elite+","Mythic SI 20","B,C,S,S+,S+,S,D,B"],
+["Khazard","Hypogean",46.2,"B","Mythic SI 0 < SI 30","A5 SI 30","","S-,S-,S-,C,E,E,B,B"],
+["Khasos","Mauler",46.2,"B","Elite < A3","A5 SI 0","A5 SI 20","A+,A+,C,C,D,B,A+,X"],
+["Walker","Lightbearer",45.8,"B","Elite","A1 < A5 SI 0","A5 SI 20","B,C,A+,S+,SS,S-,D,S+"],
+["Tasi","Wilder",45.6,"B","A3 SI 0","A5 SI 0","A5 SI 10 < SI 20","A,A,S-,B,F,E,A,S"],
+["Elijah & Lailah","Celestial",45.6,"B","Elite","Elite Elite+","","C,D,A,SS,SS,S,C,S"],
+["Safiya","Mauler",45.6,"B","Elite < M SI 0","A5 SI 20","","A+,B,A+,B,C,E,B,A"],
+["Silas","Graveborn",45.1,"B","A1 SI 0","A3 < A5 SI 10","A5 SI 30","B,C,S,A,B,A+,B,A"],
+["Kren","Mauler",44.9,"B","Mythic SI 0","A1 SI 10","A3 < A5 SI 10 < (SI 20)","S-,A+,S,A,C,F,D,A"],
+["Sonja","Lightbearer",44.8,"B","Mythic < A1 SI 0","A5 SI 10","","S-,S-,S,D,D,D,B,S-"],
+["Numisu","Mauler",44.4,"B","A1 SI 0","A3 SI 10","A5 SI 20","A,A+,S-,B,C,D,C,A+"],
+["Scarlet","Lightbearer",42.6,"C","A3 SI 20","A5 SI 20","A5 SI 30","C,D,B,S+,S+,E,C,A"],
+["Ezizh","Hypogean",42.4,"C","Elite","Elite","A5 SI 20","B,C,A+,A+,F,E,B,C"],
+["Zaphrael","Celestial",42.0,"C","Elite","Elite","A1 A5 / SI 30","A,B,B,C,F,F,A+,B"],
+["Eironn","Wilder",41.6,"C","A3 SI 0","A5 SI 0","A5 SI 15","S+,S+,S,D,F,F,D,D"],
+["Athalia","Celestial",40.6,"C","Elite < A3 SI 20","A5 SI 20","A5 SI 30","B,B,A+,C,D,D,B,B"],
+["Pippa","Wilder",39.2,"C","A3 SI 0","A5 SI 20","","S,S,S-,D,F,F,D,B"],
+["Oden","Graveborn",39.0,"C","A3 SI 10","A5 SI 20","A5 SI 30","B,B,A+,C,F,F,B,A"],
+["Oscar","Lightbearer",38.4,"C","Elite","Elite < A3 SI 0","A5 SI 20","D,E,B,S,C,C,B,X"],
+["Thoran","Graveborn",38.0,"C","A3 SI 0","A5 SI 0","","A+,A+,A+,F,F,F,A+,C"],
+["Anasta","Mauler",37.8,"C","Mythic SI 10","A5 SI 10","A5 SI 30","C,B,A,B,E,B,C,S-"],
+["Tidus","Mauler",37.0,"C","A3 SI 0","A5 SI 10 < SI 20","","C,C,B,B,F,E,B,X"],
+["Ainz Ooal Gown","Dimensional",36.2,"C","A5 SI 10","A5 SI 20","","A,B,B,B,F,F,D,C"],
+["Treznor","Graveborn",36.2,"C","Mythic < A1 SI 0","A3 < A5 SI 0 < SI 20","","B,B,A,D,F,E,B,A"],
+["Hodgkin","Graveborn",35.8,"C","A3 SI 0","A5 SI 0","","C,C,B,B,D,C,C,X"],
+["Leonardo","Dimensional",35.6,"C","A5 SI 0","A5 SI 20","","A+,A,A,C,C,C,E,B"],
+["Raku","Wilder",35.5,"C","Mythic SI 30","A1 < A3 SI 30","A5 SI 30","B,C,A+,A,B,C,E,D"],
+["Eluard","Lightbearer",34.2,"C","A1 SI 0","A3 < A5 SI 10","A5 SI 30","B,B,S,F,F,B,A,A"],
+["Grezhul","Graveborn",33.8,"C","A3 SI 0","A5 SI 0","A5 SI 10 < SI 20","D,D,A,B,F,C,B,A"],
+["Drez","Mauler",33.0,"C","A3 SI 0","A5 SI 0 < SI 10","A5 SI 20","C,C,A,C,E,C,C,X"],
+["Belinda","Lightbearer",32.7,"D","A1 < A3 SI 10","A5 SI 20","","D,E,B,S+,S,E,E,C"],
+["Kelthur","Graveborn",32.2,"D","Elite","A1 SI 0","A5 SI 0","B,B,A,F,F,F,A,X"],
+["Mezoth","Hypogean",30.6,"D","A1 SI 20","A1 SI 20","A5 SI 30","B,B,B,F,F,E,B,B"],
+["Daimon","Graveborn",29.0,"D","A1 SI 0 < SI 10","A3 < A5 SI 20","","A,A,S,F,F,C,D,X"],
+["Warek","Mauler",28.5,"D","Elite","Elite","A5 SI 0","E,F,B,SS,SS,A,F,D"],
+["Zikis","Hypogean",28.2,"D","A1 SI 0","A1 SI 20","","C,D,C,D,C,D,C,B"],
+["Wu Kong","Celestial",27.8,"D","A1 SI 0","A1 SI 20","","C,C,D,E,F,D,B,X"],
+["Shemira","Graveborn",27.4,"D","A1 SI 0","A5 SI 10","","C,D,B,A+,D,F,F,X"],
+["Oku","Wilder",27.4,"D","A1 SI 0","A3 < A5 SI 0","","B,C,S,F,F,E,C,B"],
+["Isabella","Graveborn",27.3,"D","A1 SI 10","A3 SI 10 < SI 20","","D,D,C,A,B,F,E,X"],
+["Ferael","Graveborn",26.4,"D","A1 SI 0","A3 < A5 SI 10 < SI 20","","B,C,A+,F,F,F,C,X"],
+["Saurus","Wilder",25.1,"D","A1 SI 0","A1 SI 0 < SI 10","A5 SI 20","D,D,B,B,A,B,F,X"],
+["Desira","Graveborn",24.8,"D","A1 SI 0","A3 < A5 SI 10","A5 SI 30","C,C,A,F,F,B,C,A"],
+["Hendrik","Lightbearer",24.2,"D","A1 SI 0","A3 < A5 SI 10","","C,C,A,F,F,E,C,X"],
+["Kaz","Wilder",22.6,"D","A3 SI 0","A5 SI 0","A5 SI 20","B,B,A,F,F,E,E,X"],
+["Morrow","Lightbearer",20.6,"E","A1 SI 0","A5 SI 10 < SI 20","","C,D,C,E,F,F,D,X"],
+["Nara","Graveborn",18.0,"E","Elite","Elite < A3 SI 0","A5 SI 0","C,C,B,F,F,F,E,X"],
+["Thesku","Mauler",17.4,"E","A1 SI 0","A3 < A5 SI 10","","D,E,B,E,F,F,D,X"],
+["Lucius","Lightbearer",14.0,"E","A1 SI 0","A3 < A5 SI 0","","D,E,C,F,F,F,D,X"],
+["Gorvo","Wilder",14.0,"E","A3 SI 0","A5 SI 0","","D,D,B,F,F,F,E,X"],
+["Cecilia","Lightbearer",12.4,"E","A1 SI 0","A3 < A5 SI 0","","E,F,D,F,F,D,C,X"],
+["Antandra","Mauler",10.0,"F","A1 SI 0","A3 < A5 SI 10 < SI 20","","E,F,C,E,F,E,E,X"],
+["Nemora","Wilder",8.4,"F","A3 SI 0","A5 SI 0","","E,D,C,F,F,F,F,D"],
+["Seirus","Wilder",7.8,"F","A3 SI 0","A5 SI 0","","E,E,E,F,F,E,E,X"],
+["Respen","Wilder",7.2,"F","A3 SI 10","A5 SI 20","","E,F,C,F,F,F,E,X"],
+["Fawkes","Lightbearer",5.6,"F","A1 SI 0","A3 SI 10","","E,F,E,F,F,F,E,X"],
+["Vurk","Mauler",5.0,"F","A3 SI 0","A5 SI 0","","F,F,C,E,F,F,F,X"],
+["Theowyn","Graveborn",4.4,"F","A3 SI 0","A5 SI 10","","F,F,D,F,F,F,E,X"],
+["Izold","Graveborn",0.0,"X","A3 SI 20","A5 SI 20","","X,X,X,X,X,X,X,X"],
+["Judy & Punch","Dimensional",0.0,"X","","","","X,X,X,X,X,X,X,X"]
+];
+const TIER={};
+TIER_ROWS.forEach(r=>{TIER[r[0]]={fac:r[1],sc:r[2],rk:r[3],mn:parseBP(r[4]),op:parseBP(r[5]),cp:parseBP(r[6]),md:r[7].split(",")};});
+
+const SEED=(function(){
+  const factions={};FAC_ORDER.forEach(f=>factions[f]=[]);
+  TIER_ROWS.forEach(r=>{const fac=r[1];factions[fac].push(fac==="Dimensional"?[r[0],"—",0]:[r[0],"—",0,0]);});
+  return {account:{stargazer:""},wishlist:{Lightbearer:[],Mauler:[],Wilder:[],Graveborn:[]},factions};
+})();
+let S;
+function toState(raw){const f={};for(const fac of FAC_ORDER){f[fac]=(raw.factions[fac]||[]).map(r=>({name:r[0],asc:r[1],si:r[2],e:r.length>3?r[3]:null}));}return{account:{...raw.account},wishlist:JSON.parse(JSON.stringify(raw.wishlist)),factions:f};}
+
+const KEY="afkc_pub_state_v1";
+const PKEY="afkc_pub_prefs_v1";
+/* Reconcile a saved roster against the CURRENT hero list (SEED/TIER). Start from the current
+   skeleton (every hero present at default) and overlay saved values by name, so tier-list
+   updates are non-destructive: new heroes appear (not owned), removed heroes drop, renamed
+   heroes migrate via ALIASES, and every loaded value is validated. This is what guarantees an
+   update can never break a user's saved state. Imports use the same alias/validation rules. */
+const SISET=new Set([0,10,20,30]);
+function aliasName(n){return (n!=null&&ALIASES[n])?ALIASES[n]:n;}
+function validAsc(a){return ASCO.includes(a)?a:"—";}
+function validSi(s){return SISET.has(s)?s:0;}
+function validE(e){return (Number.isInteger(e)&&e>=0)?e:0;}
+function reconcile(saved){
+  const base=toState(SEED);
+  if(!saved||typeof saved!=="object")return base;
+  const sv={};
+  const sf=saved.factions||{};
+  for(const fac of FAC_ORDER)(sf[fac]||[]).forEach(h=>{if(h&&h.name)sv[aliasName(h.name)]=h;});
+  for(const fac of FAC_ORDER)base.factions[fac].forEach(h=>{
+    const old=sv[h.name];if(!old)return;
+    h.asc=validAsc(old.asc);h.si=validSi(old.si);if(h.e!=null)h.e=validE(old.e);
+  });
+  if(saved.account&&typeof saved.account.stargazer==="string"){
+    const sg=aliasName(saved.account.stargazer);
+    base.account.stargazer=STAR_FACS.some(f=>base.factions[f].some(h=>h.name===sg))?sg:"";
+  }
+  if(saved.wishlist)BASE_FACS.forEach(f=>{
+    base.wishlist[f]=(saved.wishlist[f]||[]).map(aliasName).filter(n=>base.factions[f].some(h=>h.name===n)).slice(0,5);
+  });
+  return base;
+}
+function load(){let saved=null;try{const v=localStorage.getItem(KEY);if(v)saved=JSON.parse(v);}catch(e){}S=saved?reconcile(saved):toState(SEED);}
+function loadPrefs(){try{const v=localStorage.getItem(PKEY);if(v){const p=JSON.parse(v);if(p.sortKey)sortKey=p.sortKey;if(typeof p.noComp==="boolean")noComp=p.noComp;}}catch(e){}}
+function savePrefs(){try{localStorage.setItem(PKEY,JSON.stringify({sortKey,noComp}));}catch(e){}}
+let saveTimer;
+function save(){flashSave();clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}},300);}
+function flashSave(){const el=document.getElementById("save");el.classList.add("flash");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("flash"),700);}
+const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;};
+const opt=(v,sel)=>`<option ${v==sel?"selected":""}>${v}</option>`;
+function choiceSelect(options,current,placeholder,onchange){
+  const s=el("select");
+  s.innerHTML=`<option value="">${placeholder}</option>`+options.map(n=>`<option value="${n}" ${n===current?"selected":""}>${n}</option>`).join("");
+  s.value=current||"";s.onchange=()=>onchange(s.value);return s;
+}
+const byName=(a,b)=>a.localeCompare(b);
+
+function renderRoster(){
+  const app=document.getElementById("rosterPane");app.innerHTML="";
+
+  // how to use
+  const help=el("details","fac help");help.open=true;help.style.setProperty("--fc","var(--dimensional)");
+  const hsum=el("summary");hsum.innerHTML=`<span class="chev">▶</span><span class="fname">How to use</span>`;help.appendChild(hsum);
+  const hbody=el("div","body");
+  hbody.innerHTML=`<div class="howto">
+    <p>1. Open each faction below and set the heroes you own — pick the ascension, SI level, and any spare Elite copies (the +E box). Leave heroes you don't own at "—" (or tap ⟲ on a row to reset it).</p>
+    <p>2. Set your Stargazer target and Wishlist at the top.</p>
+    <p>3. Open the <b>Recommendations</b> tab to see what to summon, ascend, and which SI items to raise next — ranked by the tier list.</p>
+    <p>4. <b>Export</b> / <b>Import</b> (bottom) backs up or restores everything. The ⟲ icon top-right clears it all.</p>
+    <p>Your roster is saved only in this browser, so export a copy to keep it safe.</p>
+  </div>`;
+  help.appendChild(hbody);app.appendChild(help);
+
+  // open/close all (roster sections)
+  const ta=el("div","toggleall","open / close all");
+  ta.onclick=()=>{const ds=[...document.querySelectorAll('#rosterPane details.fac')];const openAll=ds.some(d=>!d.open);ds.forEach(d=>d.open=openAll);};
+  app.appendChild(ta);
+
+  // wishlist (collapsible)
+  const wc=el("details","fac");wc.open=true;wc.style.setProperty("--fc","var(--dimensional)");
+  const wcsum=el("summary");wcsum.innerHTML=`<span class="chev">▶</span><span class="fname">Wishlist</span>`;wc.appendChild(wcsum);
+  const wl=el("div","body wl");
+  const sg=el("div","wlf");sg.style.setProperty("--fc","var(--hypogean)");sg.appendChild(el("div","wlh","Stargazer target"));
+  const starNames=STAR_FACS.flatMap(f=>S.factions[f].map(h=>h.name)).filter(n=>!NON_SUMMON.has(n)).sort(byName);
+  sg.appendChild(choiceSelect(starNames,S.account.stargazer,"— none —",v=>{S.account.stargazer=v;save();}));
+  wl.appendChild(sg);
+  BASE_FACS.forEach(fac=>{
+    const blk=el("div","wlf");blk.style.setProperty("--fc",`var(${FAC_VAR[fac]})`);blk.appendChild(el("div","wlh",fac));
+    const slots=el("div","wlslots");const names=S.factions[fac].map(h=>h.name).filter(n=>!NON_SUMMON.has(n)).sort(byName);
+    for(let i=0;i<5;i++){slots.appendChild(choiceSelect(names,(S.wishlist[fac]&&S.wishlist[fac][i])||"","— none —",v=>{S.wishlist[fac]=S.wishlist[fac]||[];S.wishlist[fac][i]=v;save();}));}
+    blk.appendChild(slots);wl.appendChild(blk);
+  });
+  wc.appendChild(wl);app.appendChild(wc);
+  FAC_ORDER.forEach(fac=>renderFac(app,fac));
+}
+function renderFac(app,fac){
+  const noE=(fac==="Dimensional");
+  const d=el("details","fac"+(noE?" noE":""));d.open=false;d.style.setProperty("--fc",`var(${FAC_VAR[fac]})`);
+  const list=S.factions[fac];
+  const owned=list.filter(h=>h.asc!=="—").length;
+  const sum=el("summary");sum.innerHTML=`<span class="chev">▶</span><span class="fname">${fac}</span><span class="fcount">${owned}</span>`;d.appendChild(sum);
+  const body=el("div","body");
+  body.appendChild(el("div","colhead",noE?`<span>Hero</span><span>Asc</span><span>SI</span><span></span>`:`<span>Hero</span><span>Asc</span><span>SI</span><span>+E</span><span></span>`));
+  list.forEach((h,idx)=>{
+    const row=el("div","hrow");row.appendChild(el("div","nm",h.name));
+    const sa=el("select");sa.innerHTML=TIERS.map(t=>opt(t,h.asc)).join("");sa.onchange=()=>{h.asc=sa.value;save();};row.appendChild(sa);
+    const ss=el("select");ss.innerHTML=SIS.map(v=>`<option value="${v}" ${v==h.si?"selected":""}>SI${v}</option>`).join("");ss.onchange=()=>{h.si=+ss.value;save();};row.appendChild(ss);
+    if(!noE){const ie=el("input");ie.type="number";ie.min="0";ie.value=h.e==null?0:h.e;ie.inputMode="numeric";ie.oninput=()=>{h.e=ie.value===""?0:Math.max(0,parseInt(ie.value)||0);save();};row.appendChild(ie);}
+    const rm=el("button","rm","⟲");rm.title="Reset to not owned";rm.onclick=()=>{h.asc="—";h.si=0;if(h.e!=null)h.e=0;save();renderReplace(d,fac);};row.appendChild(rm);
+    body.appendChild(row);
+  });
+  d.appendChild(body);app.appendChild(d);
+}
+function renderReplace(node,fac){const open=node.open;const nn=document.createElement("div");renderFac(nn,fac);const fresh=nn.firstChild;fresh.open=open;node.replaceWith(fresh);}
+
+let sortKey="overall", noComp=false;
+function metric(t){ if(sortKey==="overall") return {v:-t.sc, label:t.sc.toFixed(1)}; const r=t.md[MIDX[sortKey]]; return {v:(RANKN[r]==null?99:RANKN[r]), label:r}; }
+function copiesTo(asc,targetAsc,e,ladder){const c=ladder[targetAsc]-ladder[asc]-e;return c>0?c:0;}
+function milestones(t){const ms=[];
+  const add=(bp,cat)=>{if(!bp)return;bp.ascs.forEach(a=>{const i=ai(a);if(i>=0)ms.push({i,asc:a,cat});});};
+  add(t.mn,"Min");add(t.op,"Opt");if(!noComp)add(t.cp,"Comp");ms.sort((a,b)=>a.i-b.i);return ms;}
+function nextStep(t,asc){const cur=ai(asc);for(const m of milestones(t)){if(m.i>cur)return{k:m.cat,asc:m.asc};}return{k:"Done"};}
+function curBracket(t,asc){const cur=ai(asc);let b=null;for(const m of milestones(t)){if(m.i<=cur)b=m.cat;else break;}return b;}
+function siTarget(t,asc,si){let best=null;(noComp?[t.mn,t.op]:[t.mn,t.op,t.cp]).forEach(bp=>{if(!bp)return;const top=Math.max(...bp.ascs.map(ai));if(ai(asc)>=top){if(best==null||bp.si>best)best=bp.si;}});return(best!=null&&si<best)?best:null;}
+
+let recOpen={};
+function renderRecs(){
+  const pane=document.getElementById("recsPane");
+  document.querySelectorAll('#recsPane details.fac').forEach(d=>{const n=d.querySelector('.fname');if(n)recOpen[n.textContent]=d.open;});
+  pane.innerHTML="";
+  const wantOpen=(k,def)=>(k in recOpen)?recOpen[k]:def;
+  const cc=el("div","controls");
+  const c1=el("div","c");c1.innerHTML="<label>Sort by</label>";
+  const sel=el("select");sel.innerHTML=`<option value="overall">Overall Score</option>`+MODES.map(m=>`<option value="${m[0]}">${m[1]}</option>`).join("");
+  sel.value=sortKey;sel.onchange=()=>{const y=window.scrollY;sortKey=sel.value;savePrefs();renderRecs();window.scrollTo(0,y);};c1.appendChild(sel);cc.appendChild(c1);
+  const c2=el("div","c");c2.innerHTML="<label>Competitive investment</label>";
+  const seg=el("div","seg");
+  const b1=el("button",!noComp?"on":null,"Include");b1.onclick=()=>{const y=window.scrollY;noComp=false;savePrefs();renderRecs();window.scrollTo(0,y);};
+  const b2=el("button",noComp?"on":null,"Exclude");b2.onclick=()=>{const y=window.scrollY;noComp=true;savePrefs();renderRecs();window.scrollTo(0,y);};
+  seg.appendChild(b1);seg.appendChild(b2);c2.appendChild(seg);cc.appendChild(c2);
+  pane.appendChild(cc);
+  const hdr=document.querySelector("header");cc.style.top=(hdr?hdr.offsetHeight:96)+"px";
+  const wished=new Set(BASE_FACS.flatMap(f=>(S.wishlist[f]||[]).filter(Boolean)));
+  const activeName=(S.account.stargazer||"").trim().toLowerCase();
+
+  // READY TO ASCEND — fixed (non-collapsible) card, enough copies banked for next ascension
+  {
+    const rc=el("div","card readycard");
+    rc.appendChild(el("div","cap","Ready to ascend"));
+    const body=el("div","body");
+    const ready=[];
+    BASE_FACS.forEach(fac=>S.factions[fac].filter(h=>TIER[h.name]&&!NON_SUMMON.has(h.name)).forEach(h=>{const r=buildRow(h,TIER[h.name],LBASE,wished.has(h.name));if(r.b.k!=="Done"&&r.ready)ready.push(r);}));
+    STAR_FACS.forEach(fac=>S.factions[fac].filter(h=>TIER[h.name]&&!NON_SUMMON.has(h.name)).forEach(h=>{const r=buildRow(h,TIER[h.name],LSG,h.name.toLowerCase()===activeName);if(r.b.k!=="Done"&&r.ready)ready.push(r);}));
+    ready.sort((a,z)=>a.m.v-z.m.v);
+    ready.forEach(r=>body.appendChild(recRow(r)));
+    if(!ready.length)body.appendChild(el("div","note","No heroes have enough copies banked to ascend right now."));
+    rc.appendChild(body);pane.appendChild(rc);
+  }
+
+  // open/close all (affects the collapsible sections below)
+  const ta=el("div","toggleall","open / close all");
+  ta.onclick=()=>{const ds=[...document.querySelectorAll('#recsPane details.fac')];const openAll=ds.some(d=>!d.open);ds.forEach(d=>{d.open=openAll;const n=d.querySelector('.fname');if(n)recOpen[n.textContent]=openAll;});};
+  pane.appendChild(ta);
+
+  // SUMMON per base faction — tier-list order, maxed last
+  BASE_FACS.forEach(fac=>{
+    const d=el("details","fac");d.open=wantOpen(fac,false);d.style.setProperty("--fc",`var(${FAC_VAR[fac]})`);
+    const body=el("div","body");
+    const rows=S.factions[fac].filter(h=>TIER[h.name]&&!NON_SUMMON.has(h.name)).map(h=>buildRow(h,TIER[h.name],LBASE,wished.has(h.name)));
+    rows.sort((a,z)=> (a.b.k==="Done"?1:0)-(z.b.k==="Done"?1:0) || a.m.v-z.m.v);
+    const open=rows.filter(r=>r.b.k!=="Done").length;
+    const sum=el("summary");sum.innerHTML=`<span class="chev">▶</span><span class="fname">${fac}</span><span class="fcount">${open}</span>`;d.appendChild(sum);
+    rows.forEach(r=>body.appendChild(recRow(r)));
+    if(!rows.length)body.appendChild(el("div","note","No tier data for this faction's heroes."));
+    d.appendChild(body);pane.appendChild(d);
+  });
+
+  // STARGAZER — same current→target indicators as summon
+  {
+    const d=el("details","fac");d.open=wantOpen("Stargazer Priority",false);d.style.setProperty("--fc","var(--hypogean)");
+    const body=el("div","body");
+    const rows=STAR_FACS.flatMap(fac=>S.factions[fac].filter(h=>TIER[h.name]&&!NON_SUMMON.has(h.name)).map(h=>buildRow(h,TIER[h.name],LSG,h.name.toLowerCase()===activeName)));
+    rows.sort((a,z)=> (a.b.k==="Done"?1:0)-(z.b.k==="Done"?1:0) || a.m.v-z.m.v);
+    const open=rows.filter(r=>r.b.k!=="Done").length;
+    const sum=el("summary");sum.innerHTML=`<span class="chev">▶</span><span class="fname">Stargazer Priority</span><span class="fcount">${open}</span>`;d.appendChild(sum);
+    rows.forEach(r=>body.appendChild(recRow(r)));
+    if(!rows.length)body.appendChild(el("div","note","Nothing here."));
+    d.appendChild(body);pane.appendChild(d);
+  }
+
+  // SI TARGETS (all factions incl. dimensional + awakened — SI behind reached ascension)
+  const siRows=[];
+  FAC_ORDER.forEach(fac=>S.factions[fac].forEach(h=>{const t=TIER[h.name];if(!t||h.asc==="—")return;const tg=siTarget(t,h.asc,h.si);if(tg!=null)siRows.push({h,t,fac,tg});}));
+  pane.appendChild(simpleList("SI Targets","--celestial",siRows,
+    (x)=>({nm:x.h.name,sub:x.fac+" · "+x.h.asc,tgt:"SI "+x.h.si+" → "+x.tg,pill:"Opt",m:metric(x.t)}),"All SI targets are reached."));
+}
+function pillClass(k){return {Opt:"p-opt",Min:"p-min",Comp:"p-comp",Done:"p-done",None:"p-none"}[k]||"p-done";}
+function buildRow(h,t,ladder,star){
+  const b=nextStep(t,h.asc);let target=b.asc,req=0,have=0,ready=false;
+  if(b.k!=="Done"){req=(ladder[target]||0)-(ladder[h.asc]||0);if(req<1)req=1;have=Math.min(h.e||0,req);ready=(h.e||0)>=req;}
+  return {h,t,b,target,req,have,ready,now:curBracket(t,h.asc),star:!!star,m:metric(t)};
+}
+function recRow(r){
+  const row=el("div","rrow");
+  const own=r.h.asc!=="—";
+  const name=r.h.name+(r.star?" ★":"");
+  let inner;
+  if(r.b.k==="Done"){
+    inner=`<div class="tline"><span class="pill p-done">max</span></div>`;
+  }else{
+    const curK=r.now||(own?"pre-Min":"—");
+    const cost=`${r.have}/${r.req} E`;
+    const costHtml=r.ready?`<span class="ready">${cost}</span>`:cost;
+    inner=`<div class="tline"><span class="pill ${pillClass(r.now)}">${curK}</span><span class="arr">→</span><span class="pill ${pillClass(r.b.k)}">${r.b.k}</span></div>`
+        +`<div class="paren">${r.target} · ${costHtml}</div>`;
+  }
+  const sub=own?(r.h.asc+" SI"+r.h.si):"not owned";
+  row.innerHTML=`<div class="nm">${name}<small>${sub}</small></div><div class="tgt">${inner}</div><div class="met">${r.m.label}</div>`;
+  return row;
+}
+function simpleList(title,fcvar,items,fn,emptyMsg){
+  const d=el("details","fac");d.open=(title in recOpen)?recOpen[title]:false;d.style.setProperty("--fc",`var(${fcvar})`);
+  const sum=el("summary");sum.innerHTML=`<span class="chev">▶</span><span class="fname">${title}</span><span class="fcount">${items.length}</span>`;d.appendChild(sum);
+  const body=el("div","body");
+  const mapped=items.map(fn);mapped.sort((a,z)=>a.m.v-z.m.v);
+  mapped.forEach(x=>{const row=el("div","rrow");
+    row.innerHTML=`<div class="nm">${x.nm}<small>${x.sub}</small></div><div class="tgt"><div class="tline"><span class="pill ${pillClass(x.pill)}" style="margin-right:6px">${x.pill==="None"?"—":x.pill}</span><span style="color:var(--mut)">${x.tgt}</span></div></div><div class="met">${x.m.label}</div>`;
+    body.appendChild(row);});
+  if(!mapped.length)body.appendChild(el("div","note",emptyMsg||"Nothing here right now."));
+  d.appendChild(body);return d;
+}
+
+function showTab(t){
+  document.getElementById("tabRoster").classList.toggle("on",t==="roster");
+  document.getElementById("tabRecs").classList.toggle("on",t==="recs");
+  document.getElementById("rosterPane").classList.toggle("hide",t!=="roster");
+  document.getElementById("recsPane").classList.toggle("hide",t!=="recs");
+  document.getElementById("barRoster").style.display=(t==="roster")?"flex":"none";
+  if(t==="recs")renderRecs();
+}
+document.getElementById("tabRoster").onclick=()=>showTab("roster");
+document.getElementById("tabRecs").onclick=()=>showTab("recs");
+
+function exportText(){let t=`STARGAZER TARGET: ${S.account.stargazer||""}\n\nWISHLIST\n`;
+  BASE_FACS.forEach(f=>{t+=`${f}: ${(S.wishlist[f]||[]).filter(Boolean).join(", ")}\n`;});t+="\n";
+  FAC_ORDER.forEach(fac=>{t+=fac.toUpperCase()+"\n";S.factions[fac].forEach(h=>{t+=(h.e==null?`${h.name}, ${h.asc}, SI${h.si}\n`:`${h.name}, ${h.asc}, SI${h.si}, ${h.e}\n`);});t+="\n";});
+  return t.trim()+"\n";}
+document.getElementById("exportBtn").onclick=()=>{document.getElementById("out").value=exportText();document.getElementById("drawer").classList.add("on");};
+document.getElementById("closeDrawer").onclick=()=>document.getElementById("drawer").classList.remove("on");
+document.getElementById("drawer").onclick=e=>{if(e.target.id==="drawer")e.currentTarget.classList.remove("on");};
+document.getElementById("copyBtn").onclick=async()=>{const ta=document.getElementById("out");try{await navigator.clipboard.writeText(ta.value);}catch(e){ta.select();document.execCommand("copy");}const b=document.getElementById("copyBtn");b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1200);};
+
+function parseImport(text){
+  const lines=(text||"").replace(/\r/g,"").trim().split("\n");
+  if(!lines.length||lines.join("").trim()==="") throw "Nothing to import.";
+  const FACUP={};FAC_ORDER.forEach(f=>FACUP[f.toUpperCase()]=f);
+  const res={stargazer:null,wishlist:{},factions:{}};
+  let mode=null,sawAny=false;
+  for(const raw of lines){
+    const line=raw.trim();
+    if(line==="") continue;
+    if(/^STARGAZER TARGET:/i.test(line)){res.stargazer=line.slice(line.indexOf(":")+1).trim();mode=null;sawAny=true;continue;}
+    if(/^WISHLIST$/i.test(line)){mode="wishlist";continue;}
+    const up=line.toUpperCase();
+    if(FACUP[up]){mode=FACUP[up];sawAny=true;continue;}
+    if(mode==="wishlist"){
+      const m=line.match(/^([A-Za-z]+):\s*(.*)$/);
+      if(!m) throw "Malformed wishlist line: "+line;
+      const fac=FAC_ORDER.find(f=>f.toLowerCase()===m[1].toLowerCase());
+      if(!fac||!BASE_FACS.includes(fac)) throw "Unknown wishlist faction: "+m[1];
+      res.wishlist[fac]=m[2].split(",").map(s=>s.trim()).filter(Boolean);
+      continue;
+    }
+    if(mode&&FAC_ORDER.includes(mode)){
+      const p=line.split(",").map(s=>s.trim());
+      if(p.length<3) throw "Malformed line: "+line;
+      const name=p[0];
+      if(!TIERS.includes(p[1])) throw "Bad ascension '"+p[1]+"' for "+name;
+      const sim=p[2].match(/^SI\s*(\d+)$/i);
+      if(!sim||![0,10,20,30].includes(+sim[1])) throw "Bad SI '"+p[2]+"' for "+name;
+      let e=null;
+      if(p.length>=4&&p[3]!==""){if(!/^\d+$/.test(p[3])) throw "Bad E '"+p[3]+"' for "+name;e=+p[3];}
+      (res.factions[mode]=res.factions[mode]||[]).push({name,asc:p[1],si:+sim[1],e});
+      continue;
+    }
+    throw "Unexpected line: "+line;
+  }
+  if(!sawAny) throw "This doesn't look like an exported roster.";
+  return res;
+}
+function applyImport(res){
+  if(res.stargazer!=null) S.account.stargazer=aliasName(res.stargazer);
+  BASE_FACS.forEach(f=>{S.wishlist[f]=(res.wishlist[f]||[]).map(aliasName).filter(n=>S.factions[f].some(h=>h.name===n)).slice(0,5);});
+  FAC_ORDER.forEach(fac=>{
+    const inc={};(res.factions[fac]||[]).forEach(ih=>inc[aliasName(ih.name)]=ih);
+    (S.factions[fac]||[]).forEach(h=>{
+      const ih=inc[h.name];
+      if(ih){h.asc=ih.asc;h.si=ih.si;if(h.e!=null)h.e=(ih.e==null?0:ih.e);}
+      else{h.asc="—";h.si=0;if(h.e!=null)h.e=0;} // not in import → reset to not owned
+    });
+  });
+}
+document.getElementById("importBtn").onclick=()=>{const m=document.getElementById("impMsg");m.textContent="";m.className="impmsg";document.getElementById("impDrawer").classList.add("on");};
+document.getElementById("impClose").onclick=()=>document.getElementById("impDrawer").classList.remove("on");
+document.getElementById("impDrawer").onclick=e=>{if(e.target.id==="impDrawer")e.currentTarget.classList.remove("on");};
+document.getElementById("impDo").onclick=()=>{
+  const m=document.getElementById("impMsg");
+  try{
+    const res=parseImport(document.getElementById("impIn").value);
+    applyImport(res);
+    save();renderRoster();
+    document.getElementById("impDrawer").classList.remove("on");
+    document.getElementById("impIn").value="";
+    m.textContent="";m.className="impmsg";
+  }catch(err){m.className="impmsg";m.textContent="Import failed — "+err+" (nothing was changed)";}
+};
+(function(){
+  const rb=document.getElementById("resetBtn");let armed=false,t;
+  rb.onclick=()=>{
+    if(!armed){armed=true;rb.textContent="↺?";rb.classList.add("arm");rb.title="Tap again to clear everything";
+      clearTimeout(t);t=setTimeout(()=>{armed=false;rb.textContent="⟲";rb.classList.remove("arm");rb.title="Reset everything (clears your roster)";},3000);return;}
+    armed=false;clearTimeout(t);rb.textContent="⟲";rb.classList.remove("arm");rb.title="Reset everything (clears your roster)";
+    S=toState(SEED);sortKey="overall";noComp=false;save();savePrefs();renderRoster();
+    if(!document.getElementById("recsPane").classList.contains("hide"))renderRecs();
+  };
+})();
+
+load();loadPrefs();renderRoster();
+</script>
+</body>
+</html>
