@@ -105,6 +105,34 @@
   .drawer.on{display:block}
   .sheet{position:absolute;left:0;right:0;bottom:0;background:var(--panel);border-top:1px solid var(--line);border-radius:16px 16px 0 0;padding:16px;max-height:82vh;display:flex;flex-direction:column;max-width:680px;margin:0 auto}
   .sheet h3{margin:0 0 4px;font-size:15px}.sheet p{margin:0 0 10px;font-size:12px;color:var(--mut)}
+  .rrow.clickable{cursor:pointer}
+  .rrow.clickable:active{background:var(--panel2)}
+  .hdsheet{overflow-y:auto}
+  .hd-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:12px}
+  .hd-name{font-weight:700;font-size:20px;color:var(--fc,var(--ink))}
+  .hd-fac{font-size:11px;color:var(--mut);margin-top:3px;text-transform:uppercase;letter-spacing:.06em}
+  .hd-h{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+  .bprow{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .bprow:last-child{border-bottom:0}
+  .bplab{color:var(--soft);font-size:13px;white-space:nowrap}
+  .bpval{color:var(--ink);font-size:13px;text-align:right}
+  .bpval.none{color:var(--mut)}
+  .bpright{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+  .bpbadges{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+  .bpe{font-size:11px;color:var(--mut);white-space:nowrap}
+  .bpe.ready,.bpe.reached{color:var(--ok)}
+  .spcard{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:9px 11px;margin-bottom:10px}
+  .splab{font-size:13px;color:var(--soft)}
+  .spcard input{width:96px;background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:7px 9px;font-size:14px;font-family:inherit;text-align:right}
+  .hd-guide{margin-top:14px}
+  .herolink{display:inline-block;background:var(--panel2);border:1px solid var(--fc,var(--line));color:var(--fc,var(--ink));border-radius:9px;padding:9px 13px;font-size:13px;font-weight:600;text-decoration:none}
+  .herolink:active{opacity:.6}
+  .hd-foot{margin-top:14px;font-size:11px;color:var(--mut);line-height:1.5}
+  .herolink.disabled{opacity:.55;border-color:var(--line);color:var(--mut);font-family:inherit;cursor:not-allowed}
+  .hd-cur{display:flex;justify-content:space-between;align-items:baseline;gap:12px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:9px 11px;margin-bottom:14px}
+  .hd-curlab{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+  .hd-curval{font-size:14px;color:var(--ink);font-weight:600}
+  .hd-curval.none{color:var(--mut);font-weight:500}
   textarea{flex:1;min-height:240px;background:var(--bg);color:var(--soft);border:1px solid var(--line);border-radius:10px;padding:12px;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.5;resize:none;width:100%}
   .drow{display:flex;gap:10px;margin-top:12px}
   .impmsg{font-size:12px;min-height:16px;margin-top:8px;color:var(--mauler)}
@@ -164,6 +192,10 @@
   </div>
 </div>
 
+<div class="drawer" id="heroDrawer">
+  <div class="sheet hdsheet" id="heroSheet"></div>
+</div>
+
 <script>
 const TIERS=["—","E","E+","L","L+","M","M+","A0","A1","A2","A3","A4","A5","T"];
 const SIS=[0,10,20,30];
@@ -173,6 +205,9 @@ const STAR_FACS=["Celestial","Hypogean"];
 const FAC_VAR={Lightbearer:"--lb",Mauler:"--mauler",Wilder:"--wilder",Graveborn:"--graveborn",Celestial:"--celestial",Hypogean:"--hypogean",Dimensional:"--dimensional"};
 const LBASE={"—":0,E:1,"E+":2,L:4,"L+":4,M:6,"M+":6,A0:10,A1:12,A2:14,A3:16,A4:18,A5:20,T:28,T1:38};
 const LSG  ={"—":0,E:1,"E+":2,L:4,"L+":6,M:8,"M+":10,A0:14,A1:16,A2:18,A3:20,A4:22,A5:24,T:32};
+/* Dimensional heroes ascend with "Dimensional Spirits" (a shared pool), not Elite copies.
+   Cumulative cost from E: E+ 1; L,L+,M,M+ +2 each; M+→A0 +4; A0..A5 +2 each; A5→T +8. */
+const LDIM ={"—":0,E:0,"E+":1,L:3,"L+":5,M:7,"M+":9,A0:13,A1:15,A2:17,A3:19,A4:21,A5:23,T:31};
 const ASCO=["—","E","E+","L","L+","M","M+","A0","A1","A2","A3","A4","A5","T","T1"];
 const ai=a=>ASCO.indexOf(a);
 const RANKN={SSS:0,SS:1,"S+":2,S:3,"S-":4,"A+":5,A:6,B:7,C:8,D:9,E:10,F:11,X:12};
@@ -308,12 +343,67 @@ const TIER_ROWS=[
 ["Judy & Punch","Dimensional",0.0,"X","","","","X,X,X,X,X,X,X,X"]
 ];
 const TIER={};
-TIER_ROWS.forEach(r=>{TIER[r[0]]={fac:r[1],sc:r[2],rk:r[3],mn:parseBP(r[4]),op:parseBP(r[5]),cp:parseBP(r[6]),md:r[7].split(",")};});
+TIER_ROWS.forEach(r=>{TIER[r[0]]={fac:r[1],sc:r[2],rk:r[3],mn:parseBP(r[4]),op:parseBP(r[5]),cp:parseBP(r[6]),md:r[7].split(","),mnR:r[4],opR:r[5],cpR:r[6]};});
+/* Guide URLs for heroes that have a write-up linked from the tier list (extracted from the
+   tier-list page; refresh alongside TIER_ROWS). Heroes without a guide are simply absent. */
+const GUIDES={
+  "Albedo":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-albedo-1ka9i5o",
+  "Anasta":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-anasta-1p3fitq",
+  "Audrae":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-audrae-1oy9f52",
+  "Awakened Brutus":"https://afk-web.onrender.com/guides/afkarenacompanions-light-companions-hero-deep-dive-abrutus-1n1qqsb",
+  "Belinda":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-belinda-1toly5h",
+  "Crassio":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-crassio-1k8lryc",
+  "Dracula":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-meta-breakdown-guide-dracula-by-sailus-1s9zga9",
+  "Drez":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-drez-by-sailus-and-shodee-1r3tciy",
+  "Elijah & Lailah":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-twins-1t9gbwz",
+  "Grezhul":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-grezhul-1not7iq",
+  "Gwyneth":"https://afk-web.onrender.com/guides/afkarenacompanions-total-western8607-hero-deep-dive-gwyneth-1kvrbbr",
+  "Hodgkin":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-hodgkin-1nmc2rr",
+  "Isabella":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-isabella-by-shodee-and-sailus-1ok9yq2",
+  "Judy & Punch":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-judy-and-punch-1u2x8t4",
+  "Kelthur":"https://afk-web.onrender.com/guides/afkarenacompanions-total-western8607-hero-overview-kelthur-by-sailus-and-shodee-1qm0eie",
+  "Liberta":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-liberta-by-sailus-1t0zmt8",
+  "Lorsan":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-lorsan-1t0963f",
+  "Lucilla":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-meta-breakdown-guide-lucilla-by-sailus-1tdt6m5",
+  "Lyca":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-lyca-1kbs35t",
+  "Marcille":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-marcille-1kl2s7c",
+  "Merlin":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-merlin-1u3dc8r",
+  "Mira":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-mira-1tmpt92",
+  "Mishka":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-mishka-1krgns3",
+  "Mortas":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-deep-dive-mortas-1lensbf",
+  "Nara":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-nara-1orbilx",
+  "Nevanthi":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-nevanthi-1p0sboi",
+  "Oden":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-oden-1otsszr",
+  "Orthros":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-game-mechanics-orthros-timestop-1sy8gvf",
+  "Oscar":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-oscar-1u1ymfr",
+  "Palmer":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-meta-breakdown-guide-palmer-by-sailus-1sorr6m",
+  "Raine":"https://afk-web.onrender.com/guides/afkarenacompanions-light-companions-hero-deep-dive-raine-1nkhwty",
+  "Raku":"https://afk-web.onrender.com/guides/afkarenacompanions-light-companions-hero-deep-dive-raku-1nzrogx",
+  "Rosaline":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-rosaline-1kbrc3u",
+  "Rowan":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-rowan-1kq5ab3",
+  "Saitama":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-first-impression-saitama-1q0mrjm",
+  "Salaki":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-salaki-1ozr15t",
+  "Satrana":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-satrana-by-sailus-and-shodee-1qm52kd",
+  "Saurus":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-saurus-by-sailus-1tctihp",
+  "Scarlet":"https://afk-web.onrender.com/guides/afkarenacompanions-light-companions-hero-deep-dive-scarlett-1m909yh",
+  "Selene":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-selene-1tt6wgt",
+  "Shalltear":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-shalltear-1ts6zqo",
+  "Shemira":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-shemira-1kbs1um",
+  "Silas":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-silas-1na60wp",
+  "Solise":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-asolise-1kazbr3",
+  "Sung Jinwoo":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-early-impression-jinwoo-by-light-shodee-and-sailus-1mj8ipa",
+  "Talene":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-talene-a5-1kt6pmr",
+  "Terrible Tornado":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-first-impression-tatsumaki-1q0eekr",
+  "Thane":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-thane-1kxt02x",
+  "Trishea":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-trishea-1k9csjf",
+  "Walker":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-walker-1szadhl",
+  "Warek":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-warek-1kow9py"
+};
 
 const SEED=(function(){
   const factions={};FAC_ORDER.forEach(f=>factions[f]=[]);
   TIER_ROWS.forEach(r=>{const fac=r[1];factions[fac].push(fac==="Dimensional"?[r[0],"—",0]:[r[0],"—",0,0]);});
-  return {account:{stargazer:""},wishlist:{Lightbearer:[],Mauler:[],Wilder:[],Graveborn:[]},factions};
+  return {account:{stargazer:"",spirits:0},wishlist:{Lightbearer:[],Mauler:[],Wilder:[],Graveborn:[]},factions};
 })();
 let S;
 function toState(raw){const f={};for(const fac of FAC_ORDER){f[fac]=(raw.factions[fac]||[]).map(r=>({name:r[0],asc:r[1],si:r[2],e:r.length>3?r[3]:null}));}return{account:{...raw.account},wishlist:JSON.parse(JSON.stringify(raw.wishlist)),factions:f};}
@@ -344,6 +434,7 @@ function reconcile(saved){
     const sg=aliasName(saved.account.stargazer);
     base.account.stargazer=STAR_FACS.some(f=>base.factions[f].some(h=>h.name===sg))?sg:"";
   }
+  if(saved.account&&typeof saved.account.spirits==="number")base.account.spirits=Math.max(0,Math.floor(saved.account.spirits));
   if(saved.wishlist)BASE_FACS.forEach(f=>{
     base.wishlist[f]=(saved.wishlist[f]||[]).map(aliasName).filter(n=>base.factions[f].some(h=>h.name===n)).slice(0,5);
   });
@@ -356,6 +447,7 @@ let saveTimer;
 function save(){flashSave();clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}},300);}
 function flashSave(){const el=document.getElementById("save");el.classList.add("flash");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("flash"),700);}
 const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;};
+const esc=s=>(s==null?"":String(s)).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 const opt=(v,sel)=>`<option ${v==sel?"selected":""}>${v}</option>`;
 function choiceSelect(options,current,placeholder,onchange){
   const s=el("select");
@@ -372,9 +464,9 @@ function renderRoster(){
   const hsum=el("summary");hsum.innerHTML=`<span class="chev">▶</span><span class="fname">How to use</span>`;help.appendChild(hsum);
   const hbody=el("div","body");
   hbody.innerHTML=`<div class="howto">
-    <p>1. Open each faction below and set the heroes you own — pick the ascension, SI level, and any spare Elite copies (the +E box). Leave heroes you don't own at "—" (or tap ⟲ on a row to reset it).</p>
+    <p>1. Open each faction below and set the heroes you own — pick the ascension, SI level, and any spare Elite copies (the +E box). Leave heroes you don't own at "—" (or tap ⟲ on a row to reset it). For <b>Dimensional</b> heroes, enter how many <b>Dimensional Spirits</b> you have in the box at the top of that faction.</p>
     <p>2. Set your Stargazer target and Wishlist at the top.</p>
-    <p>3. Open the <b>Recommendations</b> tab to see what to summon, ascend, and which SI items to raise next — ranked by the tier list.</p>
+    <p>3. Open the <b>Recommendations</b> tab to see what to summon, ascend, and which SI items to raise next — ranked by the tier list. <b>Tap any hero</b> to see its Min / Optimal / Competitive breakpoints, the copies (E) or Dimensional Spirits (S) still needed for each, and a link to its guide.</p>
     <p>4. <b>Export</b> / <b>Import</b> (bottom) backs up or restores everything. The ⟲ icon top-right clears it all.</p>
     <p>Your roster is saved only in this browser, so export a copy to keep it safe.</p>
   </div>`;
@@ -409,6 +501,12 @@ function renderFac(app,fac){
   const owned=list.filter(h=>h.asc!=="—").length;
   const sum=el("summary");sum.innerHTML=`<span class="chev">▶</span><span class="fname">${fac}</span><span class="fcount">${owned}</span>`;d.appendChild(sum);
   const body=el("div","body");
+  if(noE){
+    const sp=el("div","spcard");sp.appendChild(el("div","splab","Dimensional Spirits"));
+    const si=el("input");si.type="number";si.min="0";si.inputMode="numeric";si.value=S.account.spirits||0;
+    si.oninput=()=>{S.account.spirits=si.value===""?0:Math.max(0,parseInt(si.value)||0);save();};
+    sp.appendChild(si);body.appendChild(sp);
+  }
   body.appendChild(el("div","colhead",noE?`<span>Hero</span><span>Asc</span><span>SI</span><span></span>`:`<span>Hero</span><span>Asc</span><span>SI</span><span>+E</span><span></span>`));
   list.forEach((h,idx)=>{
     const row=el("div","hrow");row.appendChild(el("div","nm",h.name));
@@ -460,9 +558,10 @@ function renderRecs(){
     const ready=[];
     BASE_FACS.forEach(fac=>S.factions[fac].filter(h=>TIER[h.name]&&!NON_SUMMON.has(h.name)).forEach(h=>{const r=buildRow(h,TIER[h.name],LBASE,wished.has(h.name));if(r.b.k!=="Done"&&r.ready)ready.push(r);}));
     STAR_FACS.forEach(fac=>S.factions[fac].filter(h=>TIER[h.name]&&!NON_SUMMON.has(h.name)).forEach(h=>{const r=buildRow(h,TIER[h.name],LSG,h.name.toLowerCase()===activeName);if(r.b.k!=="Done"&&r.ready)ready.push(r);}));
+    S.factions.Dimensional.filter(h=>TIER[h.name]&&h.asc!=="—").forEach(h=>{const r=buildRow(h,TIER[h.name],LDIM,false);if(r.b.k!=="Done"&&r.ready)ready.push(r);});
     ready.sort((a,z)=>a.m.v-z.m.v);
     ready.forEach(r=>body.appendChild(recRow(r)));
-    if(!ready.length)body.appendChild(el("div","note","No heroes have enough copies banked to ascend right now."));
+    if(!ready.length)body.appendChild(el("div","note","No heroes have enough copies or spirits banked to ascend right now."));
     rc.appendChild(body);pane.appendChild(rc);
   }
 
@@ -497,6 +596,19 @@ function renderRecs(){
     d.appendChild(body);pane.appendChild(d);
   }
 
+  // DIMENSIONAL — can't summon; shows where to invest Dimensional Spirits
+  {
+    const d=el("details","fac");d.open=wantOpen("Dimensional",false);d.style.setProperty("--fc","var(--dimensional)");
+    const body=el("div","body");
+    const rows=S.factions.Dimensional.filter(h=>TIER[h.name]).map(h=>buildRow(h,TIER[h.name],LDIM,false));
+    rows.sort((a,z)=> (a.b.k==="Done"?1:0)-(z.b.k==="Done"?1:0) || a.m.v-z.m.v);
+    const open=rows.filter(r=>r.b.k!=="Done").length;
+    const sum=el("summary");sum.innerHTML=`<span class="chev">▶</span><span class="fname">Dimensional</span><span class="fcount">${open}</span>`;d.appendChild(sum);
+    rows.forEach(r=>body.appendChild(recRow(r)));
+    if(!rows.length)body.appendChild(el("div","note","No tier data for Dimensional heroes."));
+    d.appendChild(body);pane.appendChild(d);
+  }
+
   // SI TARGETS (all factions incl. dimensional + awakened — SI behind reached ascension)
   const siRows=[];
   FAC_ORDER.forEach(fac=>S.factions[fac].forEach(h=>{const t=TIER[h.name];if(!t||h.asc==="—")return;const tg=siTarget(t,h.asc,h.si);if(tg!=null)siRows.push({h,t,fac,tg});}));
@@ -506,8 +618,10 @@ function renderRecs(){
 function pillClass(k){return {Opt:"p-opt",Min:"p-min",Comp:"p-comp",Done:"p-done",None:"p-none"}[k]||"p-done";}
 function buildRow(h,t,ladder,star){
   const b=nextStep(t,h.asc);let target=b.asc,req=0,have=0,ready=false;
-  if(b.k!=="Done"){req=(ladder[target]||0)-(ladder[h.asc]||0);if(req<1)req=1;have=Math.min(h.e||0,req);ready=(h.e||0)>=req;}
-  return {h,t,b,target,req,have,ready,now:curBracket(t,h.asc),star:!!star,m:metric(t)};
+  const dim=t.fac==="Dimensional",own=h.asc!=="—";
+  const banked=dim?(S.account.spirits||0):(h.e||0);   // Dimensional spends a shared spirit pool
+  if(b.k!=="Done"){req=(ladder[target]||0)-(ladder[h.asc]||0);if(req<1)req=1;have=Math.min(banked,req);ready=banked>=req&&(!dim||own);}
+  return {h,t,b,target,req,have,ready,now:curBracket(t,h.asc),star:!!star,unit:dim?"S":"E",m:metric(t)};
 }
 function recRow(r){
   const row=el("div","rrow");
@@ -518,13 +632,14 @@ function recRow(r){
     inner=`<div class="tline"><span class="pill p-done">max</span></div>`;
   }else{
     const curK=r.now||(own?"pre-Min":"—");
-    const cost=`${r.have}/${r.req} E`;
+    const cost=`${r.have}/${r.req} ${r.unit||"E"}`;
     const costHtml=r.ready?`<span class="ready">${cost}</span>`:cost;
     inner=`<div class="tline"><span class="pill ${pillClass(r.now)}">${curK}</span><span class="arr">→</span><span class="pill ${pillClass(r.b.k)}">${r.b.k}</span></div>`
         +`<div class="paren">${r.target} · ${costHtml}</div>`;
   }
   const sub=own?(r.h.asc+" SI"+r.h.si):"not owned";
   row.innerHTML=`<div class="nm">${name}<small>${sub}</small></div><div class="tgt">${inner}</div><div class="met">${r.m.label}</div>`;
+  row.classList.add("clickable");row.onclick=()=>heroDetail(r.h.name);
   return row;
 }
 function simpleList(title,fcvar,items,fn,emptyMsg){
@@ -534,6 +649,7 @@ function simpleList(title,fcvar,items,fn,emptyMsg){
   const mapped=items.map(fn);mapped.sort((a,z)=>a.m.v-z.m.v);
   mapped.forEach(x=>{const row=el("div","rrow");
     row.innerHTML=`<div class="nm">${x.nm}<small>${x.sub}</small></div><div class="tgt"><div class="tline"><span class="pill ${pillClass(x.pill)}" style="margin-right:6px">${x.pill==="None"?"—":x.pill}</span><span style="color:var(--mut)">${x.tgt}</span></div></div><div class="met">${x.m.label}</div>`;
+    if(TIER[x.nm]){row.classList.add("clickable");row.onclick=()=>heroDetail(x.nm);}
     body.appendChild(row);});
   if(!mapped.length)body.appendChild(el("div","note",emptyMsg||"Nothing here right now."));
   d.appendChild(body);return d;
@@ -550,25 +666,75 @@ function showTab(t){
 document.getElementById("tabRoster").onclick=()=>showTab("roster");
 document.getElementById("tabRecs").onclick=()=>showTab("recs");
 
-function exportText(){let t=`STARGAZER TARGET: ${S.account.stargazer||""}\n\nWISHLIST\n`;
+function exportText(){let t=`STARGAZER TARGET: ${S.account.stargazer||""}\nDIMENSIONAL SPIRITS: ${S.account.spirits||0}\n\nWISHLIST\n`;
   BASE_FACS.forEach(f=>{t+=`${f}: ${(S.wishlist[f]||[]).filter(Boolean).join(", ")}\n`;});t+="\n";
   FAC_ORDER.forEach(fac=>{t+=fac.toUpperCase()+"\n";S.factions[fac].forEach(h=>{t+=(h.e==null?`${h.name}, ${h.asc}, SI${h.si}\n`:`${h.name}, ${h.asc}, SI${h.si}, ${h.e}\n`);});t+="\n";});
   return t.trim()+"\n";}
 document.getElementById("exportBtn").onclick=()=>{document.getElementById("out").value=exportText();document.getElementById("drawer").classList.add("on");};
 document.getElementById("closeDrawer").onclick=()=>document.getElementById("drawer").classList.remove("on");
 document.getElementById("drawer").onclick=e=>{if(e.target.id==="drawer")e.currentTarget.classList.remove("on");};
+function heroDetail(name){
+  const t=TIER[name];if(!t)return;
+  const sheet=document.getElementById("heroSheet");
+  sheet.style.setProperty("--fc",`var(${FAC_VAR[t.fac]||"--soft"})`);
+  const h=(S.factions[t.fac]||[]).find(x=>x.name===name);
+  const own=h&&h.asc!=="—";
+  const cb=own?curBracket(t,h.asc):null;
+  let cur="Not owned",bandPill="";
+  if(own){
+    cur=h.asc+" · SI "+h.si;
+    bandPill=`<span class="pill ${pillClass(cb||"None")}" style="margin-right:8px">${cb||"pre-Min"}</span>`;
+  }
+  const starred=BASE_FACS.some(f=>(S.wishlist[f]||[]).indexOf(name)>=0)||(S.account.stargazer||"").trim().toLowerCase()===name.toLowerCase();
+  // Ascension cost to each breakpoint's top ascension: Elite copies (E) for copy-based
+  // factions, shared Dimensional Spirits (S) for Dimensional. Plus an SI-met indicator.
+  const isDim=t.fac==="Dimensional";
+  const ladder=isDim?LDIM:(BASE_FACS.indexOf(t.fac)>=0?LBASE:(STAR_FACS.indexOf(t.fac)>=0?LSG:null));
+  const unit=isDim?"S":"E";
+  const pool=isDim?(S.account.spirits||0):((h&&h.e!=null)?h.e:0);
+  const curAsc=own?h.asc:"—";
+  const topAsc=p=>(p&&p.ascs&&p.ascs.length)?p.ascs.reduce((a,c)=>ai(c)>ai(a)?c:a):null;
+  const eBadge=p=>{
+    if(!ladder)return"";const top=topAsc(p);if(!top)return"";
+    const req=Math.max(0,(ladder[top]||0)-(ladder[curAsc]||0));
+    if(req<=0)return `<span class="bpe reached">ascension ✓</span>`;
+    const have=Math.min(pool,req);
+    return `<span class="bpe${have>=req?" ready":""}">${have}/${req} ${unit}</span>`;
+  };
+  const siBadge=(p,raw)=>{
+    if(!p||!/SI/i.test(raw||""))return"";   // show only when the breakpoint mentions SI (incl. an explicit "SI 0")
+    const tgt=p.si||0,csi=(h&&h.si)||0;
+    return csi>=tgt?`<span class="bpe reached">SI ✓</span>`:`<span class="bpe">SI ${csi}→${tgt}</span>`;
+  };
+  const bp=(lab,raw,p)=>`<div class="bprow"><span class="bplab">${lab}</span><span class="bpright"><span class="bpval${raw?"":" none"}">${raw?esc(raw):"—"}</span>${raw?`<span class="bpbadges">${eBadge(p)}${siBadge(p,raw)}</span>`:""}</span></div>`;
+  const g=GUIDES[name];
+  const guideBtn=g
+    ?`<a class="herolink" href="${esc(g)}" target="_blank" rel="noopener noreferrer">Open hero guide ↗</a>`
+    :`<button class="herolink disabled" type="button" disabled>No guide available</button>`;
+  sheet.innerHTML=
+     `<div class="hd-top"><div><div class="hd-name">${esc(name)}${starred?" ★":""}</div><div class="hd-fac">${esc(t.fac)}</div></div><button class="resetic" id="heroClose" aria-label="Close">✕</button></div>`
+    +`<div class="hd-cur"><span class="hd-curlab">Current investment</span><span class="hd-curval${own?"":" none"}">${bandPill}${esc(cur)}</span></div>`
+    +`<div class="hd-h">Investment breakpoints</div>`
+    +bp("Minimum",t.mnR,t.mn)+bp("Optimal",t.opR,t.op)+bp("Competitive",t.cpR,t.cp)
+    +`<div class="hd-guide">${guideBtn}</div>`
+    +`<div class="hd-foot">Breakpoints from the AFK Companions tier list by SaiLus.${g?" Hero guide linked from the same tier list (opens in a new tab).":""}</div>`;
+  document.getElementById("heroClose").onclick=()=>document.getElementById("heroDrawer").classList.remove("on");
+  document.getElementById("heroDrawer").classList.add("on");
+}
+document.getElementById("heroDrawer").onclick=e=>{if(e.target.id==="heroDrawer")e.currentTarget.classList.remove("on");};
 document.getElementById("copyBtn").onclick=async()=>{const ta=document.getElementById("out");try{await navigator.clipboard.writeText(ta.value);}catch(e){ta.select();document.execCommand("copy");}const b=document.getElementById("copyBtn");b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1200);};
 
 function parseImport(text){
   const lines=(text||"").replace(/\r/g,"").trim().split("\n");
   if(!lines.length||lines.join("").trim()==="") throw "Nothing to import.";
   const FACUP={};FAC_ORDER.forEach(f=>FACUP[f.toUpperCase()]=f);
-  const res={stargazer:null,wishlist:{},factions:{}};
+  const res={stargazer:null,spirits:null,wishlist:{},factions:{}};
   let mode=null,sawAny=false;
   for(const raw of lines){
     const line=raw.trim();
     if(line==="") continue;
     if(/^STARGAZER TARGET:/i.test(line)){res.stargazer=line.slice(line.indexOf(":")+1).trim();mode=null;sawAny=true;continue;}
+    if(/^DIMENSIONAL SPIRITS:/i.test(line)){res.spirits=line.slice(line.indexOf(":")+1).trim();mode=null;sawAny=true;continue;}
     if(/^WISHLIST$/i.test(line)){mode="wishlist";continue;}
     const up=line.toUpperCase();
     if(FACUP[up]){mode=FACUP[up];sawAny=true;continue;}
@@ -599,6 +765,7 @@ function parseImport(text){
 }
 function applyImport(res){
   if(res.stargazer!=null) S.account.stargazer=aliasName(res.stargazer);
+  if(res.spirits!=null){const n=parseInt(res.spirits);S.account.spirits=isNaN(n)?0:Math.max(0,n);}
   BASE_FACS.forEach(f=>{S.wishlist[f]=(res.wishlist[f]||[]).map(aliasName).filter(n=>S.factions[f].some(h=>h.name===n)).slice(0,5);});
   FAC_ORDER.forEach(fac=>{
     const inc={};(res.factions[fac]||[]).forEach(ih=>inc[aliasName(ih.name)]=ih);
