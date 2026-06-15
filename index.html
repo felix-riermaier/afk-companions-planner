@@ -36,6 +36,46 @@
   .readycard{border:1px solid var(--ok);box-shadow:0 0 0 2px rgba(70,196,122,.12)}
   .readycard>.cap{color:var(--ok);border-bottom-color:rgba(70,196,122,.35)}
   .toggleall{font-size:12px;color:var(--dimensional);cursor:pointer;text-align:left;padding:2px 4px 0;user-select:none}
+  .rsearch{margin:10px 0 4px}
+  .rsearch input{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:11px 13px;font-size:15px;font-family:inherit}
+  .rsearch input::placeholder{color:var(--mut)}
+  .facfilter{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .fbtn{background:var(--panel2);border:1px solid var(--line);color:var(--mut);border-radius:999px;padding:5px 11px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
+  .fbtn.on{border-color:var(--fc);color:var(--fc)}
+  .herolist{padding:0 6px 14px}
+  .sechead{margin:16px 0 8px;padding:0 4px}
+  .sectitle{font-size:15px;font-weight:700;color:var(--ink)}
+  .secsub{font-size:12px;color:var(--mut);margin-top:2px}
+  .sechead.withbtn{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .setupmodebtn{background:var(--panel2);border:1px solid var(--dimensional);color:var(--dimensional);border-radius:8px;padding:8px 13px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit;flex-shrink:0}
+  .setupmodebtn:active{opacity:.6}
+  .setupsheet{overflow-y:auto;max-height:88vh}
+  .setupgrp{margin:14px 0}
+  .setupbtns{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+  .setupbtn{background:var(--panel2);border:1px solid var(--line);color:var(--soft);border-radius:9px;padding:9px 13px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;min-width:46px;text-align:center}
+  .setupbtn.on{border-color:var(--dimensional);background:rgba(79,166,236,.22);box-shadow:0 0 0 1px var(--dimensional) inset}
+  .setupbtn.si-10,.ascval.t-e{color:#b07fe6}
+  .setupbtn.si-20,.ascval.t-l{color:#e6b94a}
+  .setupbtn.si-30,.ascval.t-m{color:#e0524a}
+  .setupbtn.si-0,.ascval.t-a{color:var(--ink)}
+  .ascval.t-t{color:var(--dimensional)}
+  .ascval.t-none{color:var(--mut)}
+  .ascval{min-width:0}
+  .ascsel{margin-top:2px}
+  .ascblock{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+  .asccol,.ecol{min-width:0}
+  .ebtns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  .estepper{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .estep{width:38px;height:38px;flex-shrink:0;border-radius:9px;background:var(--panel2);border:1px solid var(--line);color:var(--ink);font-size:20px;font-weight:700;cursor:pointer;font-family:inherit;line-height:1;display:flex;align-items:center;justify-content:center}
+  .estep:active{opacity:.6}
+  .eval{flex:1;min-width:0;font-size:22px;font-weight:800;color:var(--ink);text-align:center}
+  .setupactions{display:flex;gap:10px;margin-top:20px}
+  .setupactions.setupcol{flex-direction:column}
+  .setupactions.setupcol .btn{flex:none;width:100%}
+  .btn.plainbtn{background:none;border-color:transparent;color:var(--soft)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .setupdone{text-align:center;padding:26px 6px 10px}
+  .bigcheck{font-size:72px;line-height:1;color:var(--ok);margin-bottom:8px}
   .toggleall:active{opacity:.6}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px}
   .field{display:flex;flex-direction:column;gap:5px}
@@ -56,12 +96,16 @@
   .fac .chev{color:var(--mut);transition:transform .15s}
   .fac[open] .chev{transform:rotate(90deg)}
   .body{padding:6px 10px 12px}
-  .hrow{display:grid;grid-template-columns:1fr 64px 64px 52px 30px;gap:7px;align-items:center;padding:7px 4px;border-top:1px solid var(--line)}
+  .hrow{display:grid;grid-template-columns:1fr 48px;align-items:center;gap:12px;padding:8px 4px;border-top:1px solid var(--line);cursor:pointer}
+  .hrow.notowned{grid-template-columns:1fr}
   .hrow:first-child{border-top:none}
-  .hrow .nm{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .hrow input{padding:7px 6px;font-size:13px;text-align:center}
-  .hrow select{padding:7px 20px 7px 6px;font-size:13px;text-align:center;background-position:right 6px center}
-  .hrow .rm{background:none;border:none;color:var(--mut);font-size:18px;cursor:pointer;padding:4px}
+  .hmain{min-width:0;display:flex;align-items:center;gap:10px}
+  .hrow .nm{flex:1;display:flex;flex-direction:column;gap:1px;min-width:0;overflow:hidden}
+  .hrow .nm b{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .facsub{font-size:10px;font-weight:700;color:var(--fc);text-transform:uppercase;letter-spacing:.05em}
+  .hstate{flex-shrink:0;display:flex;gap:7px;font-size:13px;font-weight:600;color:var(--soft);white-space:nowrap}
+  .hstate .st-no{color:var(--mut);font-weight:500}
+  .he{justify-self:end;font-size:12px;font-weight:700;color:var(--soft);background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:3px 7px;white-space:nowrap}
   .colhead{display:grid;grid-template-columns:1fr 64px 64px 52px 30px;gap:7px;padding:2px 4px 6px;font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
   .colhead span{text-align:center}.colhead span:first-child{text-align:left}
   .noE .hrow{grid-template-columns:1fr 64px 64px 30px}
@@ -111,6 +155,8 @@
   .hd-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:12px}
   .hd-name{font-weight:700;font-size:20px;color:var(--fc,var(--ink))}
   .hd-fac{font-size:11px;color:var(--mut);margin-top:3px;text-transform:uppercase;letter-spacing:.06em}
+  .hd-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
+  .hd-count{font-size:20px;font-weight:700;color:var(--fc,var(--ink))}
   .hd-h{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
   .bprow{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:8px 0;border-bottom:1px solid var(--line)}
   .bprow:last-child{border-bottom:0}
@@ -121,9 +167,6 @@
   .bpbadges{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
   .bpe{font-size:11px;color:var(--mut);white-space:nowrap}
   .bpe.ready,.bpe.reached{color:var(--ok)}
-  .spcard{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:9px 11px;margin-bottom:10px}
-  .splab{font-size:13px;color:var(--soft)}
-  .spcard input{width:96px;background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:7px 9px;font-size:14px;font-family:inherit;text-align:right}
   .hd-guide{margin-top:14px}
   .herolink{display:inline-block;background:var(--panel2);border:1px solid var(--fc,var(--line));color:var(--fc,var(--ink));border-radius:9px;padding:9px 13px;font-size:13px;font-weight:600;text-decoration:none}
   .herolink:active{opacity:.6}
@@ -164,9 +207,9 @@
   <div id="rosterPane"></div>
   <div id="recsPane" class="hide"></div>
   <footer class="foot">
-    Unofficial fan-made tool — not affiliated with, endorsed, or sponsored by Lilith Games. AFK Arena: Companions and all related content are the property of Lilith Games.<br>
+    Unofficial fan-made tool. Not affiliated with, endorsed, or sponsored by Lilith Games. AFK Arena: Companions and all related content are the property of Lilith Games.<br>
     Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-06-13.<br>
-    Your roster is stored only in this browser — use Export to back it up.
+    Your roster is stored only in this browser. Use Export to back it up.
   </footer>
 </div>
 
@@ -194,6 +237,14 @@
 
 <div class="drawer" id="heroDrawer">
   <div class="sheet hdsheet" id="heroSheet"></div>
+</div>
+
+<div class="drawer" id="setupDrawer">
+  <div class="sheet setupsheet" id="setupSheet"></div>
+</div>
+
+<div class="drawer" id="editDrawer">
+  <div class="sheet setupsheet" id="editSheet"></div>
 </div>
 
 <script>
@@ -441,8 +492,9 @@ function reconcile(saved){
   return base;
 }
 function load(){let saved=null;try{const v=localStorage.getItem(KEY);if(v)saved=JSON.parse(v);}catch(e){}S=saved?reconcile(saved):toState(SEED);}
-function loadPrefs(){try{const v=localStorage.getItem(PKEY);if(v){const p=JSON.parse(v);if(p.sortKey)sortKey=p.sortKey;if(typeof p.noComp==="boolean")noComp=p.noComp;}}catch(e){}}
-function savePrefs(){try{localStorage.setItem(PKEY,JSON.stringify({sortKey,noComp}));}catch(e){}}
+let helpOpen=true;   // remembered open/close state of the How-to section
+function loadPrefs(){try{const v=localStorage.getItem(PKEY);if(v){const p=JSON.parse(v);if(p.sortKey)sortKey=p.sortKey;if(typeof p.noComp==="boolean")noComp=p.noComp;if(typeof p.helpOpen==="boolean")helpOpen=p.helpOpen;}}catch(e){}}
+function savePrefs(){try{localStorage.setItem(PKEY,JSON.stringify({sortKey,noComp,helpOpen}));}catch(e){}}
 let saveTimer;
 function save(){flashSave();clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}},300);}
 function flashSave(){const el=document.getElementById("save");el.classList.add("flash");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("flash"),700);}
@@ -455,70 +507,190 @@ function choiceSelect(options,current,placeholder,onchange){
   s.value=current||"";s.onchange=()=>onchange(s.value);return s;
 }
 const byName=(a,b)=>a.localeCompare(b);
+let rosterFac=new Set();   // active faction filters on the roster list (empty = all)
 
 function renderRoster(){
   const app=document.getElementById("rosterPane");app.innerHTML="";
 
   // how to use
-  const help=el("details","fac help");help.open=true;help.style.setProperty("--fc","var(--dimensional)");
+  const help=el("details","fac help");help.open=helpOpen;help.style.setProperty("--fc","var(--dimensional)");
+  help.addEventListener("toggle",()=>{helpOpen=help.open;savePrefs();});
   const hsum=el("summary");hsum.innerHTML=`<span class="chev">▶</span><span class="fname">How to use</span>`;help.appendChild(hsum);
   const hbody=el("div","body");
   hbody.innerHTML=`<div class="howto">
-    <p>1. Open each faction below and set the heroes you own — pick the ascension, SI level, and any spare Elite copies (the +E box). Leave heroes you don't own at "—" (or tap ⟲ on a row to reset it). For <b>Dimensional</b> heroes, enter how many <b>Dimensional Spirits</b> you have in the box at the top of that faction.</p>
-    <p>2. Set your Stargazer target and Wishlist at the top.</p>
-    <p>3. Open the <b>Recommendations</b> tab to see what to summon, ascend, and which SI items to raise next — ranked by the tier list. <b>Tap any hero</b> to see its Min / Optimal / Competitive breakpoints, the copies (E) or Dimensional Spirits (S) still needed for each, and a link to its guide.</p>
+    <p>1. <b>Tap a hero</b> in the list below to set its ascension, SI level, and spare Elite copies. Use the search box and faction buttons to narrow the list, or <b>Bulk mode</b> to step through many heroes in a row.</p>
+    <p>2. In <b>Wishlist / Dimensional Spirits</b> (top) set your Stargazer target, per-faction wishlists, and how many <b>Dimensional Spirits</b> you have.</p>
+    <p>3. Open the <b>Recommendations</b> tab to see what to summon, ascend, and which SI items to raise next, ranked by the tier list. <b>Tap any hero</b> to see its Min / Optimal / Competitive breakpoints, the copies (E) or Dimensional Spirits (S) still needed for each, and a link to its guide.</p>
     <p>4. <b>Export</b> / <b>Import</b> (bottom) backs up or restores everything. The ⟲ icon top-right clears it all.</p>
     <p>Your roster is saved only in this browser, so export a copy to keep it safe.</p>
   </div>`;
   help.appendChild(hbody);app.appendChild(help);
 
-  // open/close all (roster sections)
-  const ta=el("div","toggleall","open / close all");
-  ta.onclick=()=>{const ds=[...document.querySelectorAll('#rosterPane details.fac')];const openAll=ds.some(d=>!d.open);ds.forEach(d=>d.open=openAll);};
-  app.appendChild(ta);
-
-  // wishlist (collapsible)
-  const wc=el("details","fac");wc.open=true;wc.style.setProperty("--fc","var(--dimensional)");
-  const wcsum=el("summary");wcsum.innerHTML=`<span class="chev">▶</span><span class="fname">Wishlist</span>`;wc.appendChild(wcsum);
+  app.appendChild(el("div","sechead",'<div class="sectitle">Account state</div><div class="secsub">Set your wishlist state and Dimensional Spirits owned.</div>'));
+  // wishlist + dimensional spirits (collapsible)
+  const wc=el("details","fac");wc.open=false;wc.style.setProperty("--fc","var(--dimensional)");
+  const wcsum=el("summary");wcsum.innerHTML=`<span class="chev">▶</span><span class="fname">Wishlist / Dimensional Spirits</span>`;wc.appendChild(wcsum);
   const wl=el("div","body wl");
+  const spb=el("div","wlf");spb.style.setProperty("--fc","var(--dimensional)");spb.appendChild(el("div","wlh","Dimensional Spirits"));
+  const spi=el("input");spi.type="number";spi.min="0";spi.inputMode="numeric";spi.value=S.account.spirits||0;
+  spi.oninput=()=>{S.account.spirits=spi.value===""?0:Math.max(0,parseInt(spi.value)||0);save();};
+  spb.appendChild(spi);wl.appendChild(spb);
   const sg=el("div","wlf");sg.style.setProperty("--fc","var(--hypogean)");sg.appendChild(el("div","wlh","Stargazer target"));
   const starNames=STAR_FACS.flatMap(f=>S.factions[f].map(h=>h.name)).filter(n=>!NON_SUMMON.has(n)).sort(byName);
-  sg.appendChild(choiceSelect(starNames,S.account.stargazer,"— none —",v=>{S.account.stargazer=v;save();}));
+  sg.appendChild(choiceSelect(starNames,S.account.stargazer,"(none)",v=>{S.account.stargazer=v;save();}));
   wl.appendChild(sg);
   BASE_FACS.forEach(fac=>{
     const blk=el("div","wlf");blk.style.setProperty("--fc",`var(${FAC_VAR[fac]})`);blk.appendChild(el("div","wlh",fac));
     const slots=el("div","wlslots");const names=S.factions[fac].map(h=>h.name).filter(n=>!NON_SUMMON.has(n)).sort(byName);
-    for(let i=0;i<5;i++){slots.appendChild(choiceSelect(names,(S.wishlist[fac]&&S.wishlist[fac][i])||"","— none —",v=>{S.wishlist[fac]=S.wishlist[fac]||[];S.wishlist[fac][i]=v;save();}));}
+    for(let i=0;i<5;i++){slots.appendChild(choiceSelect(names,(S.wishlist[fac]&&S.wishlist[fac][i])||"","(none)",v=>{S.wishlist[fac]=S.wishlist[fac]||[];S.wishlist[fac][i]=v;save();}));}
     blk.appendChild(slots);wl.appendChild(blk);
   });
   wc.appendChild(wl);app.appendChild(wc);
-  FAC_ORDER.forEach(fac=>renderFac(app,fac));
-}
-function renderFac(app,fac){
-  const noE=(fac==="Dimensional");
-  const d=el("details","fac"+(noE?" noE":""));d.open=false;d.style.setProperty("--fc",`var(${FAC_VAR[fac]})`);
-  const list=S.factions[fac];
-  const owned=list.filter(h=>h.asc!=="—").length;
-  const sum=el("summary");sum.innerHTML=`<span class="chev">▶</span><span class="fname">${fac}</span><span class="fcount">${owned}</span>`;d.appendChild(sum);
-  const body=el("div","body");
-  if(noE){
-    const sp=el("div","spcard");sp.appendChild(el("div","splab","Dimensional Spirits"));
-    const si=el("input");si.type="number";si.min="0";si.inputMode="numeric";si.value=S.account.spirits||0;
-    si.oninput=()=>{S.account.spirits=si.value===""?0:Math.max(0,parseInt(si.value)||0);save();};
-    sp.appendChild(si);body.appendChild(sp);
-  }
-  body.appendChild(el("div","colhead",noE?`<span>Hero</span><span>Asc</span><span>SI</span><span></span>`:`<span>Hero</span><span>Asc</span><span>SI</span><span>+E</span><span></span>`));
-  list.forEach((h,idx)=>{
-    const row=el("div","hrow");row.appendChild(el("div","nm",h.name));
-    const sa=el("select");sa.innerHTML=TIERS.map(t=>opt(t,h.asc)).join("");sa.onchange=()=>{h.asc=sa.value;save();};row.appendChild(sa);
-    const ss=el("select");ss.innerHTML=SIS.map(v=>`<option value="${v}" ${v==h.si?"selected":""}>SI${v}</option>`).join("");ss.onchange=()=>{h.si=+ss.value;save();};row.appendChild(ss);
-    if(!noE){const ie=el("input");ie.type="number";ie.min="0";ie.value=h.e==null?0:h.e;ie.inputMode="numeric";ie.oninput=()=>{h.e=ie.value===""?0:Math.max(0,parseInt(ie.value)||0);save();};row.appendChild(ie);}
-    const rm=el("button","rm","⟲");rm.title="Reset to not owned";rm.onclick=()=>{h.asc="—";h.si=0;if(h.e!=null)h.e=0;save();renderReplace(d,fac);};row.appendChild(rm);
-    body.appendChild(row);
+
+  const rsHead=el("div","sechead withbtn");
+  rsHead.innerHTML='<div><div class="sectitle">Roster state</div><div class="secsub">Set the current state of your roster, including additional copies.</div></div>';
+  const setupBtn=el("button","setupmodebtn","Bulk mode");setupBtn.onclick=openSetup;rsHead.appendChild(setupBtn);
+  app.appendChild(rsHead);
+  // hero search — filters the flat list (combined with the faction filter)
+  const sb=el("div","rsearch");
+  const sin=el("input");sin.id="rosterSearch";sin.type="search";sin.placeholder="Search heroes…";sin.setAttribute("autocomplete","off");
+  sin.oninput=filterRoster;sin.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();sin.blur();}};sb.appendChild(sin);app.appendChild(sb);
+
+  // faction filter buttons (multi-select; none active = show all)
+  const fb=el("div","facfilter");
+  FAC_ORDER.forEach(fac=>{
+    const btn=el("button","fbtn"+(rosterFac.has(fac)?" on":""),fac);btn.style.setProperty("--fc",`var(${FAC_VAR[fac]})`);
+    btn.onclick=()=>{if(rosterFac.has(fac))rosterFac.delete(fac);else rosterFac.add(fac);btn.classList.toggle("on");filterRoster();};
+    fb.appendChild(btn);
   });
-  d.appendChild(body);app.appendChild(d);
+  app.appendChild(fb);
+
+  renderHeroes(app);
+  filterRoster();
 }
-function renderReplace(node,fac){const open=node.open;const nn=document.createElement("div");renderFac(nn,fac);const fresh=nn.firstChild;fresh.open=open;node.replaceWith(fresh);}
+function filterRoster(){
+  const inp=document.getElementById("rosterSearch");
+  const term=inp?inp.value.trim().toLowerCase():"";
+  document.querySelectorAll('#rosterPane .hrow').forEach(row=>{
+    const okTerm=!term||row.dataset.name.toLowerCase().includes(term);
+    const okFac=rosterFac.size===0||rosterFac.has(row.dataset.fac);
+    row.style.display=(okTerm&&okFac)?"":"none";
+  });
+}
+function renderHeroes(app){
+  const wrap=el("div","herolist");
+  const all=FAC_ORDER.flatMap(fac=>S.factions[fac].map(h=>({h,fac})));
+  all.sort((a,b)=>a.h.name.localeCompare(b.h.name));
+  all.forEach(({h,fac})=>wrap.appendChild(heroRow(h,fac)));
+  app.appendChild(wrap);
+}
+function ascTier(v){const c=(v||"")[0];return c==="E"?"t-e":c==="L"?"t-l":c==="M"?"t-m":c==="T"?"t-t":c==="A"?"t-a":"t-none";}
+function heroStateHTML(h){
+  if(h.asc==="—")return `<span class="st-no">Not owned</span>`;
+  return `<span class="hasc">${h.asc}</span><span class="hsi">SI${h.si}</span>`;
+}
+function heroRow(h,fac){
+  const noE=fac==="Dimensional",own=h.asc!=="—";
+  const row=el("div","hrow"+(own?"":" notowned"));row.style.setProperty("--fc",`var(${FAC_VAR[fac]})`);
+  row.dataset.name=h.name;row.dataset.fac=fac;
+  row.onclick=()=>openHeroEdit(h.name);
+  const main=el("div","hmain");
+  main.innerHTML=`<div class="nm"><b>${esc(h.name)}</b><small class="facsub">${fac}</small></div><div class="hstate">${heroStateHTML(h)}</div>`;
+  row.appendChild(main);
+  // owned copy hero: "+N" copies label (always, incl. +0). Dimensional: none (column reserved). Not owned: nothing.
+  if(own&&!noE)row.appendChild(el("span","he","+"+(h.e||0)));
+  return row;
+}
+function refreshHeroRow(name){
+  const old=document.querySelector('#rosterPane .hrow[data-name="'+name+'"]');if(!old)return;
+  const fac=old.dataset.fac,h=(S.factions[fac]||[]).find(x=>x.name===name);if(!h)return;
+  old.replaceWith(heroRow(h,fac));filterRoster();
+}
+/* shared hero controls (used by Bulk mode and the single-hero edit sheet); they update `draft` */
+function heroControlsHTML(fac){
+  const noE=fac==="Dimensional";
+  return `<div class="ascblock">`
+    +`<div class="asccol"><div class="hd-h">Ascension</div><div class="estepper"><button class="estep" id="aMinus" aria-label="lower">−</button><span class="eval ascval" id="aVal">—</span><button class="estep" id="aPlus" aria-label="higher">+</button></div><select class="ascsel" id="ascSel"></select></div>`
+    +(noE?"":`<div class="ecol"><div class="hd-h">Copies</div><div class="estepper"><button class="estep" id="eMinus" aria-label="decrease">−</button><span class="eval" id="eVal">0</span><button class="estep" id="ePlus" aria-label="increase">+</button></div><div class="setupbtns ebtns" id="setupE"></div></div>`)
+    +`</div>`
+    +`<div class="setupgrp"><div class="hd-h">Signature Item</div><div class="setupbtns" id="setupSI"></div></div>`;
+}
+function wireHeroControls(sheet,fac,draft){
+  const noE=fac==="Dimensional";
+  const aVal=sheet.querySelector("#aVal"),ascSel=sheet.querySelector("#ascSel");
+  ascSel.innerHTML=TIERS.map(v=>`<option value="${v}">${v}</option>`).join("");
+  const setAsc=v=>{draft.asc=v;aVal.textContent=v;aVal.className="eval ascval "+ascTier(v);ascSel.value=v;};
+  sheet.querySelector("#aMinus").onclick=()=>setAsc(TIERS[Math.max(0,TIERS.indexOf(draft.asc)-1)]);
+  sheet.querySelector("#aPlus").onclick=()=>setAsc(TIERS[Math.min(TIERS.length-1,TIERS.indexOf(draft.asc)+1)]);
+  ascSel.onchange=()=>setAsc(ascSel.value);
+  setAsc(draft.asc);
+  const scls={0:"si-0",10:"si-10",20:"si-20",30:"si-30"};
+  const siW=sheet.querySelector("#setupSI");
+  SIS.forEach(v=>{const b=el("button","setupbtn "+(scls[v]||"si-0")+(v===draft.si?" on":""),"SI"+v);b.onclick=()=>{draft.si=v;siW.querySelectorAll('.setupbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');};siW.appendChild(b);});
+  if(!noE){
+    const eW=sheet.querySelector("#setupE"),eVal=sheet.querySelector("#eVal");
+    const setE=v=>{draft.e=Math.max(0,v|0);eVal.textContent=draft.e;eW.querySelectorAll('.setupbtn').forEach(x=>x.classList.toggle('on',+x.dataset.v===draft.e));};
+    [0,5,10].forEach(v=>{const b=el("button","setupbtn",v);b.dataset.v=v;b.onclick=()=>setE(v);eW.appendChild(b);});
+    sheet.querySelector("#eMinus").onclick=()=>setE(draft.e-1);
+    sheet.querySelector("#ePlus").onclick=()=>setE(draft.e+1);
+    setE(draft.e);
+  }
+}
+function openHeroEdit(name){
+  const fac=TIER[name]&&TIER[name].fac;if(!fac)return;
+  const h=(S.factions[fac]||[]).find(x=>x.name===name);if(!h)return;
+  const draft={asc:h.asc,si:h.si,e:h.e==null?0:(h.e||0)};
+  const sheet=document.getElementById("editSheet");
+  sheet.innerHTML=`<div class="hd-top"><div><div class="hd-name">${esc(name)}</div><div class="facsub" style="--fc:var(${FAC_VAR[fac]})">${fac}</div></div><button class="resetic" id="editClose" aria-label="Close">✕</button></div>`
+    +heroControlsHTML(fac)
+    +`<div class="setupactions"><button class="btn ghost" id="editNO">Not owned</button><button class="btn primary" id="editOK">Confirm</button></div>`;
+  wireHeroControls(sheet,fac,draft);
+  const close=()=>document.getElementById("editDrawer").classList.remove("on");
+  sheet.querySelector("#editClose").onclick=close;
+  sheet.querySelector("#editNO").onclick=()=>{h.asc="—";h.si=0;if(h.e!=null)h.e=0;save();refreshHeroRow(name);close();};
+  sheet.querySelector("#editOK").onclick=()=>{h.asc=draft.asc;h.si=draft.si;if(h.e!=null)h.e=Math.max(0,draft.e||0);save();refreshHeroRow(name);close();};
+  document.getElementById("editDrawer").classList.add("on");
+}
+
+/* ---- Bulk mode: guided, one-hero-at-a-time roster entry ---- */
+let setupQueue=[],setupIdx=0,setupDraft=null;
+function openSetup(){
+  const sheet=document.getElementById("setupSheet");const pick=new Set();
+  sheet.innerHTML=`<div class="hd-top"><div class="hd-name">Bulk mode</div><button class="resetic" id="setupClose" aria-label="Close">✕</button></div>`
+    +`<p class="secsub" style="margin:0 0 12px">Step through your heroes one at a time. Pick the factions you want to set up.</p>`
+    +`<div class="facfilter" id="setupFacs"></div>`
+    +`<div class="setupactions setupcol"><button class="btn primary" id="setupStart" disabled>None selected</button><button class="btn plainbtn" id="setupAll">Setup all</button></div>`;
+  const fc=sheet.querySelector("#setupFacs"),start=sheet.querySelector("#setupStart");
+  const sync=()=>{start.disabled=pick.size===0;start.textContent=pick.size===0?"None selected":"Start setup";};
+  FAC_ORDER.forEach(fac=>{const b=el("button","fbtn",fac);b.style.setProperty("--fc",`var(${FAC_VAR[fac]})`);b.onclick=()=>{if(pick.has(fac))pick.delete(fac);else pick.add(fac);b.classList.toggle("on");sync();};fc.appendChild(b);});
+  sheet.querySelector("#setupClose").onclick=closeSetup;
+  start.onclick=()=>{const facs=FAC_ORDER.filter(f=>pick.has(f));if(facs.length)startSetup(facs);};
+  sheet.querySelector("#setupAll").onclick=()=>startSetup(FAC_ORDER.slice());
+  document.getElementById("setupDrawer").classList.add("on");
+}
+function startSetup(facs){
+  setupQueue=facs.flatMap(fac=>[...S.factions[fac]].sort((a,b)=>a.name.localeCompare(b.name)).map(h=>({h,fac})));
+  setupIdx=0;renderSetupHero();
+}
+function renderSetupHero(){
+  const sheet=document.getElementById("setupSheet");
+  if(setupIdx>=setupQueue.length){
+    sheet.innerHTML=`<div class="setupdone"><div class="bigcheck">✓</div><div class="hd-name">All set!</div><p class="secsub">You've stepped through every selected hero.</p><div class="setupactions"><button class="btn primary" id="setupFinish">Done</button></div></div>`;
+    sheet.querySelector("#setupFinish").onclick=closeSetup;return;
+  }
+  const o=setupQueue[setupIdx],h=o.h,fac=o.fac,last=setupIdx===setupQueue.length-1;
+  setupDraft={asc:h.asc,si:h.si,e:h.e==null?0:(h.e||0)};
+  sheet.innerHTML=`<div class="hd-top"><div><div class="hd-name">${esc(h.name)}</div><div class="facsub" style="--fc:var(${FAC_VAR[fac]})">${fac}</div></div><div class="hd-right"><span class="hd-count">${setupIdx+1} / ${setupQueue.length}</span><button class="resetic" id="setupClose" aria-label="Close">✕</button></div></div>`
+    +heroControlsHTML(fac)
+    +`<div class="setupactions"><button class="btn ghost" id="setupNO">Not owned</button><button class="btn primary" id="setupOK">${last?"Finish":"Next"}</button></div>`;
+  wireHeroControls(sheet,fac,setupDraft);
+  sheet.querySelector("#setupClose").onclick=closeSetup;
+  sheet.querySelector("#setupNO").onclick=setupNotOwned;
+  sheet.querySelector("#setupOK").onclick=setupConfirm;
+}
+function setupConfirm(){const h=setupQueue[setupIdx].h;h.asc=setupDraft.asc;h.si=setupDraft.si;if(h.e!=null)h.e=Math.max(0,setupDraft.e||0);save();setupIdx++;renderSetupHero();}
+function setupNotOwned(){const h=setupQueue[setupIdx].h;h.asc="—";h.si=0;if(h.e!=null)h.e=0;save();setupIdx++;renderSetupHero();}
+function closeSetup(){document.getElementById("setupDrawer").classList.remove("on");renderRoster();}
 
 let sortKey="overall", noComp=false;
 function metric(t){ if(sortKey==="overall") return {v:-t.sc, label:t.sc.toFixed(1)}; const r=t.md[MIDX[sortKey]]; return {v:(RANKN[r]==null?99:RANKN[r]), label:r}; }
@@ -722,6 +894,8 @@ function heroDetail(name){
   document.getElementById("heroDrawer").classList.add("on");
 }
 document.getElementById("heroDrawer").onclick=e=>{if(e.target.id==="heroDrawer")e.currentTarget.classList.remove("on");};
+document.getElementById("setupDrawer").onclick=e=>{if(e.target.id==="setupDrawer")closeSetup();};
+document.getElementById("editDrawer").onclick=e=>{if(e.target.id==="editDrawer")e.currentTarget.classList.remove("on");};
 document.getElementById("copyBtn").onclick=async()=>{const ta=document.getElementById("out");try{await navigator.clipboard.writeText(ta.value);}catch(e){ta.select();document.execCommand("copy");}const b=document.getElementById("copyBtn");b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1200);};
 
 function parseImport(text){
@@ -788,7 +962,7 @@ document.getElementById("impDo").onclick=()=>{
     document.getElementById("impDrawer").classList.remove("on");
     document.getElementById("impIn").value="";
     m.textContent="";m.className="impmsg";
-  }catch(err){m.className="impmsg";m.textContent="Import failed — "+err+" (nothing was changed)";}
+  }catch(err){m.className="impmsg";m.textContent="Import failed: "+err+" (nothing was changed)";}
 };
 (function(){
   const rb=document.getElementById("resetBtn");let armed=false,t;
