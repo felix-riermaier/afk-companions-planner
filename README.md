@@ -8,12 +8,14 @@ community tier list.
 
 ## What it does
 
-- Track your roster — ascension tier, SI level, banked Elite copies per hero, and your
+- Track your roster: ascension tier, SI level, banked Elite copies per hero, and your
   **Dimensional Spirits** pool.
+- Manage it in a **searchable, faction-filterable** hero list: tap a hero to set its state, or
+  use **Bulk mode** to step through many heroes one at a time for fast setup.
 - Get prioritized recommendations: who to **summon**, who's **ready to ascend**, your
   **stargazer** priority, **Dimensional** spirit investment, and which **SI** upgrades to chase.
-- **Tap any hero** for a detail card: its Minimum / Optimal / Competitive breakpoints, the
-  copies (E) or Dimensional Spirits (S) still needed for each, and a link to its guide.
+- On **Recommendations**, tap any hero for a detail card: its Minimum / Optimal / Competitive
+  breakpoints, the copies (E) or Dimensional Spirits (S) still needed for each, and a link to its guide.
 - Sort recommendations by Overall Score or any of the 8 game modes.
 - Set per-faction wishlists and a stargazer target.
 - Export / import your roster as plain text (back it up or move it between devices).
@@ -22,15 +24,17 @@ community tier list.
 
 - **100% local.** No accounts, no servers, no network calls, no analytics. Everything runs
   in your browser and your roster is stored only in your browser's `localStorage`.
-- It's a single self-contained HTML file — inline styles and vanilla JS, no dependencies.
+- It's a single self-contained HTML file with inline styles and vanilla JS, no dependencies.
   You can download `index.html` and open it directly from disk; it works offline.
 - Mobile-first (it's mostly used on a phone).
 
 ## Usage
 
 1. Open the app. The roster starts empty (every hero "not owned").
-2. On the **Roster** tab, set each hero you own (ascension, SI, spare Elite copies), and your
-   Dimensional Spirits count in the Dimensional section.
+2. On the **Roster** tab, tap a hero to set its ascension, SI, and spare Elite copies; use the
+   search box and faction filters to find heroes, or **Bulk mode** to step through many at once.
+   Set your stargazer target, wishlists, and Dimensional Spirits in the **Wishlist / Dimensional
+   Spirits** section.
 3. Check the **Recommendations** tab for what to invest in next; tap any hero for its
    breakpoints, costs, and guide.
 4. Use **Export** to save a text backup; **Import** to restore it later.
