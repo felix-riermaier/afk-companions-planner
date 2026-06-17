@@ -16,6 +16,12 @@ community tier list.
   **stargazer** priority, **Dimensional** spirit investment, and which **SI** upgrades to chase.
 - On **Recommendations**, tap any hero for a detail card: its Minimum / Optimal / Competitive
   breakpoints, the copies (E) or Dimensional Spirits (S) still needed for each, and a link to its guide.
+- See when your banked copies are enough to **ascend** a hero or reach its next breakpoint, and
+  apply it in one tap (in the hero's edit sheet and on Recommendations).
+- **Hide** specific Dimensional heroes you can't obtain from Recommendations and Bulk mode, while
+  keeping them on your roster.
+- Check the in-app **Changelog** (tap the date in the header, or the footer link) to see what
+  changed, with an option to hide routine tier-list updates.
 - Sort recommendations by Overall Score or any of the 8 game modes.
 - Set per-faction wishlists and a stargazer target.
 - Export / import your roster as plain text (back it up or move it between devices).
