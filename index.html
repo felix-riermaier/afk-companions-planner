@@ -21,6 +21,35 @@
   .hbar{display:flex;align-items:center;justify-content:space-between;gap:10px;max-width:680px;margin:0 auto;padding:11px 14px}
   .title{font-weight:700;font-size:18px}
   .title span{color:var(--mut);font-weight:500;font-size:11px;display:block;letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+  .tierdate{cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px}
+  .cltoggle{margin:0 0 14px}
+  .clsheet{overflow:hidden}
+  .clsheet .hd-top,.clsheet .cltoggle{flex:none}
+  .cllist{flex:1 1 auto;min-height:0;overflow-y:auto}
+  .clentry{padding:11px 0;border-top:1px solid var(--line)}
+  .clentry:first-child{border-top:none}
+  .cldate{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:3px;display:flex;align-items:center;gap:8px}
+  .cltag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+  .cltext{font-size:13px;color:var(--ink);line-height:1.45}
+  .ascnow:empty{display:none}
+  .ascnow{margin:0 0 12px}
+  .ascnow-banner{display:flex;align-items:center;gap:10px;padding:9px 11px;background:var(--panel2);border:1px solid var(--line);border-radius:9px}
+  .ascnow-txt{font-size:12.5px;color:var(--soft);line-height:1.35;flex:1;min-width:0}
+  .ascnow-txt b{color:var(--ink)}
+  .ascnowuse{color:var(--mut);margin-left:5px;white-space:nowrap}
+  .ascnowbp{display:block;color:var(--warn);font-weight:700;margin-top:2px}
+  .ascnowbtn{flex:none;font-size:12px;font-weight:700;padding:7px 14px;border-radius:8px;background:var(--dimensional);color:#08121c;border:none;cursor:pointer;font-family:inherit}
+  .ascnowbtn:active{opacity:.85}
+  .ascnowhint{font-size:12px;color:var(--mut);padding:2px 0}
+  .ascnow-banner + .ascnowhint{margin-top:7px}
+  .swrow{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px;color:var(--soft);cursor:pointer}
+  .dimhide{align-items:flex-start;line-height:1.35;padding-top:4px}
+  .switch{position:relative;display:inline-block;width:40px;height:23px;flex:none}
+  .switch input{position:absolute;opacity:0;width:0;height:0}
+  .switch .track{position:absolute;inset:0;background:var(--line);border-radius:23px;transition:background .15s}
+  .switch .track::before{content:"";position:absolute;height:17px;width:17px;left:3px;top:3px;background:var(--soft);border-radius:50%;transition:transform .15s}
+  .switch input:checked + .track{background:var(--dimensional)}
+  .switch input:checked + .track::before{transform:translateX(17px);background:#08121c}
   .save{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
   .save.flash{color:var(--ok)}
   .hr{display:flex;align-items:center;gap:10px}
@@ -191,7 +220,7 @@
 <body>
 <header>
   <div class="hbar">
-    <div class="title">AFK Companions Planner</div>
+    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-06-17</span></div>
     <div class="hr">
       <button class="resetic" id="resetBtn" title="Reset everything (clears your roster)" aria-label="Reset everything (clears your roster)">⟲</button>
       <div class="save" id="save">saved</div>
@@ -207,6 +236,7 @@
   <div id="rosterPane"></div>
   <div id="recsPane" class="hide"></div>
   <footer class="foot">
+    <a href="#" id="changelogLink">Changelog</a><br>
     Unofficial fan-made tool. Not affiliated with, endorsed, or sponsored by Lilith Games. AFK Arena: Companions and all related content are the property of Lilith Games.<br>
     Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-06-17.<br>
     Your roster is stored only in this browser. Use Export to back it up.
@@ -245,6 +275,10 @@
 
 <div class="drawer" id="editDrawer">
   <div class="sheet setupsheet" id="editSheet"></div>
+</div>
+
+<div class="drawer" id="clDrawer">
+  <div class="sheet clsheet" id="clSheet"></div>
 </div>
 
 <script>
@@ -455,10 +489,10 @@ const GUIDES={
 const SEED=(function(){
   const factions={};FAC_ORDER.forEach(f=>factions[f]=[]);
   TIER_ROWS.forEach(r=>{const fac=r[1];factions[fac].push(fac==="Dimensional"?[r[0],"—",0]:[r[0],"—",0,0]);});
-  return {account:{stargazer:"",spirits:0},wishlist:{Lightbearer:[],Mauler:[],Wilder:[],Graveborn:[]},factions};
+  return {account:{stargazer:"",spirits:0,hiddenDims:[]},wishlist:{Lightbearer:[],Mauler:[],Wilder:[],Graveborn:[]},factions};
 })();
 let S;
-function toState(raw){const f={};for(const fac of FAC_ORDER){f[fac]=(raw.factions[fac]||[]).map(r=>({name:r[0],asc:r[1],si:r[2],e:r.length>3?r[3]:null}));}return{account:{...raw.account},wishlist:JSON.parse(JSON.stringify(raw.wishlist)),factions:f};}
+function toState(raw){const f={};for(const fac of FAC_ORDER){f[fac]=(raw.factions[fac]||[]).map(r=>({name:r[0],asc:r[1],si:r[2],e:r.length>3?r[3]:null}));}return{account:{...raw.account,hiddenDims:[...(raw.account.hiddenDims||[])]},wishlist:JSON.parse(JSON.stringify(raw.wishlist)),factions:f};}
 
 const KEY="afkc_pub_state_v1";
 const PKEY="afkc_pub_prefs_v1";
@@ -487,15 +521,17 @@ function reconcile(saved){
     base.account.stargazer=STAR_FACS.some(f=>base.factions[f].some(h=>h.name===sg))?sg:"";
   }
   if(saved.account&&typeof saved.account.spirits==="number")base.account.spirits=Math.max(0,Math.floor(saved.account.spirits));
+  if(saved.account&&Array.isArray(saved.account.hiddenDims))base.account.hiddenDims=saved.account.hiddenDims.map(aliasName).filter(n=>base.factions.Dimensional.some(h=>h.name===n));
   if(saved.wishlist)BASE_FACS.forEach(f=>{
     base.wishlist[f]=(saved.wishlist[f]||[]).map(aliasName).filter(n=>base.factions[f].some(h=>h.name===n)).slice(0,5);
   });
   return base;
 }
 function load(){let saved=null;try{const v=localStorage.getItem(KEY);if(v)saved=JSON.parse(v);}catch(e){}S=saved?reconcile(saved):toState(SEED);}
-let helpOpen=true;   // remembered open/close state of the How-to section
-function loadPrefs(){try{const v=localStorage.getItem(PKEY);if(v){const p=JSON.parse(v);if(p.sortKey)sortKey=p.sortKey;if(typeof p.noComp==="boolean")noComp=p.noComp;if(typeof p.helpOpen==="boolean")helpOpen=p.helpOpen;}}catch(e){}}
-function savePrefs(){try{localStorage.setItem(PKEY,JSON.stringify({sortKey,noComp,helpOpen}));}catch(e){}}
+let helpOpen=true;       // remembered open/close state of the How-to section
+let hideTierLog=false;   // changelog: hide pure tier-list updates
+function loadPrefs(){try{const v=localStorage.getItem(PKEY);if(v){const p=JSON.parse(v);if(p.sortKey)sortKey=p.sortKey;if(typeof p.noComp==="boolean")noComp=p.noComp;if(typeof p.helpOpen==="boolean")helpOpen=p.helpOpen;if(typeof p.hideTierLog==="boolean")hideTierLog=p.hideTierLog;}}catch(e){}}
+function savePrefs(){try{localStorage.setItem(PKEY,JSON.stringify({sortKey,noComp,helpOpen,hideTierLog}));}catch(e){}}
 let saveTimer;
 function save(){flashSave();clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}},300);}
 function flashSave(){const el=document.getElementById("save");el.classList.add("flash");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("flash"),700);}
@@ -607,49 +643,107 @@ function refreshHeroRow(name){
   const fac=old.dataset.fac,h=(S.factions[fac]||[]).find(x=>x.name===name);if(!h)return;
   old.replaceWith(heroRow(h,fac));filterRoster();
 }
+function isHiddenDim(n){return (S.account.hiddenDims||[]).indexOf(n)>=0;}
+function ascLadder(fac){return fac==="Dimensional"?null:(BASE_FACS.indexOf(fac)>=0?LBASE:LSG);}
+/* highest tier reachable from `asc` by spending `banked` copies (copy heroes only); null if none */
+function ascendReach(fac,asc,banked){
+  const ladder=ascLadder(fac);if(!ladder||asc==="—")return null;
+  const curI=ai(asc);let target=asc,cost=0;
+  TIERS.forEach(v=>{const i=ai(v);if(i>curI){const c=(ladder[v]||0)-(ladder[asc]||0);if(c<=banked){target=v;cost=c;}}});
+  return target===asc?null:{target,cost};
+}
+/* copies still needed for the very next tier (for the "x more copies" hint); null if maxed */
+function ascendNext(fac,asc,banked){
+  const ladder=ascLadder(fac);if(!ladder||asc==="—")return null;
+  const next=TIERS[ai(asc)+1];if(!next||(ladder[next]||0)<=(ladder[asc]||0))return null;
+  return {next,need:Math.max(0,(ladder[next]||0)-(ladder[asc]||0)-banked)};
+}
+/* compact ascend-now banner (with #ascNowBtn) plus a "copies to next breakpoint" hint */
+function ascNowMarkup(fac,t,asc,banked){
+  const ladder=ascLadder(fac);
+  if(!ladder||asc==="—")return "";
+  const cps=n=>`${n} more ${n===1?"copy":"copies"}`;
+  const r=ascendReach(fac,asc,banked);
+  const level=r?r.target:asc;                                  // where you'd stand after the ascend action
+  const nbp=milestones(t).find(m=>m.i>ai(level))||null;        // next breakpoint strictly beyond that
+  const bpNeed=nbp?Math.max(0,(ladder[nbp.asc]||0)-(ladder[asc]||0)-banked):0;
+  const bpLine=nbp?`<div class="ascnowhint">${cps(bpNeed)} for ${nbp.cat} breakpoint (${nbp.asc})</div>`:"";
+  if(r){
+    const before=curBracket(t,asc),after=curBracket(t,r.target);
+    const reaches=(after&&after!==before)?`<span class="ascnowbp">reaches ${after}</span>`:"";
+    return `<div class="ascnow-banner"><div class="ascnow-txt">Can ascend to <b>${r.target}</b> <span class="ascnowuse">uses ${r.cost}</span>${reaches}</div><button class="ascnowbtn" id="ascNowBtn">Ascend</button></div>`+bpLine;
+  }
+  const nx=ascendNext(fac,asc,banked);
+  if(!nx)return bpLine;
+  if(nbp&&nbp.asc===nx.next)return `<div class="ascnowhint">${cps(nx.need)} to ascend to ${nx.next} (${nbp.cat} breakpoint)</div>`;
+  return `<div class="ascnowhint">${cps(nx.need)} to ascend to ${nx.next}</div>`+bpLine;
+}
+/* commit a sheet draft onto a hero: asc/si/copies, plus the Dimensional hide flag */
+function commitDraft(h,fac,draft){
+  h.asc=draft.asc;h.si=draft.si;if(h.e!=null)h.e=Math.max(0,draft.e||0);
+  if(fac==="Dimensional"){
+    const hd=S.account.hiddenDims=S.account.hiddenDims||[],i=hd.indexOf(h.name);
+    if(draft.hidden&&i<0)hd.push(h.name);else if(!draft.hidden&&i>=0)hd.splice(i,1);
+  }
+}
 /* shared hero controls (used by Bulk mode and the single-hero edit sheet); they update `draft` */
 function heroControlsHTML(fac){
   const noE=fac==="Dimensional";
-  return `<div class="ascblock">`
+  return `<div class="ascnow" id="ascNow"></div>`
+    +`<div class="ascblock">`
     +`<div class="asccol"><div class="hd-h">Ascension</div><div class="estepper"><button class="estep" id="aMinus" aria-label="lower">−</button><span class="eval ascval" id="aVal">—</span><button class="estep" id="aPlus" aria-label="higher">+</button></div><select class="ascsel" id="ascSel"></select></div>`
-    +(noE?"":`<div class="ecol"><div class="hd-h">Copies</div><div class="estepper"><button class="estep" id="eMinus" aria-label="decrease">−</button><span class="eval" id="eVal">0</span><button class="estep" id="ePlus" aria-label="increase">+</button></div><div class="setupbtns ebtns" id="setupE"></div></div>`)
+    +(noE
+      ? `<div class="ecol"><div class="hd-h">Visibility</div><label class="swrow dimhide"><span>Hide from recommendations and Bulk mode</span><span class="switch"><input type="checkbox" id="dimHidden"><span class="track"></span></span></label></div>`
+      : `<div class="ecol"><div class="hd-h">Copies</div><div class="estepper"><button class="estep" id="eMinus" aria-label="decrease">−</button><span class="eval" id="eVal">0</span><button class="estep" id="ePlus" aria-label="increase">+</button></div><div class="setupbtns ebtns" id="setupE"></div></div>`)
     +`</div>`
     +`<div class="setupgrp"><div class="hd-h">Signature Item</div><div class="setupbtns" id="setupSI"></div></div>`;
 }
-function wireHeroControls(sheet,fac,draft){
+function wireHeroControls(sheet,fac,draft,name){
   const noE=fac==="Dimensional";
+  const t=TIER[name];
+  let setE=null;
   const aVal=sheet.querySelector("#aVal"),ascSel=sheet.querySelector("#ascSel");
   ascSel.innerHTML=TIERS.map(v=>`<option value="${v}">${v}</option>`).join("");
-  const setAsc=v=>{draft.asc=v;aVal.textContent=v;aVal.className="eval ascval "+ascTier(v);ascSel.value=v;};
+  const setAsc=v=>{draft.asc=v;aVal.textContent=v;aVal.className="eval ascval "+ascTier(v);ascSel.value=v;updateAscNow();};
   sheet.querySelector("#aMinus").onclick=()=>setAsc(TIERS[Math.max(0,TIERS.indexOf(draft.asc)-1)]);
   sheet.querySelector("#aPlus").onclick=()=>setAsc(TIERS[Math.min(TIERS.length-1,TIERS.indexOf(draft.asc)+1)]);
   ascSel.onchange=()=>setAsc(ascSel.value);
-  setAsc(draft.asc);
   const scls={0:"si-0",10:"si-10",20:"si-20",30:"si-30"};
   const siW=sheet.querySelector("#setupSI");
   SIS.forEach(v=>{const b=el("button","setupbtn "+(scls[v]||"si-0")+(v===draft.si?" on":""),"SI"+v);b.onclick=()=>{draft.si=v;siW.querySelectorAll('.setupbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');};siW.appendChild(b);});
-  if(!noE){
+  if(noE){
+    const chk=sheet.querySelector("#dimHidden");chk.checked=!!draft.hidden;chk.onchange=()=>{draft.hidden=chk.checked;};
+  }else{
     const eW=sheet.querySelector("#setupE"),eVal=sheet.querySelector("#eVal");
-    const setE=v=>{draft.e=Math.max(0,v|0);eVal.textContent=draft.e;eW.querySelectorAll('.setupbtn').forEach(x=>x.classList.toggle('on',+x.dataset.v===draft.e));};
+    setE=v=>{draft.e=Math.max(0,v|0);eVal.textContent=draft.e;eW.querySelectorAll('.setupbtn').forEach(x=>x.classList.toggle('on',+x.dataset.v===draft.e));updateAscNow();};
     [0,5,10].forEach(v=>{const b=el("button","setupbtn",v);b.dataset.v=v;b.onclick=()=>setE(v);eW.appendChild(b);});
     sheet.querySelector("#eMinus").onclick=()=>setE(draft.e-1);
     sheet.querySelector("#ePlus").onclick=()=>setE(draft.e+1);
-    setE(draft.e);
   }
+  // ascend-now: with the drafted copies, how far can this hero ascend right now?
+  function updateAscNow(){
+    const box=sheet.querySelector("#ascNow");if(!box)return;
+    if(noE){box.innerHTML="";return;}
+    box.innerHTML=ascNowMarkup(fac,t,draft.asc,draft.e||0);
+    const btn=box.querySelector("#ascNowBtn");
+    if(btn)btn.onclick=()=>{const r=ascendReach(fac,draft.asc,draft.e||0);if(r){setAsc(r.target);if(setE)setE((draft.e||0)-r.cost);}};
+  }
+  setAsc(draft.asc);
+  if(setE)setE(draft.e);
 }
 function openHeroEdit(name){
   const fac=TIER[name]&&TIER[name].fac;if(!fac)return;
   const h=(S.factions[fac]||[]).find(x=>x.name===name);if(!h)return;
-  const draft={asc:h.asc,si:h.si,e:h.e==null?0:(h.e||0)};
+  const draft={asc:h.asc,si:h.si,e:h.e==null?0:(h.e||0),hidden:isHiddenDim(name)};
   const sheet=document.getElementById("editSheet");
   sheet.innerHTML=`<div class="hd-top"><div><div class="hd-name">${esc(name)}</div><div class="facsub" style="--fc:var(${FAC_VAR[fac]})">${fac}</div></div><button class="resetic" id="editClose" aria-label="Close">✕</button></div>`
     +heroControlsHTML(fac)
     +`<div class="setupactions"><button class="btn ghost" id="editNO">Not owned</button><button class="btn primary" id="editOK">Confirm</button></div>`;
-  wireHeroControls(sheet,fac,draft);
+  wireHeroControls(sheet,fac,draft,name);
   const close=()=>document.getElementById("editDrawer").classList.remove("on");
   sheet.querySelector("#editClose").onclick=close;
   sheet.querySelector("#editNO").onclick=()=>{h.asc="—";h.si=0;if(h.e!=null)h.e=0;save();refreshHeroRow(name);close();};
-  sheet.querySelector("#editOK").onclick=()=>{h.asc=draft.asc;h.si=draft.si;if(h.e!=null)h.e=Math.max(0,draft.e||0);save();refreshHeroRow(name);close();};
+  sheet.querySelector("#editOK").onclick=()=>{commitDraft(h,fac,draft);save();refreshHeroRow(name);close();};
   document.getElementById("editDrawer").classList.add("on");
 }
 
@@ -670,7 +764,7 @@ function openSetup(){
   document.getElementById("setupDrawer").classList.add("on");
 }
 function startSetup(facs){
-  setupQueue=facs.flatMap(fac=>[...S.factions[fac]].sort((a,b)=>a.name.localeCompare(b.name)).map(h=>({h,fac})));
+  setupQueue=facs.flatMap(fac=>[...S.factions[fac]].sort((a,b)=>a.name.localeCompare(b.name)).filter(h=>!(fac==="Dimensional"&&isHiddenDim(h.name))).map(h=>({h,fac})));
   setupIdx=0;renderSetupHero();
 }
 function renderSetupHero(){
@@ -680,16 +774,16 @@ function renderSetupHero(){
     sheet.querySelector("#setupFinish").onclick=closeSetup;return;
   }
   const o=setupQueue[setupIdx],h=o.h,fac=o.fac,last=setupIdx===setupQueue.length-1;
-  setupDraft={asc:h.asc,si:h.si,e:h.e==null?0:(h.e||0)};
+  setupDraft={asc:h.asc,si:h.si,e:h.e==null?0:(h.e||0),hidden:isHiddenDim(h.name)};
   sheet.innerHTML=`<div class="hd-top"><div><div class="hd-name">${esc(h.name)}</div><div class="facsub" style="--fc:var(${FAC_VAR[fac]})">${fac}</div></div><div class="hd-right"><span class="hd-count">${setupIdx+1} / ${setupQueue.length}</span><button class="resetic" id="setupClose" aria-label="Close">✕</button></div></div>`
     +heroControlsHTML(fac)
     +`<div class="setupactions"><button class="btn ghost" id="setupNO">Not owned</button><button class="btn primary" id="setupOK">${last?"Finish":"Next"}</button></div>`;
-  wireHeroControls(sheet,fac,setupDraft);
+  wireHeroControls(sheet,fac,setupDraft,h.name);
   sheet.querySelector("#setupClose").onclick=closeSetup;
   sheet.querySelector("#setupNO").onclick=setupNotOwned;
   sheet.querySelector("#setupOK").onclick=setupConfirm;
 }
-function setupConfirm(){const h=setupQueue[setupIdx].h;h.asc=setupDraft.asc;h.si=setupDraft.si;if(h.e!=null)h.e=Math.max(0,setupDraft.e||0);save();setupIdx++;renderSetupHero();}
+function setupConfirm(){const o=setupQueue[setupIdx];commitDraft(o.h,o.fac,setupDraft);save();setupIdx++;renderSetupHero();}
 function setupNotOwned(){const h=setupQueue[setupIdx].h;h.asc="—";h.si=0;if(h.e!=null)h.e=0;save();setupIdx++;renderSetupHero();}
 function closeSetup(){document.getElementById("setupDrawer").classList.remove("on");renderRoster();}
 
@@ -731,7 +825,7 @@ function renderRecs(){
     const ready=[];
     BASE_FACS.forEach(fac=>S.factions[fac].filter(h=>TIER[h.name]&&!NON_SUMMON.has(h.name)).forEach(h=>{const r=buildRow(h,TIER[h.name],LBASE,wished.has(h.name));if(r.b.k!=="Done"&&r.ready)ready.push(r);}));
     STAR_FACS.forEach(fac=>S.factions[fac].filter(h=>TIER[h.name]&&!NON_SUMMON.has(h.name)).forEach(h=>{const r=buildRow(h,TIER[h.name],LSG,h.name.toLowerCase()===activeName);if(r.b.k!=="Done"&&r.ready)ready.push(r);}));
-    S.factions.Dimensional.filter(h=>TIER[h.name]&&h.asc!=="—").forEach(h=>{const r=buildRow(h,TIER[h.name],LDIM,false);if(r.b.k!=="Done"&&r.ready)ready.push(r);});
+    S.factions.Dimensional.filter(h=>TIER[h.name]&&h.asc!=="—"&&!isHiddenDim(h.name)).forEach(h=>{const r=buildRow(h,TIER[h.name],LDIM,false);if(r.b.k!=="Done"&&r.ready)ready.push(r);});
     ready.sort((a,z)=>a.m.v-z.m.v);
     ready.forEach(r=>body.appendChild(recRow(r)));
     if(!ready.length)body.appendChild(el("div","note","No heroes have enough copies or spirits banked to ascend right now."));
@@ -773,7 +867,7 @@ function renderRecs(){
   {
     const d=el("details","fac");d.open=wantOpen("Dimensional",false);d.style.setProperty("--fc","var(--dimensional)");
     const body=el("div","body");
-    const rows=S.factions.Dimensional.filter(h=>TIER[h.name]).map(h=>buildRow(h,TIER[h.name],LDIM,false));
+    const rows=S.factions.Dimensional.filter(h=>TIER[h.name]&&!isHiddenDim(h.name)).map(h=>buildRow(h,TIER[h.name],LDIM,false));
     rows.sort((a,z)=> (a.b.k==="Done"?1:0)-(z.b.k==="Done"?1:0) || a.m.v-z.m.v);
     const open=rows.filter(r=>r.b.k!=="Done").length;
     const sum=el("summary");sum.innerHTML=`<span class="chev">▶</span><span class="fname">Dimensional</span><span class="fcount">${open}</span>`;d.appendChild(sum);
@@ -784,7 +878,7 @@ function renderRecs(){
 
   // SI TARGETS (all factions incl. dimensional + awakened — SI behind reached ascension)
   const siRows=[];
-  FAC_ORDER.forEach(fac=>S.factions[fac].forEach(h=>{const t=TIER[h.name];if(!t||h.asc==="—")return;const tg=siTarget(t,h.asc,h.si);if(tg!=null)siRows.push({h,t,fac,tg});}));
+  FAC_ORDER.forEach(fac=>S.factions[fac].forEach(h=>{const t=TIER[h.name];if(!t||h.asc==="—")return;if(fac==="Dimensional"&&isHiddenDim(h.name))return;const tg=siTarget(t,h.asc,h.si);if(tg!=null)siRows.push({h,t,fac,tg});}));
   pane.appendChild(simpleList("SI Targets","--celestial",siRows,
     (x)=>({nm:x.h.name,sub:x.fac+" · "+x.h.asc,tgt:"SI "+x.h.si+" → "+x.tg,pill:"Opt",m:metric(x.t)}),"All SI targets are reached."));
 }
@@ -839,7 +933,7 @@ function showTab(t){
 document.getElementById("tabRoster").onclick=()=>showTab("roster");
 document.getElementById("tabRecs").onclick=()=>showTab("recs");
 
-function exportText(){let t=`STARGAZER TARGET: ${S.account.stargazer||""}\nDIMENSIONAL SPIRITS: ${S.account.spirits||0}\n\nWISHLIST\n`;
+function exportText(){let t=`STARGAZER TARGET: ${S.account.stargazer||""}\nDIMENSIONAL SPIRITS: ${S.account.spirits||0}\nHIDDEN DIMENSIONAL: ${[...(S.account.hiddenDims||[])].sort().join(", ")}\n\nWISHLIST\n`;
   BASE_FACS.forEach(f=>{t+=`${f}: ${(S.wishlist[f]||[]).filter(Boolean).join(", ")}\n`;});t+="\n";
   FAC_ORDER.forEach(fac=>{t+=fac.toUpperCase()+"\n";S.factions[fac].forEach(h=>{t+=(h.e==null?`${h.name}, ${h.asc}, SI${h.si}\n`:`${h.name}, ${h.asc}, SI${h.si}, ${h.e}\n`);});t+="\n";});
   return t.trim()+"\n";}
@@ -887,29 +981,63 @@ function heroDetail(name){
   sheet.innerHTML=
      `<div class="hd-top"><div><div class="hd-name">${esc(name)}${starred?" ★":""}</div><div class="hd-fac">${esc(t.fac)}</div></div><button class="resetic" id="heroClose" aria-label="Close">✕</button></div>`
     +`<div class="hd-cur"><span class="hd-curlab">Current investment</span><span class="hd-curval${own?"":" none"}">${bandPill}${esc(cur)}</span></div>`
+    +((!isDim&&own)?`<div class="ascnow">${ascNowMarkup(t.fac,t,h.asc,h.e||0)}</div>`:"")
     +`<div class="hd-h">Investment breakpoints</div>`
     +bp("Minimum",t.mnR,t.mn)+bp("Optimal",t.opR,t.op)+bp("Competitive",t.cpR,t.cp)
     +`<div class="hd-guide">${guideBtn}</div>`
     +`<div class="hd-foot">Breakpoints from the AFK Companions tier list by SaiLus.${g?" Hero guide linked from the same tier list (opens in a new tab).":""}</div>`;
   document.getElementById("heroClose").onclick=()=>document.getElementById("heroDrawer").classList.remove("on");
+  const anb=sheet.querySelector("#ascNowBtn");
+  if(anb)anb.onclick=()=>{const r=ascendReach(t.fac,h.asc,h.e||0);if(!r)return;h.asc=r.target;h.e=Math.max(0,(h.e||0)-r.cost);save();renderRecs();heroDetail(name);};
   document.getElementById("heroDrawer").classList.add("on");
 }
 document.getElementById("heroDrawer").onclick=e=>{if(e.target.id==="heroDrawer")e.currentTarget.classList.remove("on");};
 document.getElementById("setupDrawer").onclick=e=>{if(e.target.id==="setupDrawer")closeSetup();};
 document.getElementById("editDrawer").onclick=e=>{if(e.target.id==="editDrawer")e.currentTarget.classList.remove("on");};
+
+/* ---- Changelog ---- */
+const CHANGELOG=[
+  {d:"2026-06-17",tier:false,t:"This changelog (with a toggle to hide tier-only updates), and the tier-data date now in the header. You can hide specific Dimensional heroes from Recommendations and Bulk mode while keeping them on your roster (toggle it in a hero's edit sheet). When editing a hero (or viewing one on Recommendations), you now see whether your copies let it ascend or reach a breakpoint, with one tap to apply it."},
+  {d:"2026-06-17",tier:true, t:"Tier list update: new hero Talimar, plus rank and score adjustments."},
+  {d:"2026-06-15",tier:true, t:"Tier list update."},
+  {d:"2026-06-15",tier:false,t:"Roster redesign: a searchable, faction-filterable hero list; tap a hero to edit; and a new Bulk mode to set up many heroes quickly."},
+  {d:"2026-06-14",tier:false,t:"Tap any hero on Recommendations for a detail card with Min/Optimal/Competitive breakpoints, the copies or Dimensional Spirits still needed, and a guide link. Added Dimensional Spirits tracking and a Dimensional investment section."},
+  {d:"2026-06-14",tier:false,t:"First public release."}
+];
+function renderClList(){
+  const list=document.getElementById("clList");if(!list)return;list.innerHTML="";
+  CHANGELOG.filter(e=>!(hideTierLog&&e.tier)).forEach(e=>{
+    list.appendChild(el("div","clentry",`<div class="cldate">${e.d}${e.tier?' <span class="cltag">Tier</span>':''}</div><div class="cltext">${esc(e.t)}</div>`));
+  });
+}
+function openChangelog(){
+  const sheet=document.getElementById("clSheet");
+  sheet.innerHTML=`<div class="hd-top"><div class="hd-name">Changelog</div><button class="resetic" id="clClose" aria-label="Close">✕</button></div>`
+    +`<label class="swrow cltoggle"><span>Hide tier-list updates</span><span class="switch"><input type="checkbox" id="clHideTier"><span class="track"></span></span></label>`
+    +`<div class="cllist" id="clList"></div>`;
+  const cb=sheet.querySelector("#clHideTier");cb.checked=hideTierLog;
+  cb.onchange=()=>{hideTierLog=cb.checked;savePrefs();renderClList();};
+  sheet.querySelector("#clClose").onclick=()=>document.getElementById("clDrawer").classList.remove("on");
+  renderClList();
+  document.getElementById("clDrawer").classList.add("on");
+}
+document.getElementById("clDrawer").onclick=e=>{if(e.target.id==="clDrawer")e.currentTarget.classList.remove("on");};
+document.getElementById("tierDate").onclick=openChangelog;
+document.getElementById("changelogLink").onclick=e=>{e.preventDefault();openChangelog();};
 document.getElementById("copyBtn").onclick=async()=>{const ta=document.getElementById("out");try{await navigator.clipboard.writeText(ta.value);}catch(e){ta.select();document.execCommand("copy");}const b=document.getElementById("copyBtn");b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1200);};
 
 function parseImport(text){
   const lines=(text||"").replace(/\r/g,"").trim().split("\n");
   if(!lines.length||lines.join("").trim()==="") throw "Nothing to import.";
   const FACUP={};FAC_ORDER.forEach(f=>FACUP[f.toUpperCase()]=f);
-  const res={stargazer:null,spirits:null,wishlist:{},factions:{}};
+  const res={stargazer:null,spirits:null,hidden:null,wishlist:{},factions:{}};
   let mode=null,sawAny=false;
   for(const raw of lines){
     const line=raw.trim();
     if(line==="") continue;
     if(/^STARGAZER TARGET:/i.test(line)){res.stargazer=line.slice(line.indexOf(":")+1).trim();mode=null;sawAny=true;continue;}
     if(/^DIMENSIONAL SPIRITS:/i.test(line)){res.spirits=line.slice(line.indexOf(":")+1).trim();mode=null;sawAny=true;continue;}
+    if(/^HIDDEN DIMENSIONAL:/i.test(line)){res.hidden=line.slice(line.indexOf(":")+1).split(",").map(s=>s.trim()).filter(Boolean);mode=null;sawAny=true;continue;}
     if(/^WISHLIST$/i.test(line)){mode="wishlist";continue;}
     const up=line.toUpperCase();
     if(FACUP[up]){mode=FACUP[up];sawAny=true;continue;}
@@ -941,6 +1069,7 @@ function parseImport(text){
 function applyImport(res){
   if(res.stargazer!=null) S.account.stargazer=aliasName(res.stargazer);
   if(res.spirits!=null){const n=parseInt(res.spirits);S.account.spirits=isNaN(n)?0:Math.max(0,n);}
+  S.account.hiddenDims=(res.hidden||[]).map(aliasName).filter(n=>S.factions.Dimensional.some(h=>h.name===n));
   BASE_FACS.forEach(f=>{S.wishlist[f]=(res.wishlist[f]||[]).map(aliasName).filter(n=>S.factions[f].some(h=>h.name===n)).slice(0,5);});
   FAC_ORDER.forEach(fac=>{
     const inc={};(res.factions[fac]||[]).forEach(ih=>inc[aliasName(ih.name)]=ih);
