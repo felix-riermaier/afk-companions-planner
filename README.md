@@ -12,12 +12,14 @@ community tier list.
   **Dimensional Spirits** pool.
 - Manage it in a **searchable, faction-filterable** hero list: tap a hero to set its state, or
   use **Bulk mode** to step through many heroes one at a time for fast setup.
+- See an **account summary** at a glance: heroes owned out of the total, total Elite copies and
+  Dimensional Spirits invested, and how your roster breaks down by SI level and investment band.
 - Get prioritized recommendations: who to **summon**, who's **ready to ascend**, your
   **stargazer** priority, **Dimensional** spirit investment, and which **SI** upgrades to chase.
 - On **Recommendations**, tap any hero for a detail card: its Minimum / Optimal / Competitive
   breakpoints, the copies (E) or Dimensional Spirits (S) still needed for each, and a link to its guide.
-- See when your banked copies are enough to **ascend** a hero or reach its next breakpoint, and
-  apply it in one tap (in the hero's edit sheet and on Recommendations).
+- See when your banked copies (or Dimensional Spirits) are enough to **ascend** a hero to its next
+  breakpoint, and apply it in one tap, in the hero's edit sheet and on Recommendations.
 - **Hide** specific Dimensional heroes you can't obtain from Recommendations and Bulk mode, while
   keeping them on your roster.
 - Check the in-app **Changelog** (tap the date in the header, or the footer link) to see what
