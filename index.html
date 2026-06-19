@@ -239,7 +239,7 @@
 <body>
 <header>
   <div class="hbar">
-    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-06-17</span></div>
+    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-06-19</span></div>
     <div class="hr">
       <button class="resetic" id="resetBtn" title="Reset everything (clears your roster)" aria-label="Reset everything (clears your roster)">⟲</button>
       <div class="save" id="save">saved</div>
@@ -257,7 +257,7 @@
   <footer class="foot">
     <a href="#" id="changelogLink">Changelog</a><br>
     Unofficial fan-made tool. Not affiliated with, endorsed, or sponsored by Lilith Games. AFK Arena: Companions and all related content are the property of Lilith Games.<br>
-    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-06-17.<br>
+    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-06-19.<br>
     Your roster is stored only in this browser. Use Export to back it up.
   </footer>
 </div>
@@ -387,22 +387,23 @@ const TIER_ROWS=[
 ["Mehira","Hypogean",48.3,"B","Elite","Elite","M A5 / SI 30","B,B,S-,A+,B,B,B,A"],
 ["Orthros","Celestial",48.2,"B","A3 SI 0","A5 SI 0","A5 SI 30","B,C,S-,A+,A,B,A,A+"],
 ["Lucretia","Hypogean",48,"B","A1 SI 30","A3 < A5 SI 30","A5 SI 30","S,B,S,B,A+,C,C,S-"],
-["Elijah & Lailah","Celestial",47.5,"B","Elite","Elite Elite+","","C,D,A,SS,SS,S,C,S"],
 ["Walker","Lightbearer",47.5,"B","Elite","A1 < A5 SI 0","A5 SI 20","B,C,A+,S+,SS,A+,D,S+"],
 ["Mortas","Hypogean",47.5,"B","Elite","Elite Elite+","Mythic SI 20","B,C,S,S+,S+,A,D,B"],
+["Elijah & Lailah","Celestial",47.5,"B","Elite","Elite Elite+","","C,D,A,SS,SS,S,C,S"],
 ["Khasos","Mauler",46.4,"B","Elite < A3","A5 SI 0","A5 SI 20","A+,A+,C,C,D,B,A+,X"],
 ["Safiya","Mauler",45.8,"B","Elite < M SI 0","A5 SI 20","","A+,B,A+,B,C,E,B,A"],
 ["Khazard","Hypogean",45.5,"B","Mythic SI 0 < SI 30","A5 SI 30","","S-,S-,S-,C,E,E,B,B"],
 ["Silas","Graveborn",45.5,"B","A1 SI 0","A3 < A5 SI 10","A5 SI 30","B,C,S,A,B,A+,B,A"],
-["Tasi","Wilder",44.9,"B","A3 SI 0","A5 SI 0","A5 SI 10 < SI 20","A,A,S-,B,F,C,A,S"],
 ["Kren","Mauler",44.9,"B","Mythic SI 0","A1 SI 10","A3 < A5 SI 10 < (SI 20)","S-,A+,S,A,C,F,D,A"],
-["Sonja","Lightbearer",44.6,"C","Mythic < A1 SI 0","A5 SI 10","","S-,S-,S,D,D,C,B,S-"],
+["Tasi","Wilder",44.9,"B","A3 SI 0","A5 SI 0","A5 SI 10 < SI 20","A,A,S-,B,F,C,A,S"],
 ["Scarlet","Lightbearer",44.6,"C","A3 SI 20","A5 SI 20","A5 SI 30","C,D,B,S+,S+,D,C,A"],
+["Sonja","Lightbearer",44.6,"C","Mythic < A1 SI 0","A5 SI 10","","S-,S-,S,D,D,C,B,S-"],
 ["Numisu","Mauler",44.5,"C","A1 SI 0","A3 SI 10","A5 SI 20","A,A+,S-,B,C,D,C,A+"],
 ["Ezizh","Hypogean",41.6,"C","Elite","Elite","A5 SI 20","B,C,A+,A+,F,D,B,C"],
 ["Zaphrael","Celestial",41.2,"C","Elite","Elite","A1 A5 / SI 30","A,B,B,C,F,F,A+,B"],
 ["Athalia","Celestial",40.6,"C","Elite < A3 SI 20","A5 SI 20","A5 SI 30","B,B,A+,C,D,C,B,B"],
 ["Eironn","Wilder",40.4,"C","A3 SI 0","A5 SI 0","A5 SI 15","S+,S+,S,D,F,F,D,D"],
+["Judy & Punch","Dimensional",39.6,"C","A3 < A5 SI 20 < SI 30","A5 SI 30","","X,X,X,S,S,S,S,X"],
 ["Oscar","Lightbearer",38.8,"C","Elite","Elite < A3 SI 0","A5 SI 20","D,E,B,S,C,C,B,X"],
 ["Pippa","Wilder",38.1,"C","A3 SI 0","A5 SI 20","","S,S,S-,D,F,F,D,B"],
 ["Oden","Graveborn",38,"C","A3 SI 10","A5 SI 20","A5 SI 30","B,B,A+,C,F,F,B,A"],
@@ -416,8 +417,8 @@ const TIER_ROWS=[
 ["Treznor","Graveborn",35.3,"C","Mythic < A1 SI 0","A3 < A5 SI 0 < SI 20","","B,B,A,D,F,E,B,A"],
 ["Belinda","Lightbearer",34.3,"C","A1 < A3 SI 10","A5 SI 20","","D,E,B,S+,S,E,E,C"],
 ["Eluard","Lightbearer",33,"D","A1 SI 0","A3 < A5 SI 10","A5 SI 30","B,B,S,F,F,B,A,A"],
-["Drez","Mauler",32.5,"D","A3 SI 0","A5 SI 0 < SI 10","A5 Si 20","C,C,A,C,E,C,C,X"],
 ["Grezhul","Graveborn",32.5,"D","A3 SI 0","A5 SI 0","A5 SI 10 < SI 20","D,D,A,B,F,E,B,A"],
+["Drez","Mauler",32.5,"D","A3 SI 0","A5 SI 0 < SI 10","A5 Si 20","C,C,A,C,E,C,C,X"],
 ["Kelthur","Graveborn",31.7,"D","Elite","A1 SI 0","A5 Si 0","B,B,A,F,F,D,A,X"],
 ["Warek","Mauler",30.5,"D","Elite","Elite","A5 SI 0","E,F,B,SS,SS,A,F,D"],
 ["Mezoth","Hypogean",29.8,"D","A1 SI 20","A1 SI 20","A5 SI 30","B,B,B,F,F,E,B,B"],
@@ -447,7 +448,6 @@ const TIER_ROWS=[
 ["Theowyn","Graveborn",4,"F","A3 SI 0","A5 SI 10","","F,F,D,F,F,F,E,X"],
 ["Talimar","Mauler",0,"X","","","","X,X,X,X,X,X,X,X"],
 ["Izold","Graveborn",0,"X","A3 SI 20","A5 SI 20","","X,X,X,X,X,X,X,X"],
-["Judy & Punch","Dimensional",0,"X","","","","X,X,X,X,X,X,X,X"],
 ];
 const TIER={};
 TIER_ROWS.forEach(r=>{TIER[r[0]]={fac:r[1],sc:r[2],rk:r[3],mn:parseBP(r[4]),op:parseBP(r[5]),cp:parseBP(r[6]),md:r[7].split(","),mnR:r[4],opR:r[5],cpR:r[6]};});
