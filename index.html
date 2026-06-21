@@ -239,7 +239,7 @@
 <body>
 <header>
   <div class="hbar">
-    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-06-19</span></div>
+    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-06-21</span></div>
     <div class="hr">
       <button class="resetic" id="resetBtn" title="Reset everything (clears your roster)" aria-label="Reset everything (clears your roster)">⟲</button>
       <div class="save" id="save">saved</div>
@@ -257,7 +257,7 @@
   <footer class="foot">
     <a href="#" id="changelogLink">Changelog</a><br>
     Unofficial fan-made tool. Not affiliated with, endorsed, or sponsored by Lilith Games. AFK Arena: Companions and all related content are the property of Lilith Games.<br>
-    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-06-19.<br>
+    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-06-21.<br>
     Your roster is stored only in this browser. Use Export to back it up.
   </footer>
 </div>
@@ -359,6 +359,7 @@ const TIER_ROWS=[
 ["Palmer","Lightbearer",64.1,"S-","Mythic SI 20","A3 < A5 SI 20","","A+,A+,S,S+,SS,S,S-,X"],
 ["Haelus","Celestial",64,"S-","Elite","A3 SI 20","A5 SI 30","S,S,S,S-,S-,S,S-,S"],
 ["Merlin","Dimensional",63.91,"S-","A5 SI 0","A5 SI 30","","SS,SS,SS,D,F,S,SS,SS"],
+["Judy & Punch","Dimensional",63.1,"S-","A3 < A5 SI 20 < SI 30","A5 SI 30","","A+,A+,A+,S,S+,S,S,X"],
 ["Shalltear","Dimensional",62.81,"S-","A1 SI 10","A3 SI 20","A5 T / SI 30","S+,SS,SS,D,F,S,SS,SS"],
 ["Lorsan","Wilder",59.8,"A+","Elite","Elite < A5 SI 0 < SI 20","A5 SI 20","A,A,S,S+,S+,B,A+,X"],
 ["Rowan","Lightbearer",58.7,"A+","Mythic < A1 SI 0 < SI 20","A5 SI 20","A5 SI 30","S,S-,S,S+,S,B,C,S-"],
@@ -388,8 +389,8 @@ const TIER_ROWS=[
 ["Orthros","Celestial",48.2,"B","A3 SI 0","A5 SI 0","A5 SI 30","B,C,S-,A+,A,B,A,A+"],
 ["Lucretia","Hypogean",48,"B","A1 SI 30","A3 < A5 SI 30","A5 SI 30","S,B,S,B,A+,C,C,S-"],
 ["Walker","Lightbearer",47.5,"B","Elite","A1 < A5 SI 0","A5 SI 20","B,C,A+,S+,SS,A+,D,S+"],
-["Mortas","Hypogean",47.5,"B","Elite","Elite Elite+","Mythic SI 20","B,C,S,S+,S+,A,D,B"],
 ["Elijah & Lailah","Celestial",47.5,"B","Elite","Elite Elite+","","C,D,A,SS,SS,S,C,S"],
+["Mortas","Hypogean",47.5,"B","Elite","Elite Elite+","Mythic SI 20","B,C,S,S+,S+,A,D,B"],
 ["Khasos","Mauler",46.4,"B","Elite < A3","A5 SI 0","A5 SI 20","A+,A+,C,C,D,B,A+,X"],
 ["Safiya","Mauler",45.8,"B","Elite < M SI 0","A5 SI 20","","A+,B,A+,B,C,E,B,A"],
 ["Khazard","Hypogean",45.5,"B","Mythic SI 0 < SI 30","A5 SI 30","","S-,S-,S-,C,E,E,B,B"],
@@ -403,7 +404,6 @@ const TIER_ROWS=[
 ["Zaphrael","Celestial",41.2,"C","Elite","Elite","A1 A5 / SI 30","A,B,B,C,F,F,A+,B"],
 ["Athalia","Celestial",40.6,"C","Elite < A3 SI 20","A5 SI 20","A5 SI 30","B,B,A+,C,D,C,B,B"],
 ["Eironn","Wilder",40.4,"C","A3 SI 0","A5 SI 0","A5 SI 15","S+,S+,S,D,F,F,D,D"],
-["Judy & Punch","Dimensional",39.6,"C","A3 < A5 SI 20 < SI 30","A5 SI 30","","X,X,X,S,S,S,S,X"],
 ["Oscar","Lightbearer",38.8,"C","Elite","Elite < A3 SI 0","A5 SI 20","D,E,B,S,C,C,B,X"],
 ["Pippa","Wilder",38.1,"C","A3 SI 0","A5 SI 20","","S,S,S-,D,F,F,D,B"],
 ["Oden","Graveborn",38,"C","A3 SI 10","A5 SI 20","A5 SI 30","B,B,A+,C,F,F,B,A"],
@@ -1093,8 +1093,10 @@ document.getElementById("editDrawer").onclick=e=>{if(e.target.id==="editDrawer")
 
 /* ---- Changelog ---- */
 const CHANGELOG=[
+  {d:"2026-06-21",tier:true, t:"Tier list update: Judy & Punch's ranking refined (now S-)."},
   {d:"2026-06-19",tier:false,t:"New Account summary on the Roster tab (below How to use): heroes owned/total, total Elite copies and Dimensional Spirits invested, and counts by SI level and investment band. The Dimensional Spirits field is now a stepper with 5/10/20 quick buttons, hidden Dimensionals show as Hidden on the roster, and tapping buttons no longer flashes a selection highlight."},
   {d:"2026-06-19",tier:false,t:"Quick-ascend now steps to the next breakpoint (tap again to keep going) and works for Dimensional heroes too, including from the Recommendations detail sheet. The roster search has an always-visible clear button, a back-to-top button appears as you scroll, the page no longer scrolls behind an open sheet, and SI Target labels now reflect each hero's ascension band."},
+  {d:"2026-06-19",tier:true, t:"Tier list update: Judy & Punch received its initial ranking and breakpoints."},
   {d:"2026-06-17",tier:false,t:"This changelog (with a toggle to hide tier-only updates), and the tier-data date now in the header. You can hide specific Dimensional heroes from Recommendations and Bulk mode while keeping them on your roster (toggle it in a hero's edit sheet). When editing a hero (or viewing one on Recommendations), you now see whether your copies let it ascend or reach a breakpoint, with one tap to apply it."},
   {d:"2026-06-17",tier:true, t:"Tier list update: new hero Talimar, plus rank and score adjustments."},
   {d:"2026-06-15",tier:true, t:"Tier list update."},
