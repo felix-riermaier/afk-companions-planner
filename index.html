@@ -239,7 +239,7 @@
 <body>
 <header>
   <div class="hbar">
-    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-06-21</span></div>
+    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-06-24</span></div>
     <div class="hr">
       <button class="resetic" id="resetBtn" title="Reset everything (clears your roster)" aria-label="Reset everything (clears your roster)">⟲</button>
       <div class="save" id="save">saved</div>
@@ -257,7 +257,7 @@
   <footer class="foot">
     <a href="#" id="changelogLink">Changelog</a><br>
     Unofficial fan-made tool. Not affiliated with, endorsed, or sponsored by Lilith Games. AFK Arena: Companions and all related content are the property of Lilith Games.<br>
-    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-06-21.<br>
+    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-06-24.<br>
     Your roster is stored only in this browser. Use Export to back it up.
   </footer>
 </div>
@@ -309,17 +309,17 @@ const FAC_ORDER=["Lightbearer","Mauler","Wilder","Graveborn","Celestial","Hypoge
 const BASE_FACS=["Lightbearer","Mauler","Wilder","Graveborn"];
 const STAR_FACS=["Celestial","Hypogean"];
 const FAC_VAR={Lightbearer:"--lb",Mauler:"--mauler",Wilder:"--wilder",Graveborn:"--graveborn",Celestial:"--celestial",Hypogean:"--hypogean",Dimensional:"--dimensional"};
-const LBASE={"—":0,E:1,"E+":2,L:4,"L+":4,M:6,"M+":6,A0:10,A1:12,A2:14,A3:16,A4:18,A5:20,T:28,T1:38};
+const LBASE={"—":0,E:1,"E+":2,L:2,"L+":4,M:4,"M+":4,A0:8,A1:10,A2:12,A3:14,A4:16,A5:18,T:26};
 const LSG  ={"—":0,E:1,"E+":2,L:4,"L+":6,M:8,"M+":10,A0:14,A1:16,A2:18,A3:20,A4:22,A5:24,T:32};
 /* Dimensional heroes ascend with "Dimensional Spirits" (a shared pool), not Elite copies.
    Cumulative cost from E: E+ 1; L,L+,M,M+ +2 each; M+→A0 +4; A0..A5 +2 each; A5→T +8. */
 const LDIM ={"—":0,E:0,"E+":1,L:3,"L+":5,M:7,"M+":9,A0:13,A1:15,A2:17,A3:19,A4:21,A5:23,T:31};
-const ASCO=["—","E","E+","L","L+","M","M+","A0","A1","A2","A3","A4","A5","T","T1"];
+const ASCO=["—","E","E+","L","L+","M","M+","A0","A1","A2","A3","A4","A5","T"];
 const ai=a=>ASCO.indexOf(a);
 const RANKN={SSS:0,SS:1,"S+":2,S:3,"S-":4,"A+":5,A:6,B:7,C:8,D:9,E:10,F:11,X:12};
 const MODES=[["camp","Campaign"],["ff","Forked Fate"],["tower","Faction Tower"],["dr","Dream Realm"],["gh","Guild Hunt"],["abex","AbEx"],["arena","Arena"],["tr","Temporal Rift"]];
 const MIDX={camp:0,ff:1,tower:2,dr:3,gh:4,abex:5,arena:6,tr:7};
-const NON_SUMMON=new Set(["Awakened Brutus","Solise","Maetria","Awakened Talene"]);
+const NON_SUMMON=new Set(["Awakened Brutus","Solise","Maetria","Awakened Talene","Awakened Baden"]);
 /* Renamed heroes: map an OLD display name -> the CURRENT one. Applied when loading a saved
    roster and when importing, so a tier-list rename never silently drops a user's hero/data.
    Add an entry whenever a hero's display name changes (e.g. {"Wukong":"Wu Kong"}). */
@@ -356,18 +356,18 @@ const TIER_ROWS=[
 ["Marcille","Dimensional",66.2,"S-","A3 SI 20","A5 SI 20","A5 SI 30","S,S,S,S+,S+,S,A+,SS"],
 ["Talene","Celestial",65.3,"S-","Elite","Mythic SI 20 / SI 30","A5 SI 30","A+,S,S,S,S+,B,S,C"],
 ["Maetria","Hypogean",64.56,"S-","A SI 30","A SI 30","A5 SI 30","S,S+,S+,B,C,S+,S+,S"],
+["Judy & Punch","Dimensional",64.4,"S-","A3 < A5 SI 20 < SI 30","A5 SI 30","","A+,A+,A+,S+,S+,S,S,X"],
 ["Palmer","Lightbearer",64.1,"S-","Mythic SI 20","A3 < A5 SI 20","","A+,A+,S,S+,SS,S,S-,X"],
 ["Haelus","Celestial",64,"S-","Elite","A3 SI 20","A5 SI 30","S,S,S,S-,S-,S,S-,S"],
 ["Merlin","Dimensional",63.91,"S-","A5 SI 0","A5 SI 30","","SS,SS,SS,D,F,S,SS,SS"],
-["Judy & Punch","Dimensional",63.1,"S-","A3 < A5 SI 20 < SI 30","A5 SI 30","","A+,A+,A+,S,S+,S,S,X"],
 ["Shalltear","Dimensional",62.81,"S-","A1 SI 10","A3 SI 20","A5 T / SI 30","S+,SS,SS,D,F,S,SS,SS"],
 ["Lorsan","Wilder",59.8,"A+","Elite","Elite < A5 SI 0 < SI 20","A5 SI 20","A,A,S,S+,S+,B,A+,X"],
-["Rowan","Lightbearer",58.7,"A+","Mythic < A1 SI 0 < SI 20","A5 SI 20","A5 SI 30","S,S-,S,S+,S,B,C,S-"],
 ["Nevanthi","Wilder",58,"A+","A1 < A3 SI 0","A5 SI 10 < 20","T SI 30","A+,A+,S,A,A+,A,S,S+"],
 ["Solise","Wilder",57.9,"A+","A SI 30","A SI 30","A5 SI 30","S,S-,S+,A,C,A,S-,S"],
 ["Salaki","Mauler",57.7,"A+","Elite < A1 SI 0","A3 < A5 SI 0","A5 SI 30","S,S,S,B,D,A,S,S"],
 ["Cha Hae-In","Dimensional",57.3,"A+","A5 SI 20","A5 SI 30","","S-,S-,S-,A+,A+,SS,A,S"],
 ["Arthur","Dimensional",57.1,"A+","Mythic SI 20","Mythic < A5 SI 20","A5 SI 20 < 30","S,S,S,A,C,B,A+,SS"],
+["Rowan","Lightbearer",56.9,"A+","Mythic < A1 SI 0 < SI 20","A5 SI 20","A5 SI 30","S,S-,S,S,S-,B,C,S-"],
 ["Gwyneth","Lightbearer",56.9,"A+","A1 SI 10","A3 SI 20","A5 SI 20 < SI 30","S,S-,S,S-,C,D,A,A"],
 ["Laios","Dimensional",56.4,"A+","Elite < Mythic SI 20","A1 < A3 SI 20","A5 SI 20","A+,A,A+,SS,S+,S+,C,S+"],
 ["Framton","Hypogean",55.3,"A","Elite < A1 SI 20","A3 SI 20 < SI 30","A5 SI 30","S+,S+,S+,D,E,A+,S+,S+"],
@@ -388,13 +388,13 @@ const TIER_ROWS=[
 ["Mehira","Hypogean",48.3,"B","Elite","Elite","M A5 / SI 30","B,B,S-,A+,B,B,B,A"],
 ["Orthros","Celestial",48.2,"B","A3 SI 0","A5 SI 0","A5 SI 30","B,C,S-,A+,A,B,A,A+"],
 ["Lucretia","Hypogean",48,"B","A1 SI 30","A3 < A5 SI 30","A5 SI 30","S,B,S,B,A+,C,C,S-"],
-["Walker","Lightbearer",47.5,"B","Elite","A1 < A5 SI 0","A5 SI 20","B,C,A+,S+,SS,A+,D,S+"],
 ["Elijah & Lailah","Celestial",47.5,"B","Elite","Elite Elite+","","C,D,A,SS,SS,S,C,S"],
+["Walker","Lightbearer",47.5,"B","Elite","A1 < A5 SI 0","A5 SI 20","B,C,A+,S+,SS,A+,D,S+"],
 ["Mortas","Hypogean",47.5,"B","Elite","Elite Elite+","Mythic SI 20","B,C,S,S+,S+,A,D,B"],
 ["Khasos","Mauler",46.4,"B","Elite < A3","A5 SI 0","A5 SI 20","A+,A+,C,C,D,B,A+,X"],
 ["Safiya","Mauler",45.8,"B","Elite < M SI 0","A5 SI 20","","A+,B,A+,B,C,E,B,A"],
-["Khazard","Hypogean",45.5,"B","Mythic SI 0 < SI 30","A5 SI 30","","S-,S-,S-,C,E,E,B,B"],
 ["Silas","Graveborn",45.5,"B","A1 SI 0","A3 < A5 SI 10","A5 SI 30","B,C,S,A,B,A+,B,A"],
+["Khazard","Hypogean",45.5,"B","Mythic SI 0 < SI 30","A5 SI 30","","S-,S-,S-,C,E,E,B,B"],
 ["Kren","Mauler",44.9,"B","Mythic SI 0","A1 SI 10","A3 < A5 SI 10 < (SI 20)","S-,A+,S,A,C,F,D,A"],
 ["Tasi","Wilder",44.9,"B","A3 SI 0","A5 SI 0","A5 SI 10 < SI 20","A,A,S-,B,F,C,A,S"],
 ["Scarlet","Lightbearer",44.6,"C","A3 SI 20","A5 SI 20","A5 SI 30","C,D,B,S+,S+,D,C,A"],
@@ -417,8 +417,8 @@ const TIER_ROWS=[
 ["Treznor","Graveborn",35.3,"C","Mythic < A1 SI 0","A3 < A5 SI 0 < SI 20","","B,B,A,D,F,E,B,A"],
 ["Belinda","Lightbearer",34.3,"C","A1 < A3 SI 10","A5 SI 20","","D,E,B,S+,S,E,E,C"],
 ["Eluard","Lightbearer",33,"D","A1 SI 0","A3 < A5 SI 10","A5 SI 30","B,B,S,F,F,B,A,A"],
-["Grezhul","Graveborn",32.5,"D","A3 SI 0","A5 SI 0","A5 SI 10 < SI 20","D,D,A,B,F,E,B,A"],
 ["Drez","Mauler",32.5,"D","A3 SI 0","A5 SI 0 < SI 10","A5 Si 20","C,C,A,C,E,C,C,X"],
+["Grezhul","Graveborn",32.5,"D","A3 SI 0","A5 SI 0","A5 SI 10 < SI 20","D,D,A,B,F,E,B,A"],
 ["Kelthur","Graveborn",31.7,"D","Elite","A1 SI 0","A5 Si 0","B,B,A,F,F,D,A,X"],
 ["Warek","Mauler",30.5,"D","Elite","Elite","A5 SI 0","E,F,B,SS,SS,A,F,D"],
 ["Mezoth","Hypogean",29.8,"D","A1 SI 20","A1 SI 20","A5 SI 30","B,B,B,F,F,E,B,B"],
@@ -447,6 +447,7 @@ const TIER_ROWS=[
 ["Vurk","Mauler",4.4,"F","A3 SI 0","A5 SI 0","","F,F,C,E,F,F,F,X"],
 ["Theowyn","Graveborn",4,"F","A3 SI 0","A5 SI 10","","F,F,D,F,F,F,E,X"],
 ["Talimar","Mauler",0,"X","","","","X,X,X,X,X,X,X,X"],
+["Awakened Baden","Graveborn",0,"X","","","","X,X,X,X,X,X,X,X"],
 ["Izold","Graveborn",0,"X","A3 SI 20","A5 SI 20","","X,X,X,X,X,X,X,X"],
 ];
 const TIER={};
@@ -1093,6 +1094,8 @@ document.getElementById("editDrawer").onclick=e=>{if(e.target.id==="editDrawer")
 
 /* ---- Changelog ---- */
 const CHANGELOG=[
+  {d:"2026-06-24",tier:true, t:"Tier list update: new hero Awakened Baden, plus score and mode tweaks for Judy & Punch and Rowan."},
+  {d:"2026-06-24",tier:false,t:"Fixed the Elite-copy ascension costs for base heroes (Lightbearer, Mauler, Wilder, Graveborn) in the Legendary–Mythic range, which were counted 2 copies too high from Legendary onward. Quick-ascend, the copies-needed numbers, and the account summary now match the in-game costs."},
   {d:"2026-06-21",tier:true, t:"Tier list update: Judy & Punch's ranking refined (now S-)."},
   {d:"2026-06-19",tier:false,t:"New Account summary on the Roster tab (below How to use): heroes owned/total, total Elite copies and Dimensional Spirits invested, and counts by SI level and investment band. The Dimensional Spirits field is now a stepper with 5/10/20 quick buttons, hidden Dimensionals show as Hidden on the roster, and tapping buttons no longer flashes a selection highlight."},
   {d:"2026-06-19",tier:false,t:"Quick-ascend now steps to the next breakpoint (tap again to keep going) and works for Dimensional heroes too, including from the Recommendations detail sheet. The roster search has an always-visible clear button, a back-to-top button appears as you scroll, the page no longer scrolls behind an open sheet, and SI Target labels now reflect each hero's ascension band."},
