@@ -22,14 +22,19 @@ community tier list.
   breakpoint, and apply it in one tap, in the hero's edit sheet and on Recommendations.
 - **Hide** specific Dimensional heroes you can't obtain from Recommendations and Bulk mode, while
   keeping them on your roster.
-- Use the **Tools** tab for calculators: a Realm of Shadows (Mythic Gate) Blessed Flame planner
-  (the stamina, wait time, or Army Units to your next stopping point), plus Ascension and
-  Signature Item cost references.
+- Build and save **Teams** (up to 5 heroes) and **Lineups** (up to 6 teams) on the **Teams** tab:
+  set each hero's target investment (Min / Optimal / Competitive from the tier list, or a custom
+  ascension and SI), see whether your current roster can field them, and **share** a team or lineup
+  as a link, a chat-safe code, or plain readable text. *(Experimental.)*
+- Use the **Tools** calculators (in the **⋯** menu next to the tabs): a Realm of Shadows (Mythic
+  Gate) Blessed Flame planner (the stamina, wait time, or Army Units to your next stopping point),
+  plus Ascension and Signature Item cost references.
 - Check the in-app **Changelog** (tap the date in the header, or the footer link) to see what
   changed, with an option to hide routine tier-list updates.
 - Sort recommendations by Overall Score or any of the 8 game modes.
 - Set per-faction wishlists and a stargazer target.
-- Export / import your roster as plain text (back it up or move it between devices).
+- **Backup / Restore** everything as plain text (roster, wishlists, and saved teams) to keep a
+  copy or move it between devices.
 
 ## Privacy & how it works
 
@@ -48,9 +53,10 @@ community tier list.
    Spirits** section.
 3. Check the **Recommendations** tab for what to invest in next; tap any hero for its
    breakpoints, costs, and guide.
-4. The **Tools** tab has calculators for the Realm of Shadows mode and for ascension / Signature
-   Item costs.
-5. Use **Export** to save a text backup; **Import** to restore it later.
+4. On the **Teams** tab, build teams and lineups, see if your roster can field them, and share them.
+5. The **⋯** menu (next to the tabs) has the **Tools** calculators for the Realm of Shadows mode and
+   for ascension / Signature Item costs.
+6. Use **Backup** to save a text copy of everything; **Restore** to bring it back later.
 
 ## Credits
 

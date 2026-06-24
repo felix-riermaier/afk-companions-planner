@@ -61,6 +61,102 @@
   .tab{flex:1;text-align:center;padding:10px;font-size:13px;font-weight:700;color:var(--mut);
     border:1px solid var(--line);border-bottom:none;border-radius:10px 10px 0 0;background:var(--panel);cursor:pointer}
   .tab.on{color:var(--ink);background:var(--panel2);border-color:var(--line)}
+  .tabmore{position:relative;flex:0 0 auto}
+  .tabmenu{height:100%;min-height:38px;padding:0 12px;font-size:18px;font-weight:700;line-height:1;color:var(--mut);
+    border:1px solid var(--line);border-bottom:none;border-radius:10px 10px 0 0;background:var(--panel);cursor:pointer;font-family:inherit}
+  .tabmenu.on{color:var(--ink);background:var(--panel2)}
+  .menupop{position:absolute;right:0;top:calc(100% + 4px);z-index:60;min-width:140px;background:var(--panel2);
+    border:1px solid var(--line);border-radius:10px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+  .menupop[hidden]{display:none}
+  .menuitem{display:block;width:100%;text-align:left;padding:9px 10px;font-size:13px;font-weight:700;color:var(--soft);
+    background:none;border:none;border-radius:7px;cursor:pointer;font-family:inherit}
+  .menuitem:active{opacity:.6}
+  .menuitem.on{color:var(--ink);background:var(--panel)}
+  /* Teams & Lineups */
+  .teamintro{margin:14px 0 2px;line-height:1.5}
+  .disclaimer{font-size:12px;color:var(--mauler);background:rgba(220,90,90,.10);border:1px solid rgba(220,90,90,.35);border-radius:9px;padding:9px 12px;margin:12px 0 2px;line-height:1.45}
+  .teamactions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
+  .btn.sm{padding:7px 12px;font-size:12px}
+  .btn.del.arm{color:var(--mauler);border-color:var(--mauler)}
+  .teamsec{margin-top:16px}
+  .teamsec>.sectitle{margin-bottom:4px}
+  .teamcard .teamhead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line)}
+  .teamname{font-weight:800;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .fieldbadge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;flex:0 0 auto}
+  .fieldbadge.ok{color:var(--ok);background:rgba(70,196,122,.14)}
+  .fieldbadge.no{color:var(--mauler);background:rgba(220,90,90,.13)}
+  .fieldbadge.inc{color:var(--mut);background:var(--panel2)}
+  .teambody{padding:10px 14px;display:flex;flex-direction:column;gap:6px}
+  .slotchip{display:flex;align-items:center;gap:8px;font-size:13px;padding:5px 9px;background:var(--panel2);border-radius:8px;border-left:3px solid var(--fc)}
+  .slotpos{flex:0 0 auto;width:18px;height:18px;border-radius:50%;background:var(--panel2);border:1px solid var(--line);color:var(--mut);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .slotname{font-weight:700}
+  .slottgt{color:var(--mut);font-size:11px}
+  .slotchip .slotmiss{margin-left:auto;color:var(--mauler);font-size:11px;font-weight:700;text-align:right}
+  .slotchip .slotok{margin-left:auto;color:var(--ok);font-weight:800}
+  .teamfoot{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--line)}
+  .teamfoot .btn{flex:1}
+  /* team editor */
+  .teamnameinp{width:100%;box-sizing:border-box;margin:0 0 12px;padding:10px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;color:var(--ink);font-size:14px;font-family:inherit}
+  .teslots{display:flex;flex-direction:column;gap:10px}
+  .teslot{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--panel)}
+  .teslot-top{display:flex;align-items:center;gap:8px}
+  .teslot .slotname{flex:1;border-bottom:1px dashed var(--line);cursor:pointer;padding:2px 0}
+  .teslot-move{display:flex;gap:4px}
+  .miniic{width:28px;height:28px;border-radius:7px;background:var(--panel2);border:1px solid var(--line);color:var(--soft);font-size:12px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;padding:0}
+  .miniic:active{opacity:.6}
+  .miniic:disabled{opacity:.3;cursor:default}
+  .modeseg{display:flex;gap:4px;margin-top:9px}
+  .modeseg button{flex:1;padding:6px 4px;font-size:11px;font-weight:700;color:var(--mut);background:var(--panel2);border:1px solid var(--line);border-radius:7px;cursor:pointer;font-family:inherit}
+  .modeseg button.on{color:var(--ink);background:var(--panel);border-color:var(--soft)}
+  .custrow{display:flex;gap:8px;align-items:center;margin-top:9px;flex-wrap:wrap}
+  .custlbl{font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
+  .slotreq{margin-top:9px;font-size:12px;color:var(--mut);line-height:1.4}
+  .reqlabel{font-weight:700;color:var(--soft)}
+  .reqok{color:var(--ok);font-weight:700}
+  .reqmiss{color:var(--mauler)}
+  .teaddbtn{margin-top:10px;width:100%;padding:11px;border:1px dashed var(--line);border-radius:10px;background:var(--panel2);color:var(--soft);font-weight:700;cursor:pointer;font-family:inherit}
+  .teaddbtn:active{opacity:.6}
+  .tenote{font-size:12px;color:var(--mut);min-height:16px;margin-top:8px}
+  .tenote.err{color:var(--mauler)}
+  /* hero picker */
+  .picklist{height:56vh;overflow-y:auto;margin-top:6px;-webkit-overflow-scrolling:touch}
+  .pickrow{display:flex;align-items:center;gap:10px;padding:10px 8px;border-bottom:1px solid var(--line);cursor:pointer;border-left:3px solid var(--fc)}
+  .pickrow:active{background:var(--panel2)}
+  .pickname{font-weight:700}
+  .pickfac{margin-left:auto;font-size:11px;color:var(--mut)}
+  /* lineup editor + cards */
+  .lnteams{display:flex;flex-direction:column;gap:12px}
+  .lncard{border:1px solid var(--line);border-radius:10px;background:var(--panel);overflow:hidden}
+  .lnhead{display:flex;align-items:center;gap:10px;padding:9px 11px;border-bottom:1px solid var(--line)}
+  .lnlabel{font-weight:800;font-size:13px}
+  .lnhead .teslot-move{margin-left:auto}
+  .lnbody{padding:9px 11px;display:flex;flex-direction:column;gap:6px}
+  .lnfoot{display:flex;gap:8px;padding:9px 11px;border-top:1px solid var(--line)}
+  .lnfoot .btn{flex:1}
+  .lnsummary{display:flex;align-items:center;gap:8px;font-size:13px}
+  .lnsumlabel{flex:0 0 auto;width:18px;height:18px;border-radius:50%;background:var(--panel);border:1px solid var(--line);color:var(--soft);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .lnsumnames{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--soft)}
+  .lnsummary .fieldbadge{font-size:10px;padding:2px 7px}
+  .lnview{border-radius:8px}
+  .lnsum{display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;padding:4px 0}
+  .lnsum::-webkit-details-marker{display:none}
+  .lnsum .fieldbadge{font-size:10px;padding:2px 7px}
+  .lnview .chev{flex:0 0 auto;font-size:9px;color:var(--mut);transition:transform .15s}
+  .lnview[open] .chev{transform:rotate(90deg)}
+  .lnviewbody{display:flex;flex-direction:column;gap:6px;padding:6px 0 8px 4px}
+  .delbtn{flex:0 0 auto;width:auto;color:var(--mauler);font-size:16px;line-height:1}
+  .delbtn.arm{border-color:var(--mauler);background:rgba(220,90,90,.12);font-size:14px;font-weight:700}
+  /* share + preview */
+  .shblock{margin:14px 0;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .shblock:last-of-type{border-bottom:none;padding-bottom:0}
+  .shtitle{font-weight:800;font-size:14px}
+  .shdesc{font-size:12px;color:var(--mut);margin:2px 0 8px;line-height:1.45}
+  .shin{width:100%;box-sizing:border-box;padding:9px 11px;background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--soft);font-size:12px;font-family:ui-monospace,Menlo,monospace}
+  .shta{flex:0 0 auto;min-height:120px;resize:vertical}
+  .shcopy{margin-top:8px}
+  .pvnamelbl{display:block;font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;margin:2px 0 5px}
+  .pvbody{display:flex;flex-direction:column;gap:12px}
+  .pvhint{margin:10px 0 0}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:14px 0;overflow:hidden}
   .card>.cap{padding:11px 14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);border-bottom:1px solid var(--line)}
   .readycard{border:1px solid var(--ok);box-shadow:0 0 0 2px rgba(70,196,122,.12)}
@@ -304,30 +400,37 @@
   <div class="tabs">
     <div class="tab on" id="tabRoster">Roster</div>
     <div class="tab" id="tabRecs">Recommendations</div>
-    <div class="tab" id="tabTools">Tools</div>
+    <div class="tab" id="tabTeams">Teams</div>
+    <div class="tabmore">
+      <button class="tabmenu" id="tabMenu" type="button" aria-label="More" aria-haspopup="true" aria-expanded="false">⋯</button>
+      <div class="menupop" id="tabMenuPop" hidden>
+        <button class="menuitem" id="menuTools" type="button">Tools</button>
+      </div>
+    </div>
   </div>
 </header>
 
 <div class="wrap">
   <div id="rosterPane"></div>
   <div id="recsPane" class="hide"></div>
+  <div id="teamsPane" class="hide"></div>
   <div id="toolsPane" class="hide"></div>
   <footer class="foot">
     <a href="#" id="changelogLink">Changelog</a><br>
     Unofficial fan-made tool. Not affiliated with, endorsed, or sponsored by Lilith Games. AFK Arena: Companions and all related content are the property of Lilith Games.<br>
     Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-06-24.<br>
-    Your roster is stored only in this browser. Use Export to back it up.
+    Your data is stored only in this browser. Use Backup to keep a copy.
   </footer>
 </div>
 
 <div class="bar" id="barRoster">
-  <button class="btn ghost" id="importBtn">Import Roster</button>
-  <button class="btn primary" id="exportBtn">Export Roster</button>
+  <button class="btn ghost" id="importBtn">Restore</button>
+  <button class="btn primary" id="exportBtn">Backup</button>
 </div>
 
 <div class="drawer" id="drawer">
   <div class="sheet">
-    <h3>Export</h3><p>Copy to export the current wishlist and roster.</p>
+    <h3>Backup</h3><p>Copy this to save a backup of your roster, wishlist, and saved teams. Paste it into Restore to bring everything back. (The Tools tab is not included.)</p>
     <textarea id="out" readonly></textarea>
     <div class="drow"><button class="btn ghost" id="closeDrawer">Close</button><button class="btn primary" id="copyBtn">Copy</button></div>
   </div>
@@ -335,10 +438,10 @@
 
 <div class="drawer" id="impDrawer">
   <div class="sheet">
-    <h3>Import</h3><p>Paste your current wishlist and roster from a previous export.</p>
-    <textarea id="impIn" placeholder="Paste exported text here…"></textarea>
+    <h3>Restore backup</h3><p>Paste a backup to restore your roster, wishlist, and saved teams. This replaces what is currently saved.</p>
+    <textarea id="impIn" placeholder="Paste your backup here…"></textarea>
     <div id="impMsg" class="impmsg"></div>
-    <div class="drow"><button class="btn ghost" id="impClose">Close</button><button class="btn primary" id="impDo">Import</button></div>
+    <div class="drow"><button class="btn ghost" id="impClose">Close</button><button class="btn primary" id="impDo">Restore</button></div>
   </div>
 </div>
 
@@ -352,6 +455,32 @@
 
 <div class="drawer" id="editDrawer">
   <div class="sheet setupsheet" id="editSheet"></div>
+</div>
+
+<div class="drawer" id="lineupDrawer">
+  <div class="sheet setupsheet" id="lineupSheet"></div>
+</div>
+
+<div class="drawer" id="teamDrawer">
+  <div class="sheet setupsheet" id="teamSheet"></div>
+</div>
+
+<div class="drawer" id="shareDrawer">
+  <div class="sheet setupsheet" id="shareSheet"></div>
+</div>
+
+<div class="drawer" id="teamImportDrawer">
+  <div class="sheet">
+    <h3>Import team or lineup</h3>
+    <p>Paste a link, a code, or the plain-text version. The code is found even inside a longer chat message.</p>
+    <textarea id="tiIn" placeholder="Paste link, code, or text here…"></textarea>
+    <div id="tiMsg" class="impmsg"></div>
+    <div class="drow"><button class="btn ghost" id="tiClose">Close</button><button class="btn primary" id="tiDo">Import</button></div>
+  </div>
+</div>
+
+<div class="drawer" id="previewDrawer">
+  <div class="sheet setupsheet" id="previewSheet"></div>
 </div>
 
 <div class="drawer" id="clDrawer">
@@ -617,10 +746,11 @@ function reconcile(saved){
 }
 function load(){let saved=null;try{const v=localStorage.getItem(KEY);if(v)saved=JSON.parse(v);}catch(e){}S=saved?reconcile(saved):toState(SEED);}
 let helpOpen=true;       // remembered open/close state of the How-to section
+let teamsHelpOpen=true;  // remembered open/close state of the Teams How-to section
 let hideTierLog=false;   // changelog: hide pure tier-list updates
 let acctOpen=true;       // remembered open/close state of the Account summary
-function loadPrefs(){try{const v=localStorage.getItem(PKEY);if(v){const p=JSON.parse(v);if(p.sortKey)sortKey=p.sortKey;if(typeof p.noComp==="boolean")noComp=p.noComp;if(typeof p.helpOpen==="boolean")helpOpen=p.helpOpen;if(typeof p.hideTierLog==="boolean")hideTierLog=p.hideTierLog;if(typeof p.acctOpen==="boolean")acctOpen=p.acctOpen;}}catch(e){}}
-function savePrefs(){try{localStorage.setItem(PKEY,JSON.stringify({sortKey,noComp,helpOpen,hideTierLog,acctOpen}));}catch(e){}}
+function loadPrefs(){try{const v=localStorage.getItem(PKEY);if(v){const p=JSON.parse(v);if(p.sortKey)sortKey=p.sortKey;if(typeof p.noComp==="boolean")noComp=p.noComp;if(typeof p.helpOpen==="boolean")helpOpen=p.helpOpen;if(typeof p.teamsHelpOpen==="boolean")teamsHelpOpen=p.teamsHelpOpen;if(typeof p.hideTierLog==="boolean")hideTierLog=p.hideTierLog;if(typeof p.acctOpen==="boolean")acctOpen=p.acctOpen;}}catch(e){}}
+function savePrefs(){try{localStorage.setItem(PKEY,JSON.stringify({sortKey,noComp,helpOpen,teamsHelpOpen,hideTierLog,acctOpen}));}catch(e){}}
 let saveTimer;
 function save(){flashSave();clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}},300);}
 function flashSave(){const el=document.getElementById("save");el.classList.add("flash");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("flash"),700);}
@@ -683,9 +813,10 @@ function renderRoster(){
     <p>1. <b>Tap a hero</b> in the list below to set its ascension, SI level, and spare Elite copies. Use the search box and faction buttons to narrow the list, or <b>Bulk mode</b> to step through many heroes in a row.</p>
     <p>2. In <b>Wishlist / Dimensional Spirits</b> (top) set your Stargazer target, per-faction wishlists, and how many <b>Dimensional Spirits</b> you have.</p>
     <p>3. Open the <b>Recommendations</b> tab to see what to summon, ascend, and which SI items to raise next, ranked by the tier list. <b>Tap any hero</b> to see its Min / Optimal / Competitive breakpoints, the copies (E) or Dimensional Spirits (S) still needed for each, and a link to its guide.</p>
-    <p>4. The <b>Tools</b> tab has handy calculators: a Realm of Shadows (Mythic Gate) Blessed Flame planner, plus Ascension and Signature Item cost references.</p>
-    <p>5. <b>Export</b> / <b>Import</b> (bottom) backs up or restores everything. The ⟲ icon top-right clears it all.</p>
-    <p>Your roster is saved only in this browser, so export a copy to keep it safe.</p>
+    <p>4. The <b>Teams</b> tab lets you build and save teams and lineups, see whether your roster can field them, and share them.</p>
+    <p>5. The <b>⋯</b> menu (next to the tabs) has the <b>Tools</b> calculators: a Realm of Shadows (Mythic Gate) Blessed Flame planner, plus Ascension and Signature Item cost references.</p>
+    <p>6. <b>Backup</b> / <b>Restore</b> (bottom) saves or restores everything: roster, wishlist, and saved teams (not Tools). The ⟲ icon top-right clears it all.</p>
+    <p>Your data is saved only in this browser, so back up a copy to keep it safe.</p>
   </div>`;
   help.appendChild(hbody);app.appendChild(help);
 
@@ -1236,21 +1367,464 @@ function renderRosResult(){
   }
   box.innerHTML=html;
 }
+/* ---- Teams & Lineups: saved squad compositions (own localStorage key, never part of the
+   roster export). A team = up to 5 ordered hero slots; a lineup = up to 6 ordered teams.
+   Per slot the investment is a mode (min/opt/comp from the tier list, or a custom asc+si). */
+const TMKEY="afkc_teams_v1";
+let TEAMS={teams:[],lineups:[]};
+let teamSeq=1;   // local id source for new teams/lineups (stable within a session)
+function newId(){return "t"+(teamSeq++)+"_"+(TEAMS.teams.length+TEAMS.lineups.length);}
+const TEAM_MODES=["min","opt","comp","cust"];
+function reconcileSlot(s){
+  if(!s||typeof s!=="object")return null;
+  const n=aliasName(s.n);
+  if(!n||!TIER[n])return null;                       // hero no longer exists → drop slot
+  const mode=TEAM_MODES.includes(s.mode)?s.mode:"min";
+  return {n,mode,asc:validAsc(s.asc),si:validSi(s.si)};
+}
+function reconcileTeamSlots(slots){
+  const out=[],seen=new Set();
+  (Array.isArray(slots)?slots:[]).forEach(s=>{const r=reconcileSlot(s);if(r&&!seen.has(r.n)){seen.add(r.n);out.push(r);}});
+  return out.slice(0,5);
+}
+function reconcileTeams(saved){
+  const out={teams:[],lineups:[]};
+  if(!saved||typeof saved!=="object")return out;
+  (Array.isArray(saved.teams)?saved.teams:[]).forEach(t=>{
+    if(!t||typeof t!=="object")return;
+    out.teams.push({id:t.id||newId(),name:(""+(t.name||"")).slice(0,40),slots:reconcileTeamSlots(t.slots)});
+  });
+  (Array.isArray(saved.lineups)?saved.lineups:[]).forEach(l=>{
+    if(!l||typeof l!=="object")return;
+    const teams=(Array.isArray(l.teams)?l.teams:[]).slice(0,6).map(tm=>({slots:reconcileTeamSlots(tm&&tm.slots)}));
+    out.lineups.push({id:l.id||newId(),name:(""+(l.name||"")).slice(0,40),teams});
+  });
+  return out;
+}
+function loadTeams(){let saved=null;try{const v=localStorage.getItem(TMKEY);if(v)saved=JSON.parse(v);}catch(e){}TEAMS=reconcileTeams(saved);}
+let teamsSaveTimer;
+function saveTeams(){flashSave();clearTimeout(teamsSaveTimer);teamsSaveTimer=setTimeout(()=>{try{localStorage.setItem(TMKEY,JSON.stringify(TEAMS));}catch(e){}},300);}
+
+/* Resolve a breakpoint to a single target (its highest ascension + the cell's SI). */
+function bpTop(bp){if(!bp||!bp.ascs||!bp.ascs.length)return null;let best=bp.ascs[0];bp.ascs.forEach(a=>{if(ai(a)>ai(best))best=a;});return {asc:best,si:bp.si||0};}
+/* Which investment modes make sense for a hero (only brackets the tier list actually defines). */
+function availModes(name){const t=TIER[name];if(!t)return ["cust"];const a=[];if(bpTop(t.mn))a.push("min");if(bpTop(t.op))a.push("opt");if(bpTop(t.cp))a.push("comp");a.push("cust");return a;}
+const MODE_LABEL={min:"Min",opt:"Opt",comp:"Comp",cust:"Custom"};
+/* Resolve a slot to its concrete {asc,si} target. min/opt/comp read the tier list now (so they
+   track tier updates); custom carries explicit values. asc "—" means "no requirement". */
+function slotTarget(s){const t=TIER[s.n];if(!t)return{asc:"—",si:-1};
+  if(s.mode==="cust")return{asc:validAsc(s.asc),si:(ai(validAsc(s.asc))<ai("M"))?-1:validSi(s.si)};
+  const bp=s.mode==="opt"?t.op:s.mode==="comp"?t.cp:t.mn;const r=bpTop(bp);
+  return r?{asc:r.asc,si:r.si}:{asc:"—",si:-1};}
+function rosterHero(name){const t=TIER[name];if(!t)return null;return (S.factions[t.fac]||[]).find(h=>h.name===name)||null;}
+/* Compare a slot's target to the user's current roster: met? what's missing? */
+function slotStatus(s){
+  const t=TIER[s.n],tgt=slotTarget(s),rh=rosterHero(s.n);
+  const dim=t&&t.fac==="Dimensional",own=!!rh&&rh.asc!=="—",curSi=rh?rh.si:-1;
+  if(tgt.asc==="—")return{tgt,rh,own,dim,met:true,ascMet:true,siMet:true,copies:0,curSi,unit:dim?"S":"E"};
+  const ascMet=own&&ai(rh.asc)>=ai(tgt.asc);
+  const siMet=curSi>=tgt.si;
+  const ladder=ladderFor(t.fac),banked=dim?(S.account.spirits||0):(rh?(rh.e||0):0);
+  let copies=0;if(!ascMet){copies=(ladder[tgt.asc]||0)-(ladder[own?rh.asc:"—"]||0)-banked;if(copies<0)copies=0;}
+  return{tgt,rh,own,dim,met:ascMet&&siMet,ascMet,siMet,copies,curSi,unit:dim?"S":"E"};
+}
+function teamFieldSummary(slots){let met=0;(slots||[]).forEach(s=>{if(slotStatus(s).met)met++;});return{met,total:(slots||[]).length};}
+function fieldBadge(sum){
+  if(!sum.total)return `<span class="fieldbadge inc">empty</span>`;
+  if(sum.met===sum.total)return `<span class="fieldbadge ok">✓ can field${sum.total<5?" ("+sum.total+"/5)":""}</span>`;
+  return `<span class="fieldbadge no">${sum.met}/${sum.total} ready</span>`;
+}
+function tgtLabel(tgt){return tgt.asc==="—"?"any":(tgt.asc+(tgt.si>0?" SI"+tgt.si:""));}
+
+/* ---- Teams tab list ---- */
+function renderTeams(){
+  const pane=document.getElementById("teamsPane");pane.innerHTML="";
+  const help=el("details","fac help");help.open=teamsHelpOpen;help.style.setProperty("--fc","var(--dimensional)");
+  help.addEventListener("toggle",()=>{teamsHelpOpen=help.open;savePrefs();});
+  help.appendChild(el("summary",null,`<span class="chev">▶</span><span class="fname">How to use</span>`));
+  const hbody=el("div","body");
+  hbody.innerHTML=`<div class="howto">
+    <p>1. Tap <b>+ New team</b> to build a team of up to 5 heroes. Tap a slot to pick a hero, set its target investment (<b>Min</b> / <b>Optimal</b> / <b>Competitive</b> from the tier list, or a <b>Custom</b> ascension and SI), and reorder with the arrows.</p>
+    <p>2. Tap <b>+ New lineup</b> to group up to 6 teams. A hero can appear only once across the whole lineup.</p>
+    <p>3. Each saved team or lineup shows whether your current roster can field it, and for any hero that falls short, its current investment. Building is never limited by your roster.</p>
+    <p>4. <b>Share</b> a team or lineup as a link, a code (paste it straight into game chat, it is found even inside a longer message), or plain readable text. <b>Import</b> the same ways; you can rename before saving.</p>
+  </div>`;
+  help.appendChild(hbody);pane.appendChild(help);
+  pane.appendChild(el("div","disclaimer","⚠ Teams is experimental and may change or break. Keep a copy of your data with Backup on the Roster tab."));
+  const act=el("div","teamactions");
+  const nt=el("button","btn primary","+ New team");nt.onclick=()=>openTeamBuilder(null);
+  const nl=el("button","btn ghost","+ New lineup");nl.onclick=()=>openLineupBuilder(null);
+  const imp=el("button","btn ghost","Import");imp.onclick=openTeamImport;
+  act.append(nt,nl,imp);
+  pane.appendChild(act);
+  const sec=el("div","teamsec");
+  sec.appendChild(el("div","sectitle","Teams"));
+  if(!TEAMS.teams.length)sec.appendChild(el("div","note","No teams yet. Tap “+ New team” to build one."));
+  else TEAMS.teams.forEach(t=>sec.appendChild(teamCard(t)));
+  pane.appendChild(sec);
+  const lsec=el("div","teamsec");
+  lsec.appendChild(el("div","sectitle","Lineups"));
+  if(!TEAMS.lineups.length)lsec.appendChild(el("div","note","No lineups yet. A lineup groups up to 6 teams; each hero can appear only once across the whole lineup."));
+  else TEAMS.lineups.forEach(L=>lsec.appendChild(lineupCard(L)));
+  pane.appendChild(lsec);
+}
+function slotChip(s,i){
+  const t=TIER[s.n],st=slotStatus(s),chip=el("div","slotchip");
+  chip.style.setProperty("--fc",`var(${FAC_VAR[t?t.fac:""]||"--soft"})`);
+  let tail;
+  if(st.met)tail=`<span class="slotok">✓</span>`;
+  else tail=`<span class="slotmiss">${esc(st.own?(st.rh.asc+" "+siLabel(st.rh.si)):"not owned")}</span>`;
+  chip.innerHTML=`<span class="slotpos">${i+1}</span><span class="slotname">${esc(s.n)}</span><span class="slottgt">${esc(MODE_LABEL[s.mode])} · ${esc(tgtLabel(st.tgt))}</span>${tail}`;
+  return chip;
+}
+function teamCard(team){
+  const card=el("div","card teamcard");
+  const head=el("div","teamhead");
+  head.innerHTML=`<div class="teamname">${esc(team.name||"Untitled team")}</div>${fieldBadge(teamFieldSummary(team.slots))}`;
+  card.appendChild(head);
+  const body=el("div","teambody");
+  if(!team.slots.length)body.appendChild(el("div","note","No heroes."));
+  else team.slots.forEach((s,i)=>body.appendChild(slotChip(s,i)));
+  card.appendChild(body);
+  const foot=el("div","teamfoot");
+  const ed=el("button","btn ghost sm","Edit");ed.onclick=()=>openTeamBuilder(team);
+  const sh=el("button","btn ghost sm","Share");sh.onclick=()=>openShare("team",team);
+  foot.append(ed,sh);card.appendChild(foot);
+  return card;
+}
+function armDelete(btn,fn){let armed=false,timer;const base=btn.textContent;
+  btn.onclick=()=>{if(!armed){armed=true;btn.textContent="Confirm?";btn.classList.add("arm");clearTimeout(timer);timer=setTimeout(()=>{armed=false;btn.textContent=base;btn.classList.remove("arm");},3000);return;}clearTimeout(timer);btn.textContent=base;btn.classList.remove("arm");fn();};}
+/* trash-icon two-tap delete for the edit sheets */
+function delIconBtn(title,fn){
+  const b=el("button","btn ghost delbtn","🗑");b.title=title;b.setAttribute("aria-label",title);let armed=false,timer;
+  b.onclick=()=>{if(!armed){armed=true;b.textContent="Delete?";b.classList.add("arm");b.title="Tap again to delete";clearTimeout(timer);timer=setTimeout(()=>{armed=false;b.textContent="🗑";b.classList.remove("arm");b.title=title;},3000);return;}clearTimeout(timer);fn();};
+  return b;
+}
+
+/* ---- Team builder (shared by standalone teams and, later, lineup teams) ----
+   teamEdit = {title, showName, name, slots:[{n,mode,asc,si}], excludeNames:Set, onSave(name,slots)} */
+let teamEdit=null,pickReplace=null,pickFac=new Set();
+const TEAM_MAG='<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="20.5" y1="20.5" x2="16.5" y2="16.5"></line></svg>';
+function closeTeamDrawer(){document.getElementById("teamDrawer").classList.remove("on");}
+function openTeamBuilder(team){
+  teamEdit={
+    title:team?"Edit team":"New team",showName:true,name:team?(team.name||""):"",
+    slots:team?team.slots.map(s=>({...s})):[],excludeNames:new Set(),editId:team?team.id:null,
+    onSave:(name,slots)=>{
+      if(teamEdit.editId){const t=TEAMS.teams.find(x=>x.id===teamEdit.editId);if(t){t.name=name;t.slots=slots;}}
+      else TEAMS.teams.push({id:newId(),name,slots});
+      saveTeams();renderTeams();
+    }
+  };
+  document.getElementById("teamDrawer").classList.add("on");
+  renderTeamEditor();
+}
+function teMove(i,dir){const a=teamEdit.slots,j=i+dir;if(j<0||j>=a.length)return;const tmp=a[i];a[i]=a[j];a[j]=tmp;renderTeamEditor();}
+function teSetMode(i,mode){const s=teamEdit.slots[i];
+  if(mode==="cust"&&s.mode!=="cust"){const tgt=slotTarget(s);s.asc=tgt.asc==="—"?"E":tgt.asc;s.si=(ai(s.asc)<ai("M"))?-1:(tgt.asc==="—"?-1:tgt.si);}
+  s.mode=mode;renderTeamEditor();
+}
+function teSlotEl(s,i){
+  const t=TIER[s.n],wrap=el("div","teslot");wrap.style.setProperty("--fc",`var(${FAC_VAR[t?t.fac:""]||"--soft"})`);
+  const top=el("div","teslot-top");
+  top.innerHTML=`<span class="slotpos">${i+1}</span><span class="slotname">${esc(s.n)}</span>`;
+  const moves=el("div","teslot-move");
+  const up=el("button","miniic","▲");up.disabled=i===0;up.onclick=()=>teMove(i,-1);
+  const dn=el("button","miniic","▼");dn.disabled=i===teamEdit.slots.length-1;dn.onclick=()=>teMove(i,1);
+  moves.append(up,dn);
+  const rm=el("button","miniic","✕");rm.onclick=()=>{teamEdit.slots.splice(i,1);renderTeamEditor();};
+  top.append(moves,rm);wrap.appendChild(top);
+  top.querySelector(".slotname").onclick=()=>openTeamPicker(i);
+  const seg=el("div","modeseg");
+  availModes(s.n).forEach(m=>{const b=el("button",s.mode===m?"on":null,MODE_LABEL[m]);b.onclick=()=>teSetMode(i,m);seg.appendChild(b);});
+  wrap.appendChild(seg);
+  if(s.mode==="cust"){
+    const cr=el("div","custrow");
+    const asel=el("select","ascsel");asel.innerHTML=ASC_TIERS.map(v=>`<option value="${v}">${v}</option>`).join("");asel.value=ai(s.asc)>=1?s.asc:"E";
+    asel.onchange=()=>{s.asc=asel.value;if(ai(s.asc)<ai("M"))s.si=-1;renderTeamEditor();};
+    cr.append(el("span","custlbl","Asc"),asel);wrap.appendChild(cr);
+    const siRow=el("div","custrow");
+    if(ai(s.asc)<ai("M"))siRow.appendChild(el("div","sinote","Signature Item unlocks at Mythic (M)."));
+    else{siRow.appendChild(el("span","custlbl","SI"));const scls={"-1":"si-no",0:"si-0",10:"si-10",20:"si-20",30:"si-30"};
+      SIS.forEach(v=>{const b=el("button","setupbtn "+(scls[v]||"si-0")+(v===s.si?" on":""),siLabel(v));b.onclick=()=>{s.si=v;renderTeamEditor();};siRow.appendChild(b);});}
+    wrap.appendChild(siRow);
+  }
+  const st=slotStatus(s),req=el("div","slotreq");
+  if(st.tgt.asc==="—")req.innerHTML=`<span class="reqlabel">No specific target</span>`;
+  else if(!st.own)req.innerHTML=`<span class="reqlabel">Target ${esc(tgtLabel(st.tgt))}</span> <span class="reqmiss">· not in your roster</span>`;
+  else if(st.met)req.innerHTML=`<span class="reqlabel">Target ${esc(tgtLabel(st.tgt))}</span> <span class="reqok">✓ ready</span>`;
+  else req.innerHTML=`<span class="reqlabel">Target ${esc(tgtLabel(st.tgt))}</span> <span class="reqmiss">· now ${esc(st.rh.asc+" "+siLabel(st.rh.si))}</span>`;
+  wrap.appendChild(req);
+  return wrap;
+}
+function renderTeamEditor(){
+  const sheet=document.getElementById("teamSheet"),e=teamEdit;
+  let h=`<div class="hd-top"><div class="hd-name">${esc(e.title)}</div><button class="resetic" id="teClose" aria-label="Close">✕</button></div>`;
+  if(e.showName)h+=`<input class="teamnameinp" id="teName" type="text" maxlength="40" placeholder="Team name" value="${esc(e.name||"")}">`;
+  h+=`<div class="teslots" id="teSlots"></div>`;
+  if(e.slots.length<5)h+=`<button class="teaddbtn" id="teAdd">+ Add hero (${e.slots.length}/5)</button>`;
+  h+=`<div class="tenote" id="teNote"></div>`;
+  h+=`<div class="setupactions" id="teActions"><button class="btn ghost" id="teCancel">Cancel</button><button class="btn primary" id="teSave">${e.saveLabel||"Save team"}</button></div>`;
+  sheet.innerHTML=h;
+  if(e.showName&&e.editId){const acts=sheet.querySelector("#teActions");acts.insertBefore(delIconBtn("Delete team",()=>{TEAMS.teams=TEAMS.teams.filter(x=>x.id!==e.editId);saveTeams();renderTeams();closeTeamDrawer();}),acts.firstChild);}
+  const box=sheet.querySelector("#teSlots");e.slots.forEach((s,i)=>box.appendChild(teSlotEl(s,i)));
+  if(e.showName){const ni=sheet.querySelector("#teName");ni.oninput=()=>{e.name=ni.value;};}
+  const add=sheet.querySelector("#teAdd");if(add)add.onclick=()=>openTeamPicker(null);
+  sheet.querySelector("#teClose").onclick=()=>e.onCancel?e.onCancel():closeTeamDrawer();
+  sheet.querySelector("#teCancel").onclick=()=>e.onCancel?e.onCancel():closeTeamDrawer();
+  sheet.querySelector("#teSave").onclick=()=>{
+    if(!e.slots.length){const n=sheet.querySelector("#teNote");n.textContent="Add at least one hero.";n.className="tenote err";return;}
+    e.onSave((e.name||"").trim()||"Untitled team",e.slots.map(s=>({...s})));
+    if(!e.keepOpen)closeTeamDrawer();
+  };
+}
+/* hero picker — swaps the team sheet content, returns to the editor on pick/back */
+function openTeamPicker(replaceIdx){pickReplace=replaceIdx;pickFac=new Set();renderTeamPicker();}
+function renderTeamPicker(){
+  const sheet=document.getElementById("teamSheet"),e=teamEdit;
+  const used=new Set(e.slots.map(s=>s.n));if(pickReplace!=null)used.delete(e.slots[pickReplace].n);
+  (e.excludeNames||new Set()).forEach(n=>used.add(n));
+  sheet.innerHTML=`<div class="hd-top"><div class="hd-name">${pickReplace!=null?"Replace hero":"Add hero"}</div><button class="resetic" id="pkBack" aria-label="Back">←</button></div>`
+    +`<div class="rsearch"><div class="rsearchwrap"><input id="pkSearch" type="text" placeholder="Search heroes…" autocomplete="off"><button class="rsclear" id="pkClr" type="button"></button></div></div>`
+    +`<div class="facfilter" id="pkFacs"></div><div class="picklist" id="pkList"></div>`;
+  const facs=sheet.querySelector("#pkFacs");
+  FAC_ORDER.forEach(fac=>{const b=el("button","fbtn"+(pickFac.has(fac)?" on":""),fac);b.style.setProperty("--fc",`var(${FAC_VAR[fac]})`);b.onclick=()=>{if(pickFac.has(fac))pickFac.delete(fac);else pickFac.add(fac);b.classList.toggle("on");pkFilter();};facs.appendChild(b);});
+  const list=sheet.querySelector("#pkList");
+  Object.keys(TIER).sort(byName).forEach(n=>{if(used.has(n))return;const t=TIER[n];
+    const row=el("div","pickrow");row.style.setProperty("--fc",`var(${FAC_VAR[t.fac]||"--soft"})`);row.dataset.name=n;row.dataset.fac=t.fac;
+    row.innerHTML=`<span class="pickname">${esc(n)}</span><span class="pickfac">${t.fac}</span>`;row.onclick=()=>teamPick(n);list.appendChild(row);});
+  const sin=sheet.querySelector("#pkSearch"),clr=sheet.querySelector("#pkClr");
+  const syncClr=()=>{const has=sin.value.length>0;clr.classList.toggle("active",has);clr.setAttribute("aria-label",has?"Clear search":"Search");clr.innerHTML=has?"✕":TEAM_MAG;};
+  sin.oninput=()=>{syncClr();pkFilter();};sin.onkeydown=ev=>{if(ev.key==="Enter"){ev.preventDefault();sin.blur();}};
+  clr.onmousedown=ev=>ev.preventDefault();clr.onclick=()=>{if(sin.value){sin.value="";syncClr();pkFilter();}sin.focus();};
+  syncClr();pkFilter();
+  sheet.querySelector("#pkBack").onclick=()=>renderTeamEditor();
+}
+function pkFilter(){const sin=document.getElementById("pkSearch");const term=sin?sin.value.trim().toLowerCase():"";
+  document.querySelectorAll("#pkList .pickrow").forEach(r=>{const okT=!term||r.dataset.name.toLowerCase().includes(term);const okF=pickFac.size===0||pickFac.has(r.dataset.fac);r.style.display=(okT&&okF)?"":"none";});}
+function teamPick(name){
+  const modes=availModes(name),def=modes[0];
+  if(pickReplace!=null){const old=teamEdit.slots[pickReplace];teamEdit.slots[pickReplace]={n:name,mode:modes.includes(old.mode)?old.mode:def,asc:old.asc||"E",si:old.si==null?-1:old.si};}
+  else teamEdit.slots.push({n:name,mode:def,asc:"E",si:-1});
+  renderTeamEditor();
+}
+
+/* ---- Lineups: own up to 6 teams, labeled 1-6 by order; heroes unique across the whole lineup ----
+   lineupEdit = {title, name, teams:[{slots:[...]}], editId} */
+let lineupEdit=null;
+function closeLineupDrawer(){document.getElementById("lineupDrawer").classList.remove("on");}
+function openLineupBuilder(lineup){
+  lineupEdit={title:lineup?"Edit lineup":"New lineup",name:lineup?(lineup.name||""):"",
+    teams:lineup?lineup.teams.map(t=>({slots:t.slots.map(s=>({...s}))})):[],editId:lineup?lineup.id:null};
+  document.getElementById("lineupDrawer").classList.add("on");
+  renderLineupEditor();
+}
+function lnMove(i,dir){const a=lineupEdit.teams,j=i+dir;if(j<0||j>=a.length)return;const t=a[i];a[i]=a[j];a[j]=t;renderLineupEditor();}
+function lineupOtherHeroes(teams,exceptIdx){const s=new Set();teams.forEach((t,i)=>{if(i===exceptIdx)return;(t.slots||[]).forEach(sl=>s.add(sl.n));});return s;}
+function openLineupTeam(idx){
+  const L=lineupEdit,existing=idx!=null?L.teams[idx]:null;
+  teamEdit={
+    title:idx!=null?("Team "+(idx+1)):("Team "+(L.teams.length+1)),
+    showName:false,name:"",saveLabel:"Save team",
+    slots:existing?existing.slots.map(s=>({...s})):[],
+    excludeNames:lineupOtherHeroes(L.teams,idx!=null?idx:-1),
+    onSave:(name,slots)=>{if(idx!=null)L.teams[idx]={slots};else L.teams.push({slots});renderLineupEditor();},
+    onCancel:()=>closeTeamDrawer()
+  };
+  document.getElementById("teamDrawer").classList.add("on");
+  renderTeamEditor();
+}
+function lnTeamCard(t,i){
+  const card=el("div","lncard"),head=el("div","lnhead");
+  head.innerHTML=`<span class="lnlabel">Team ${i+1}</span>${fieldBadge(teamFieldSummary(t.slots))}`;
+  const moves=el("div","teslot-move");
+  const up=el("button","miniic","▲");up.disabled=i===0;up.onclick=()=>lnMove(i,-1);
+  const dn=el("button","miniic","▼");dn.disabled=i===lineupEdit.teams.length-1;dn.onclick=()=>lnMove(i,1);
+  moves.append(up,dn);head.appendChild(moves);card.appendChild(head);
+  const body=el("div","lnbody");
+  if(!t.slots.length)body.appendChild(el("div","note","No heroes."));
+  else t.slots.forEach((s,k)=>body.appendChild(slotChip(s,k)));
+  card.appendChild(body);
+  const foot=el("div","lnfoot");
+  const ed=el("button","btn ghost sm",t.slots.length?"Edit":"Add heroes");ed.onclick=()=>openLineupTeam(i);
+  const rm=el("button","btn ghost sm del","Remove");armDelete(rm,()=>{lineupEdit.teams.splice(i,1);renderLineupEditor();});
+  foot.append(ed,rm);card.appendChild(foot);
+  return card;
+}
+function renderLineupEditor(){
+  const sheet=document.getElementById("lineupSheet"),L=lineupEdit;
+  let h=`<div class="hd-top"><div class="hd-name">${esc(L.title)}</div><button class="resetic" id="lnClose" aria-label="Close">✕</button></div>`;
+  h+=`<input class="teamnameinp" id="lnName" type="text" maxlength="40" placeholder="Lineup name" value="${esc(L.name||"")}">`;
+  h+=`<div class="lnteams" id="lnTeams"></div>`;
+  if(L.teams.length<6)h+=`<button class="teaddbtn" id="lnAdd">+ Add team (${L.teams.length}/6)</button>`;
+  h+=`<div class="tenote" id="lnNote"></div>`;
+  h+=`<div class="setupactions" id="lnActions"><button class="btn ghost" id="lnCancel">Cancel</button><button class="btn primary" id="lnSave">Save lineup</button></div>`;
+  sheet.innerHTML=h;
+  if(L.editId){const acts=sheet.querySelector("#lnActions");acts.insertBefore(delIconBtn("Delete lineup",()=>{TEAMS.lineups=TEAMS.lineups.filter(x=>x.id!==L.editId);saveTeams();renderTeams();closeLineupDrawer();}),acts.firstChild);}
+  const box=sheet.querySelector("#lnTeams");L.teams.forEach((t,i)=>box.appendChild(lnTeamCard(t,i)));
+  const ni=sheet.querySelector("#lnName");ni.oninput=()=>{L.name=ni.value;};
+  const add=sheet.querySelector("#lnAdd");if(add)add.onclick=()=>openLineupTeam(null);
+  sheet.querySelector("#lnClose").onclick=closeLineupDrawer;
+  sheet.querySelector("#lnCancel").onclick=closeLineupDrawer;
+  sheet.querySelector("#lnSave").onclick=()=>{
+    if(!L.teams.length){const n=sheet.querySelector("#lnNote");n.textContent="Add at least one team.";n.className="tenote err";return;}
+    const name=(L.name||"").trim()||"Untitled lineup";
+    const teams=L.teams.map(t=>({slots:t.slots.map(s=>({...s}))}));
+    if(L.editId){const x=TEAMS.lineups.find(y=>y.id===L.editId);if(x){x.name=name;x.teams=teams;}}
+    else TEAMS.lineups.push({id:newId(),name,teams});
+    saveTeams();renderTeams();closeLineupDrawer();
+  };
+}
+function lineupFieldSummary(L){let ok=0;L.teams.forEach(t=>{const s=teamFieldSummary(t.slots);if(s.total&&s.met===s.total)ok++;});return{ok,total:L.teams.length};}
+function lineupBadge(sum){if(!sum.total)return `<span class="fieldbadge inc">empty</span>`;if(sum.ok===sum.total)return `<span class="fieldbadge ok">✓ all ${sum.total} ready</span>`;return `<span class="fieldbadge no">${sum.ok}/${sum.total} teams ready</span>`;}
+function lineupCard(L){
+  const card=el("div","card teamcard"),head=el("div","teamhead");
+  head.innerHTML=`<div class="teamname">${esc(L.name||"Untitled lineup")}</div>${lineupBadge(lineupFieldSummary(L))}`;card.appendChild(head);
+  const body=el("div","teambody");
+  if(!L.teams.length)body.appendChild(el("div","note","No teams."));
+  else L.teams.forEach((t,i)=>{
+    const d=el("details","lnview"),sum=el("summary","lnsum");
+    sum.innerHTML=`<span class="chev">▶</span><span class="lnsumlabel">${i+1}</span><span class="lnsumnames">${t.slots.map(s=>esc(s.n)).join(", ")||"empty"}</span>${fieldBadge(teamFieldSummary(t.slots))}`;
+    d.appendChild(sum);
+    const vb=el("div","lnviewbody");
+    if(!t.slots.length)vb.appendChild(el("div","note","No heroes."));
+    else t.slots.forEach((s,k)=>vb.appendChild(slotChip(s,k)));
+    d.appendChild(vb);body.appendChild(d);});
+  card.appendChild(body);
+  const foot=el("div","teamfoot");
+  const ed=el("button","btn ghost sm","Edit");ed.onclick=()=>openLineupBuilder(L);
+  const sh=el("button","btn ghost sm","Share");sh.onclick=()=>openShare("lineup",L);
+  foot.append(ed,sh);card.appendChild(foot);
+  return card;
+}
+
+/* ---- Sharing: compact, chat-safe codes via stable hero IDs ----
+   HID is an APPEND-ONLY, frozen list of hero names: a hero's index is its permanent 1-byte id,
+   so codes shared today still decode after tier updates. NEVER reorder or remove entries — on a
+   tier update, append new heroes to the end (and add an ALIASES entry for renames). Keep length
+   <=254 (255 is the unknown-hero sentinel). */
+const HID=["Ainz Ooal Gown","Albedo","Anasta","Antandra","Arthur","Athalia","Audrae","Awakened Baden","Awakened Brutus","Awakened Talene","Belinda","Brutus","Cecilia","Cha Hae-In","Crassio","Daimon","Desira","Dracula","Drez","Eironn","Elijah & Lailah","Eluard","Estrilda","Ezizh","Fawkes","Ferael","Flora","Framton","Gorvo","Grezhul","Gwyneth","Haelus","Hendrik","Hodgkin","Isabella","Izold","Judy & Punch","Kaz","Kelthur","Khasos","Khazard","Kren","Laios","Leonardo","Liberta","Lorsan","Lucilla","Lucius","Lucretia","Lyca","Maetria","Marcille","Mehira","Merlin","Mezoth","Mira","Mishka","Morrow","Mortas","Nara","Nemora","Nevanthi","Numisu","Oden","Oku","Orthros","Oscar","Palmer","Pippa","Raine","Raku","Respen","Rosaline","Rowan","Safiya","Saitama","Salaki","Satrana","Saurus","Scarlet","Seirus","Selene","Shalltear","Shemira","Silas","Skreg","Skriath","Solise","Sonja","Sung Jinwoo","Talene","Talimar","Tasi","Terrible Tornado","Thane","Theowyn","Thesku","Thoran","Tidus","Treznor","Trishea","Vurk","Walker","Warek","Wu Kong","Zaphrael","Zikis","Zolrath"];
+const HID_IX=(function(){const m={};HID.forEach((n,i)=>m[n]=i);return m;})();
+function b64urlEnc(bytes){let bin="";for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);return btoa(bin).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");}
+function b64urlDec(str){str=str.replace(/-/g,"+").replace(/_/g,"/");while(str.length%4)str+="=";const bin=atob(str),out=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)out[i]=bin.charCodeAt(i);return out;}
+function encName(a,name){const b=new TextEncoder().encode((""+(name||"")).slice(0,40)),n=Math.min(255,b.length);a.push(n);for(let i=0;i<n;i++)a.push(b[i]);}
+function encSlots(a,slots){a.push(slots.length);slots.forEach(s=>{const id=HID_IX[s.n];a.push(id==null?255:id);const mode=TEAM_MODES.indexOf(s.mode);a.push(mode<0?0:mode);
+  if(s.mode==="cust"){a.push(Math.max(0,ai(validAsc(s.asc))));const si=SIS.indexOf(validSi(s.si));a.push(si<0?1:si);}});}
+function encodeTeam(team){const a=[1,0];encName(a,team.name);encSlots(a,team.slots);return "AFKC1."+b64urlEnc(a);}
+function encodeLineup(L){const a=[1,1];encName(a,L.name);a.push(L.teams.length);L.teams.forEach(t=>encSlots(a,t.slots));return "AFKC1."+b64urlEnc(a);}
+function decName(d,st){const len=d[st.i++]||0,bytes=d.slice(st.i,st.i+len);st.i+=len;try{return new TextDecoder().decode(bytes);}catch(e){return "";}}
+function decSlots(d,st){const n=d[st.i++]||0,slots=[];for(let k=0;k<n;k++){
+  const id=d[st.i++],mode=TEAM_MODES[d[st.i++]]||"min";let asc="E",si=-1;
+  if(mode==="cust"){asc=ASCO[d[st.i++]]||"E";si=SIS[d[st.i++]];if(si==null)si=-1;}
+  const nm=aliasName(HID[id]);if(nm&&TIER[nm])slots.push({n:nm,mode,asc:validAsc(asc),si:validSi(si)});}
+  return slots;}
+function decodeShare(text){
+  const m=(""+text).match(/AFKC1\.([A-Za-z0-9_-]+)/);if(!m)return null;
+  let d;try{d=b64urlDec(m[1]);}catch(e){return null;}
+  try{const st={i:0};if(d[st.i++]!==1)return null;const type=d[st.i++];const name=decName(d,st);
+    if(type===0)return{kind:"team",team:{name,slots:decSlots(d,st)}};
+    if(type===1){const tc=d[st.i++]||0,teams=[];for(let t=0;t<tc;t++)teams.push({slots:decSlots(d,st)});return{kind:"lineup",lineup:{name,teams}};}
+    return null;
+  }catch(e){return null;}
+}
+function shareLink(token){return location.origin+location.pathname+"#t="+token;}
+function slotPlain(s){const tgt=slotTarget(s);return `${s.n}: ${MODE_LABEL[s.mode]} (${tgtLabel(tgt)})`;}
+function teamPlain(team){let s=`${team.name||"Team"}\n`;team.slots.forEach((sl,i)=>{s+=`  ${i+1}. ${slotPlain(sl)}\n`;});return s+`\nImport code: ${encodeTeam(team)}\n`;}
+function lineupPlain(L){let s=`${L.name||"Lineup"}\n`;L.teams.forEach((t,i)=>{s+=`Team ${i+1}:\n`;t.slots.forEach((sl,k)=>{s+=`  ${k+1}. ${slotPlain(sl)}\n`;});});return s+`\nImport code: ${encodeLineup(L)}\n`;}
+
+/* ---- Share sheet ---- */
+function shareBlock(title,desc,id,val,multi){
+  return `<div class="shblock"><div class="shtitle">${esc(title)}</div><div class="shdesc">${esc(desc)}</div>`
+    +(multi?`<textarea class="shta" id="${id}" readonly>${esc(val)}</textarea>`:`<input class="shin" id="${id}" readonly value="${esc(val)}">`)
+    +`<button class="btn ghost sm shcopy" data-t="${id}">Copy</button></div>`;
+}
+async function copyFrom(id,btn){const e=document.getElementById(id);try{await navigator.clipboard.writeText(e.value);}catch(err){e.select();try{document.execCommand("copy");}catch(e2){}}const o=btn.textContent;btn.textContent="Copied";setTimeout(()=>btn.textContent=o,1200);}
+function openShare(kind,obj){
+  const token=kind==="team"?encodeTeam(obj):encodeLineup(obj);
+  const plain=kind==="team"?teamPlain(obj):lineupPlain(obj);
+  const sheet=document.getElementById("shareSheet");
+  sheet.innerHTML=`<div class="hd-top"><div class="hd-name">Share ${esc(kind)}</div><button class="resetic" id="shClose" aria-label="Close">✕</button></div>`
+    +shareBlock("Link","Tap to open and import. Best outside the game; links can't be posted in game chat.","shLink",shareLink(token),false)
+    +shareBlock("Code","Paste into game chat. The importer finds it even inside a longer message.","shCode",token,false)
+    +shareBlock("Plain text","Readable summary with the code embedded; paste the whole thing to share or to import.","shPlain",plain,true);
+  sheet.querySelectorAll(".shcopy").forEach(b=>b.onclick=()=>copyFrom(b.dataset.t,b));
+  sheet.querySelector("#shClose").onclick=()=>document.getElementById("shareDrawer").classList.remove("on");
+  document.getElementById("shareDrawer").classList.add("on");
+}
+
+/* ---- Import + preview (used by the Import button and by share-link open) ---- */
+function cleanLineup(teams){const seen=new Set();return (teams||[]).slice(0,6).map(t=>{const out=[];reconcileTeamSlots(t.slots).forEach(s=>{if(!seen.has(s.n)){seen.add(s.n);out.push(s);}});return{slots:out};});}
+function pvTeamNode(team,idx){
+  const card=el("div","card teamcard"),head=el("div","teamhead");
+  head.innerHTML=`<div class="teamname">${esc(idx!=null?("Team "+(idx+1)):(team.name||"Team"))}</div>${fieldBadge(teamFieldSummary(team.slots))}`;
+  card.appendChild(head);
+  const body=el("div","teambody");
+  if(!team.slots.length)body.appendChild(el("div","note","No heroes."));
+  else team.slots.forEach((s,i)=>body.appendChild(slotChip(s,i)));
+  card.appendChild(body);return card;
+}
+function showImportPreview(dec){
+  const isTeam=dec.kind==="team",sheet=document.getElementById("previewSheet");
+  const nm=(isTeam?dec.team.name:dec.lineup.name)||(isTeam?"Untitled team":"Untitled lineup");
+  sheet.innerHTML=`<div class="hd-top"><div class="hd-name">${isTeam?"Imported team":"Imported lineup"}</div><button class="resetic" id="pvClose" aria-label="Close">✕</button></div>`
+    +`<label class="pvnamelbl">Name</label><input class="teamnameinp" id="pvName" type="text" maxlength="40" value="${esc(nm)}">`
+    +`<div class="pvbody" id="pvBody"></div>`
+    +`<p class="secsub pvhint">Save adds this to your Teams tab. Your roster is not changed.</p>`
+    +`<div class="setupactions"><button class="btn ghost" id="pvCancel">Close</button><button class="btn primary" id="pvSave">Save</button></div>`;
+  const body=sheet.querySelector("#pvBody");
+  if(isTeam)body.appendChild(pvTeamNode(dec.team,null));
+  else{if(!dec.lineup.teams.length)body.appendChild(el("div","note","This lineup has no teams."));dec.lineup.teams.forEach((t,i)=>body.appendChild(pvTeamNode(t,i)));}
+  const close=()=>document.getElementById("previewDrawer").classList.remove("on");
+  sheet.querySelector("#pvClose").onclick=close;
+  sheet.querySelector("#pvCancel").onclick=close;
+  sheet.querySelector("#pvSave").onclick=()=>{
+    const nameVal=(sheet.querySelector("#pvName").value||"").trim();
+    if(isTeam)TEAMS.teams.push({id:newId(),name:nameVal||"Untitled team",slots:reconcileTeamSlots(dec.team.slots)});
+    else TEAMS.lineups.push({id:newId(),name:nameVal||"Untitled lineup",teams:cleanLineup(dec.lineup.teams)});
+    saveTeams();renderTeams();showTab("teams");close();
+  };
+  document.getElementById("previewDrawer").classList.add("on");
+}
+function openTeamImport(){const m=document.getElementById("tiMsg");m.textContent="";m.className="impmsg";document.getElementById("tiIn").value="";document.getElementById("teamImportDrawer").classList.add("on");}
+document.getElementById("tiClose").onclick=()=>document.getElementById("teamImportDrawer").classList.remove("on");
+document.getElementById("tiDo").onclick=()=>{
+  const m=document.getElementById("tiMsg"),dec=decodeShare(document.getElementById("tiIn").value);
+  if(!dec){m.className="impmsg";m.textContent="No valid team or lineup code found in that text.";return;}
+  document.getElementById("teamImportDrawer").classList.remove("on");showImportPreview(dec);
+};
+["shareDrawer","previewDrawer","teamImportDrawer"].forEach(id=>{const d=document.getElementById(id);d.onclick=e=>{if(e.target.id===id)d.classList.remove("on");};});
+function checkShareHash(){
+  const h=location.hash||"";const m=h.match(/AFKC1\.[A-Za-z0-9_-]+/);if(!m)return;
+  const dec=decodeShare(m[0]);
+  try{history.replaceState(null,"",location.pathname+location.search);}catch(e){try{location.hash="";}catch(e2){}}
+  if(dec){showTab("teams");showImportPreview(dec);}
+}
+
 function showTab(t){
   document.getElementById("tabRoster").classList.toggle("on",t==="roster");
   document.getElementById("tabRecs").classList.toggle("on",t==="recs");
-  document.getElementById("tabTools").classList.toggle("on",t==="tools");
+  document.getElementById("tabTeams").classList.toggle("on",t==="teams");
+  document.getElementById("tabMenu").classList.toggle("on",t==="tools");
   document.getElementById("rosterPane").classList.toggle("hide",t!=="roster");
   document.getElementById("recsPane").classList.toggle("hide",t!=="recs");
+  document.getElementById("teamsPane").classList.toggle("hide",t!=="teams");
   document.getElementById("toolsPane").classList.toggle("hide",t!=="tools");
   document.getElementById("barRoster").style.display=(t==="roster")?"flex":"none";
   document.body.classList.toggle("hasbar",t==="roster");
   if(t==="recs")renderRecs();
+  if(t==="teams")renderTeams();
   if(t==="tools")renderTools();
 }
 document.getElementById("tabRoster").onclick=()=>showTab("roster");
 document.getElementById("tabRecs").onclick=()=>showTab("recs");
-document.getElementById("tabTools").onclick=()=>showTab("tools");
+document.getElementById("tabTeams").onclick=()=>showTab("teams");
+(function(){
+  const btn=document.getElementById("tabMenu"),pop=document.getElementById("tabMenuPop");
+  const openMenu=o=>{pop.hidden=!o;btn.setAttribute("aria-expanded",o?"true":"false");};
+  btn.onclick=e=>{e.stopPropagation();openMenu(pop.hidden);};
+  document.getElementById("menuTools").onclick=()=>{openMenu(false);showTab("tools");};
+  document.addEventListener("click",e=>{if(!pop.hidden&&!pop.contains(e.target)&&e.target!==btn)openMenu(false);});
+})();
 const toTop=document.getElementById("toTop");
 toTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
 addEventListener("scroll",()=>toTop.classList.toggle("show",window.scrollY>400),{passive:true});
@@ -1258,6 +1832,9 @@ addEventListener("scroll",()=>toTop.classList.toggle("show",window.scrollY>400),
 function exportText(){let t=`STARGAZER TARGET: ${S.account.stargazer||""}\nDIMENSIONAL SPIRITS: ${S.account.spirits||0}\nHIDDEN DIMENSIONAL: ${[...(S.account.hiddenDims||[])].sort().join(", ")}\n\nWISHLIST\n`;
   BASE_FACS.forEach(f=>{t+=`${f}: ${(S.wishlist[f]||[]).filter(Boolean).join(", ")}\n`;});t+="\n";
   FAC_ORDER.forEach(fac=>{t+=fac.toUpperCase()+"\n";S.factions[fac].forEach(h=>{t+=(h.e==null?`${h.name}, ${h.asc}, ${siTok(h.si)}\n`:`${h.name}, ${h.asc}, ${siTok(h.si)}, ${h.e}\n`);});t+="\n";});
+  // Saved teams/lineups travel as share codes so a backup restores them too (Tools stays excluded).
+  t+="TEAMS\n";TEAMS.teams.forEach(tm=>{t+=encodeTeam(tm)+"\n";});t+="\n";
+  t+="LINEUPS\n";TEAMS.lineups.forEach(L=>{t+=encodeLineup(L)+"\n";});t+="\n";
   return t.trim()+"\n";}
 document.getElementById("exportBtn").onclick=()=>{document.getElementById("out").value=exportText();document.getElementById("drawer").classList.add("on");};
 document.getElementById("closeDrawer").onclick=()=>document.getElementById("drawer").classList.remove("on");
@@ -1332,6 +1909,7 @@ document.getElementById("editDrawer").onclick=e=>{if(e.target.id==="editDrawer")
 
 /* ---- Changelog ---- */
 const CHANGELOG=[
+  {d:"2026-06-24",tier:false,t:"New Teams tab (with Tools moved into the ⋯ menu next to the tabs): save squads of up to 5 heroes and group them into lineups of up to 6 teams. Pick each hero's investment as Min, Optimal or Competitive (from the tier list) or a custom ascension and SI; every slot shows whether your current roster can field it and what's missing. Build freely; your roster doesn't limit planning. Share a team or lineup as a link, a code (paste it straight into game chat, found even inside a longer message), or plain readable text, and import the same ways. The Roster tab's Export/Import are now Backup/Restore and include your saved teams, so one backup covers everything (except the Tools tab)."},
   {d:"2026-06-24",tier:false,t:"Heroes now have an SI- state (no Signature Item unlocked yet) below SI0, since Signature Items only unlock at Mythic. New rosters start every hero at SI-, and any hero below Mythic is tidied to SI- on load and import; Mythic-and-above heroes keep their SI. SI Targets now also show the Emblem cost and skip heroes below Mythic."},
   {d:"2026-06-24",tier:false,t:"New Tools tab with a Realm of Shadows (Mythic Gate) calculator: set your completed floors, teams, Blessed Flame, and max floor to see the flames, wait time, or Army Units needed to reach the next boss or your max floor, plus when auto-replenish will refill you. Also Ascension cost and Signature Item cost references: the copies, Spirits, or Emblems to go between any two tiers."},
   {d:"2026-06-24",tier:true, t:"Tier list update: new hero Awakened Baden, plus score and mode tweaks for Judy & Punch and Rowan."},
@@ -1373,7 +1951,7 @@ function parseImport(text){
   const lines=(text||"").replace(/\r/g,"").trim().split("\n");
   if(!lines.length||lines.join("").trim()==="") throw "Nothing to import.";
   const FACUP={};FAC_ORDER.forEach(f=>FACUP[f.toUpperCase()]=f);
-  const res={stargazer:null,spirits:null,hidden:null,wishlist:{},factions:{}};
+  const res={stargazer:null,spirits:null,hidden:null,wishlist:{},factions:{},teams:[],lineups:[],teamsSeen:false};
   let mode=null,sawAny=false;
   for(const raw of lines){
     const line=raw.trim();
@@ -1382,6 +1960,10 @@ function parseImport(text){
     if(/^DIMENSIONAL SPIRITS:/i.test(line)){res.spirits=line.slice(line.indexOf(":")+1).trim();mode=null;sawAny=true;continue;}
     if(/^HIDDEN DIMENSIONAL:/i.test(line)){res.hidden=line.slice(line.indexOf(":")+1).split(",").map(s=>s.trim()).filter(Boolean);mode=null;sawAny=true;continue;}
     if(/^WISHLIST$/i.test(line)){mode="wishlist";continue;}
+    if(/^TEAMS$/i.test(line)){mode="teams";res.teamsSeen=true;continue;}
+    if(/^LINEUPS$/i.test(line)){mode="lineups";res.teamsSeen=true;continue;}
+    if(mode==="teams"){res.teams.push(line);continue;}
+    if(mode==="lineups"){res.lineups.push(line);continue;}
     const up=line.toUpperCase();
     if(FACUP[up]){mode=FACUP[up];sawAny=true;continue;}
     if(mode==="wishlist"){
@@ -1423,6 +2005,14 @@ function applyImport(res){
       else{h.asc="—";h.si=-1;if(h.e!=null)h.e=0;} // not in import → reset to not owned (NOSI)
     });
   });
+  // Teams/lineups: only authoritative when the backup actually carried the section (older
+  // backups without it leave saved teams untouched). Bad codes are skipped, not fatal.
+  if(res.teamsSeen){
+    TEAMS={teams:[],lineups:[]};
+    (res.teams||[]).forEach(code=>{const d=decodeShare(code);if(d&&d.kind==="team")TEAMS.teams.push({id:newId(),name:d.team.name||"Untitled team",slots:reconcileTeamSlots(d.team.slots)});});
+    (res.lineups||[]).forEach(code=>{const d=decodeShare(code);if(d&&d.kind==="lineup")TEAMS.lineups.push({id:newId(),name:d.lineup.name||"Untitled lineup",teams:cleanLineup(d.lineup.teams)});});
+    saveTeams();
+  }
 }
 document.getElementById("importBtn").onclick=()=>{const m=document.getElementById("impMsg");m.textContent="";m.className="impmsg";document.getElementById("impDrawer").classList.add("on");};
 document.getElementById("impClose").onclick=()=>document.getElementById("impDrawer").classList.remove("on");
@@ -1432,7 +2022,7 @@ document.getElementById("impDo").onclick=()=>{
   try{
     const res=parseImport(document.getElementById("impIn").value);
     applyImport(res);
-    save();renderRoster();
+    save();renderRoster();renderTeams();
     document.getElementById("impDrawer").classList.remove("on");
     document.getElementById("impIn").value="";
     m.textContent="";m.className="impmsg";
@@ -1449,7 +2039,7 @@ document.getElementById("impDo").onclick=()=>{
   };
 })();
 
-load();loadPrefs();loadTools();renderRoster();document.body.classList.add("hasbar");
+load();loadPrefs();loadTools();loadTeams();renderRoster();document.body.classList.add("hasbar");checkShareHash();
 </script>
 </body>
 </html>
