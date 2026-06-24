@@ -22,6 +22,9 @@ community tier list.
   breakpoint, and apply it in one tap, in the hero's edit sheet and on Recommendations.
 - **Hide** specific Dimensional heroes you can't obtain from Recommendations and Bulk mode, while
   keeping them on your roster.
+- Use the **Tools** tab for calculators: a Realm of Shadows (Mythic Gate) Blessed Flame planner
+  (the stamina, wait time, or Army Units to your next stopping point), plus Ascension and
+  Signature Item cost references.
 - Check the in-app **Changelog** (tap the date in the header, or the footer link) to see what
   changed, with an option to hide routine tier-list updates.
 - Sort recommendations by Overall Score or any of the 8 game modes.
@@ -45,7 +48,9 @@ community tier list.
    Spirits** section.
 3. Check the **Recommendations** tab for what to invest in next; tap any hero for its
    breakpoints, costs, and guide.
-4. Use **Export** to save a text backup; **Import** to restore it later.
+4. The **Tools** tab has calculators for the Realm of Shadows mode and for ascension / Signature
+   Item costs.
+5. Use **Export** to save a text backup; **Import** to restore it later.
 
 ## Credits
 

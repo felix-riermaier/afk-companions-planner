@@ -74,6 +74,59 @@
   .acctsum .sumchips{display:flex;gap:6px;flex-wrap:wrap}
   .acctsum .sumchip{background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:4px 9px;font-size:12px;color:var(--soft)}
   .acctsum .sumchip b{color:var(--ink);font-weight:800;margin-left:3px}
+  .toolgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
+  .toolin{display:flex;flex-direction:column;gap:5px}
+  .toolin span{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+  .toolin input{background:var(--panel2);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:10px 12px;font-size:16px;font-family:inherit;width:100%}
+  .rosresult{margin-top:12px;border-top:1px solid var(--line);padding-top:6px}
+  .rosline{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .rosline>span{font-size:12px;color:var(--mut);white-space:nowrap}
+  .rosline>b{font-size:16px;color:var(--ink);font-weight:800}
+  .rosline>small{font-size:11px;color:var(--mut);flex:1;text-align:right}
+  .rosbosstag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#08121c;background:var(--warn);border-radius:5px;padding:1px 6px}
+  .rosok{margin-top:12px;padding:11px 12px;background:rgba(70,196,122,.12);border:1px solid var(--ok);border-radius:9px;color:var(--ok);font-weight:700;font-size:13px;line-height:1.4}
+  .rosdeficit{margin:13px 0 6px;font-size:14px;color:var(--soft)}
+  .rosdeficit b{color:var(--warn)}
+  .rosopt{display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 10px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin-top:8px}
+  .rosopth{font-size:13px;color:var(--soft);font-weight:600;flex:1}
+  .rosoptv{font-size:16px;font-weight:800;color:var(--ink);white-space:nowrap}
+  .rosopts{font-size:11px;color:var(--mut);flex-basis:100%}
+  .rosopts:empty{display:none}
+  .rosnote{color:var(--mut);font-size:13px;line-height:1.45;padding:8px 0}
+  .rosicon{width:14px;height:14px;flex:none;display:inline-block;vertical-align:-2px;margin-right:5px;color:var(--hypogean)}
+  .tooldisc{display:flex;gap:8px;align-items:flex-start;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:9px 11px;margin:0 0 14px;font-size:12px;color:var(--mut);line-height:1.45}
+  .discicon{width:15px;height:15px;flex:none;margin-top:1px;color:var(--mut)}
+  .toolgrid2{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px}
+  .toolfield{min-width:0}
+  .tflbl{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;line-height:1.3}
+  .estepper.tens{margin:6px 0 0}
+  .estep.wide{width:auto;flex:1;font-size:14px;font-weight:700}
+  .toolfield .setupbtns{margin-top:6px}
+  .ebtns2{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+  .rosfull{display:flex;align-items:center;gap:8px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:9px 11px;margin:4px 0;font-size:12.5px;color:var(--soft)}
+  .rosfull:empty{display:none}
+  .rosfull b{color:var(--ink);font-weight:700}
+  .rosfull small{color:var(--mut)}
+  .rosreset{width:100%;margin-top:14px}
+  .ascrow{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .ascpick{flex:1;min-width:0;background:var(--panel2);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:9px 10px;font-size:15px;font-family:inherit}
+  .ascarr{color:var(--mut);flex:none;font-size:15px}
+  .ascres{font-size:15px;color:var(--soft);padding:2px 0 12px}
+  .ascres b{font-size:20px;color:var(--ink);font-weight:800}
+  .ascres small{color:var(--mut);font-size:12px;margin-left:4px}
+  .ascresnote{color:var(--mut);font-size:13px}
+  .asctbl{width:100%;border-collapse:collapse;font-size:12.5px}
+  .asctbl th{text-align:left;color:var(--mut);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.04em;padding:5px 8px;border-bottom:1px solid var(--line)}
+  .asctbl th:last-child{text-align:right}
+  .asctbl td{padding:6px 0;border-bottom:1px solid var(--line);color:var(--soft)}
+  .asctbl tr:last-child td{border-bottom:none}
+  .asctbl .sf{width:1%;white-space:nowrap;text-align:left;padding-left:8px}
+  .asctbl .sa{width:1%;color:var(--mut);text-align:center;padding:0 10px}
+  .asctbl .st{width:1%;white-space:nowrap;text-align:left}
+  .asctbl .sc{text-align:right;font-weight:700;color:var(--ink);padding-right:8px;white-space:nowrap}
+  .em-p{color:#b07fe6;font-weight:700}
+  .em-g{color:#e6b94a;font-weight:700}
+  .em-r{color:#e0524a;font-weight:700}
   .toggleall{font-size:12px;color:var(--dimensional);cursor:pointer;text-align:left;padding:2px 4px 0;user-select:none}
   .rsearch{margin:10px 0 4px}
   .rsearchwrap{position:relative}
@@ -101,6 +154,8 @@
   .setupbtn.si-20,.ascval.t-l{color:#e6b94a}
   .setupbtn.si-30,.ascval.t-m{color:#e0524a}
   .setupbtn.si-0,.ascval.t-a{color:var(--ink)}
+  .setupbtn.si-no{color:var(--mut)}
+  .sinote{font-size:12px;color:var(--mut);padding:9px 2px}
   .ascval.t-t{color:var(--dimensional)}
   .ascval.t-none{color:var(--mut)}
   .ascval{min-width:0}
@@ -172,6 +227,7 @@
   .rrow .nm small{display:block;color:var(--mut);font-weight:500;font-size:11px}
   .rrow .tgt{font-size:12px;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
   .rrow .tgt .tline{white-space:nowrap;display:flex;align-items:center}
+  .rrow .tcost{font-size:11px;white-space:nowrap;text-align:right}
   .rrow .met{font-size:12px;font-weight:700;text-align:right;min-width:34px}
   .arr{color:var(--mut);margin:0 2px}
   .paren{color:var(--mut);font-size:11px;white-space:nowrap}
@@ -248,12 +304,14 @@
   <div class="tabs">
     <div class="tab on" id="tabRoster">Roster</div>
     <div class="tab" id="tabRecs">Recommendations</div>
+    <div class="tab" id="tabTools">Tools</div>
   </div>
 </header>
 
 <div class="wrap">
   <div id="rosterPane"></div>
   <div id="recsPane" class="hide"></div>
+  <div id="toolsPane" class="hide"></div>
   <footer class="foot">
     <a href="#" id="changelogLink">Changelog</a><br>
     Unofficial fan-made tool. Not affiliated with, endorsed, or sponsored by Lilith Games. AFK Arena: Companions and all related content are the property of Lilith Games.<br>
@@ -304,7 +362,7 @@
 
 <script>
 const TIERS=["—","E","E+","L","L+","M","M+","A0","A1","A2","A3","A4","A5","T"];
-const SIS=[0,10,20,30];
+const SIS=[-1,0,10,20,30];   // -1 = NOSI (no Signature Item unlocked yet; unlocks at Mythic)
 const FAC_ORDER=["Lightbearer","Mauler","Wilder","Graveborn","Celestial","Hypogean","Dimensional"];
 const BASE_FACS=["Lightbearer","Mauler","Wilder","Graveborn"];
 const STAR_FACS=["Celestial","Hypogean"];
@@ -510,7 +568,7 @@ const GUIDES={
 
 const SEED=(function(){
   const factions={};FAC_ORDER.forEach(f=>factions[f]=[]);
-  TIER_ROWS.forEach(r=>{const fac=r[1];factions[fac].push(fac==="Dimensional"?[r[0],"—",0]:[r[0],"—",0,0]);});
+  TIER_ROWS.forEach(r=>{const fac=r[1];factions[fac].push(fac==="Dimensional"?[r[0],"—",-1]:[r[0],"—",-1,0]);});
   return {account:{stargazer:"",spirits:0,hiddenDims:[]},wishlist:{Lightbearer:[],Mauler:[],Wilder:[],Graveborn:[]},factions};
 })();
 let S;
@@ -523,10 +581,18 @@ const PKEY="afkc_pub_prefs_v1";
    updates are non-destructive: new heroes appear (not owned), removed heroes drop, renamed
    heroes migrate via ALIASES, and every loaded value is validated. This is what guarantees an
    update can never break a user's saved state. Imports use the same alias/validation rules. */
-const SISET=new Set([0,10,20,30]);
+const SISET=new Set([-1,0,10,20,30]);
 function aliasName(n){return (n!=null&&ALIASES[n])?ALIASES[n]:n;}
 function validAsc(a){return ASCO.includes(a)?a:"—";}
 function validSi(s){return SISET.has(s)?s:0;}
+function siLabel(s){return s<0?"SI-":"SI"+s;}    // display label
+function siTok(s){return s<0?"NOSI":"SI"+s;}     // stable export/import token
+/* Signature Item upgrade costs (emblems). NOSI(-1) -> SI0 -> SI10 -> SI20 -> SI30. */
+const SI_LEVELS=[-1,0,10,20,30];
+const SI_STEPS=[{from:-1,to:0,amt:20,em:"P"},{from:0,to:10,amt:200,em:"P"},{from:10,to:20,amt:240,em:"G"},{from:20,to:30,amt:300,em:"R"}];
+const EMBLEM={P:{name:"Purple",cls:"em-p"},G:{name:"Gold",cls:"em-g"},R:{name:"Red",cls:"em-r"}};
+function siCostParts(from,to){const t={P:0,G:0,R:0};SI_STEPS.forEach(s=>{if(s.from>=from&&s.to<=to)t[s.em]+=s.amt;});return t;}
+function siCostStr(from,to,abbr){const t=siCostParts(from,to),out=[];["P","G","R"].forEach(k=>{if(t[k])out.push(`<span class="${EMBLEM[k].cls}">${t[k]} ${abbr?k:EMBLEM[k].name}</span>`);});return out.length?out.join(" + "):"0";}
 function validE(e){return (Number.isInteger(e)&&e>=0)?e:0;}
 function reconcile(saved){
   const base=toState(SEED);
@@ -536,7 +602,7 @@ function reconcile(saved){
   for(const fac of FAC_ORDER)(sf[fac]||[]).forEach(h=>{if(h&&h.name)sv[aliasName(h.name)]=h;});
   for(const fac of FAC_ORDER)base.factions[fac].forEach(h=>{
     const old=sv[h.name];if(!old)return;
-    h.asc=validAsc(old.asc);h.si=validSi(old.si);if(h.e!=null)h.e=validE(old.e);
+    h.asc=validAsc(old.asc);h.si=validSi(old.si);if(ai(h.asc)<ai("M"))h.si=-1;if(h.e!=null)h.e=validE(old.e);  // SI can't exist below Mythic -> NOSI
   });
   if(saved.account&&typeof saved.account.stargazer==="string"){
     const sg=aliasName(saved.account.stargazer);
@@ -552,8 +618,9 @@ function reconcile(saved){
 function load(){let saved=null;try{const v=localStorage.getItem(KEY);if(v)saved=JSON.parse(v);}catch(e){}S=saved?reconcile(saved):toState(SEED);}
 let helpOpen=true;       // remembered open/close state of the How-to section
 let hideTierLog=false;   // changelog: hide pure tier-list updates
-function loadPrefs(){try{const v=localStorage.getItem(PKEY);if(v){const p=JSON.parse(v);if(p.sortKey)sortKey=p.sortKey;if(typeof p.noComp==="boolean")noComp=p.noComp;if(typeof p.helpOpen==="boolean")helpOpen=p.helpOpen;if(typeof p.hideTierLog==="boolean")hideTierLog=p.hideTierLog;}}catch(e){}}
-function savePrefs(){try{localStorage.setItem(PKEY,JSON.stringify({sortKey,noComp,helpOpen,hideTierLog}));}catch(e){}}
+let acctOpen=true;       // remembered open/close state of the Account summary
+function loadPrefs(){try{const v=localStorage.getItem(PKEY);if(v){const p=JSON.parse(v);if(p.sortKey)sortKey=p.sortKey;if(typeof p.noComp==="boolean")noComp=p.noComp;if(typeof p.helpOpen==="boolean")helpOpen=p.helpOpen;if(typeof p.hideTierLog==="boolean")hideTierLog=p.hideTierLog;if(typeof p.acctOpen==="boolean")acctOpen=p.acctOpen;}}catch(e){}}
+function savePrefs(){try{localStorage.setItem(PKEY,JSON.stringify({sortKey,noComp,helpOpen,hideTierLog,acctOpen}));}catch(e){}}
 let saveTimer;
 function save(){flashSave();clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}},300);}
 function flashSave(){const el=document.getElementById("save");el.classList.add("flash");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("flash"),700);}
@@ -576,7 +643,7 @@ function fullBracket(t,asc){
 }
 /* account totals from the saved roster (copies/spirits spent to reach each owned hero's ascension) */
 function accountStats(){
-  const si={10:0,20:0,30:0},band={pre:0,Min:0,Opt:0,Comp:0};let owned=0,total=0,eUsed=0,sUsed=0;
+  const si={0:0,10:0,20:0,30:0},band={pre:0,Min:0,Opt:0,Comp:0},emb={P:0,G:0,R:0};let owned=0,total=0,eUsed=0,sUsed=0;
   FAC_ORDER.forEach(fac=>{
     const dim=fac==="Dimensional",ladder=dim?LDIM:(BASE_FACS.indexOf(fac)>=0?LBASE:LSG);
     S.factions[fac].forEach(h=>{
@@ -584,17 +651,19 @@ function accountStats(){
       if(h.asc==="—")return;
       owned++;const used=ladder[h.asc]||0;if(dim)sUsed+=used;else eUsed+=used;
       if(si[h.si]!=null)si[h.si]++;
+      const ec=siCostParts(-1,h.si);emb.P+=ec.P;emb.G+=ec.G;emb.R+=ec.R;
       const t=TIER[h.name];band[(t?fullBracket(t,h.asc):null)||"pre"]++;
     });
   });
-  return {owned,total,eUsed,sUsed,si,band};
+  return {owned,total,eUsed,sUsed,si,band,emb};
 }
 function accountSummaryHTML(){
   const s=accountStats();
   const stat=(n,l)=>`<div class="stat"><div class="num">${n}</div><div class="lbl">${l}</div></div>`;
   const chip=(l,n)=>`<span class="sumchip">${l}<b>${n}</b></span>`;
   return `<div class="sgrid">${stat(s.owned+"/"+s.total,"Heroes owned")}${stat(s.eUsed,"Elite used")}${stat(s.sUsed,"Spirits used")}</div>`
-    +`<div class="sumsec"><div class="h">Signature Item</div><div class="sumchips">${chip("SI10",s.si[10])}${chip("SI20",s.si[20])}${chip("SI30",s.si[30])}</div></div>`
+    +`<div class="sumsec"><div class="h">Signature Item</div><div class="sumchips">${chip("SI0",s.si[0])}${chip("SI10",s.si[10])}${chip("SI20",s.si[20])}${chip("SI30",s.si[30])}</div></div>`
+    +`<div class="sumsec"><div class="h">Emblems used</div><div class="sumchips">${chip('<span class="em-p">Purple</span>',commas(s.emb.P))}${chip('<span class="em-g">Gold</span>',commas(s.emb.G))}${chip('<span class="em-r">Red</span>',commas(s.emb.R))}</div></div>`
     +`<div class="sumsec"><div class="h">Investment band</div><div class="sumchips">${chip("pre-Min",s.band.pre)}${chip("Min",s.band.Min)}${chip("Opt",s.band.Opt)}${chip("Comp",s.band.Comp)}</div></div>`;
 }
 function updateAccountSummary(){const b=document.getElementById("acctSumBody");if(b)b.innerHTML=accountSummaryHTML();}
@@ -614,14 +683,16 @@ function renderRoster(){
     <p>1. <b>Tap a hero</b> in the list below to set its ascension, SI level, and spare Elite copies. Use the search box and faction buttons to narrow the list, or <b>Bulk mode</b> to step through many heroes in a row.</p>
     <p>2. In <b>Wishlist / Dimensional Spirits</b> (top) set your Stargazer target, per-faction wishlists, and how many <b>Dimensional Spirits</b> you have.</p>
     <p>3. Open the <b>Recommendations</b> tab to see what to summon, ascend, and which SI items to raise next, ranked by the tier list. <b>Tap any hero</b> to see its Min / Optimal / Competitive breakpoints, the copies (E) or Dimensional Spirits (S) still needed for each, and a link to its guide.</p>
-    <p>4. <b>Export</b> / <b>Import</b> (bottom) backs up or restores everything. The ⟲ icon top-right clears it all.</p>
+    <p>4. The <b>Tools</b> tab has handy calculators: a Realm of Shadows (Mythic Gate) Blessed Flame planner, plus Ascension and Signature Item cost references.</p>
+    <p>5. <b>Export</b> / <b>Import</b> (bottom) backs up or restores everything. The ⟲ icon top-right clears it all.</p>
     <p>Your roster is saved only in this browser, so export a copy to keep it safe.</p>
   </div>`;
   help.appendChild(hbody);app.appendChild(help);
 
   // account summary (read-only overview computed from the saved roster)
-  const sum=el("div","card acctsum");
-  sum.appendChild(el("div","cap","Account summary"));
+  const sum=el("details","fac acctsum");sum.open=acctOpen;sum.style.setProperty("--fc","var(--lb)");
+  sum.addEventListener("toggle",()=>{acctOpen=sum.open;savePrefs();});
+  const ssum=el("summary");ssum.innerHTML=`<span class="chev">▶</span><span class="fname">Account summary</span>`;sum.appendChild(ssum);
   const sumBody=el("div","body");sumBody.id="acctSumBody";sumBody.innerHTML=accountSummaryHTML();
   sum.appendChild(sumBody);app.appendChild(sum);
 
@@ -704,7 +775,7 @@ function renderHeroes(app){
 function ascTier(v){const c=(v||"")[0];return c==="E"?"t-e":c==="L"?"t-l":c==="M"?"t-m":c==="T"?"t-t":c==="A"?"t-a":"t-none";}
 function heroStateHTML(h){
   if(h.asc==="—")return `<span class="st-no">${isHiddenDim(h.name)?"Hidden":"Not owned"}</span>`;
-  return `<span class="hasc">${h.asc}</span><span class="hsi">SI${h.si}</span>`;
+  return `<span class="hasc">${h.asc}</span><span class="hsi">${siLabel(h.si)}</span>`;
 }
 function heroRow(h,fac){
   const noE=fac==="Dimensional",own=h.asc!=="—";
@@ -784,13 +855,17 @@ function wireHeroControls(sheet,fac,draft,name){
   let setE=null;
   const aVal=sheet.querySelector("#aVal"),ascSel=sheet.querySelector("#ascSel");
   ascSel.innerHTML=TIERS.map(v=>`<option value="${v}">${v}</option>`).join("");
-  const setAsc=v=>{draft.asc=v;aVal.textContent=v;aVal.className="eval ascval "+ascTier(v);ascSel.value=v;updateAscNow();};
+  const setAsc=v=>{draft.asc=v;aVal.textContent=v;aVal.className="eval ascval "+ascTier(v);ascSel.value=v;updateAscNow();renderSI();};
   sheet.querySelector("#aMinus").onclick=()=>setAsc(TIERS[Math.max(0,TIERS.indexOf(draft.asc)-1)]);
   sheet.querySelector("#aPlus").onclick=()=>setAsc(TIERS[Math.min(TIERS.length-1,TIERS.indexOf(draft.asc)+1)]);
   ascSel.onchange=()=>setAsc(ascSel.value);
-  const scls={0:"si-0",10:"si-10",20:"si-20",30:"si-30"};
+  const scls={"-1":"si-no",0:"si-0",10:"si-10",20:"si-20",30:"si-30"};
   const siW=sheet.querySelector("#setupSI");
-  SIS.forEach(v=>{const b=el("button","setupbtn "+(scls[v]||"si-0")+(v===draft.si?" on":""),"SI"+v);b.onclick=()=>{draft.si=v;siW.querySelectorAll('.setupbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');};siW.appendChild(b);});
+  function renderSI(){
+    if(ai(draft.asc)<ai("M")){draft.si=-1;siW.innerHTML=`<div class="sinote">Unlocks at Mythic (M).</div>`;return;}
+    siW.innerHTML="";
+    SIS.forEach(v=>{const b=el("button","setupbtn "+(scls[v]||"si-0")+(v===draft.si?" on":""),siLabel(v));b.onclick=()=>{draft.si=v;siW.querySelectorAll('.setupbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');};siW.appendChild(b);});
+  }
   if(noE){
     const chk=sheet.querySelector("#dimHidden");chk.checked=!!draft.hidden;chk.onchange=()=>{draft.hidden=chk.checked;};
   }else{
@@ -958,9 +1033,9 @@ function renderRecs(){
 
   // SI TARGETS (all factions incl. dimensional + awakened — SI behind reached ascension)
   const siRows=[];
-  FAC_ORDER.forEach(fac=>S.factions[fac].forEach(h=>{const t=TIER[h.name];if(!t||h.asc==="—")return;if(fac==="Dimensional"&&isHiddenDim(h.name))return;const tg=siTarget(t,h.asc,h.si);if(tg!=null)siRows.push({h,t,fac,tg});}));
+  FAC_ORDER.forEach(fac=>S.factions[fac].forEach(h=>{const t=TIER[h.name];if(!t||h.asc==="—")return;if(ai(h.asc)<ai("M"))return;if(fac==="Dimensional"&&isHiddenDim(h.name))return;const tg=siTarget(t,h.asc,h.si);if(tg!=null)siRows.push({h,t,fac,tg});}));
   pane.appendChild(simpleList("SI Targets","--celestial",siRows,
-    (x)=>({nm:x.h.name,sub:x.fac+" · "+x.h.asc,tgt:"SI "+x.h.si+" → "+x.tg,pill:(curBracket(x.t,x.h.asc)||"Min"),m:metric(x.t)}),"All SI targets are reached."));
+    (x)=>({nm:x.h.name,sub:x.fac+" · "+x.h.asc,tgt:siLabel(x.h.si)+" → "+siLabel(x.tg),tgt2:siCostStr(x.h.si,x.tg,true),pill:(curBracket(x.t,x.h.asc)||"Min"),m:metric(x.t)}),"All SI targets are reached."));
 }
 function pillClass(k){return {Opt:"p-opt",Min:"p-min",Comp:"p-comp",Done:"p-done",None:"p-none"}[k]||"p-done";}
 function buildRow(h,t,ladder,star){
@@ -984,7 +1059,7 @@ function recRow(r){
     inner=`<div class="tline"><span class="pill ${pillClass(r.now)}">${curK}</span><span class="arr">→</span><span class="pill ${pillClass(r.b.k)}">${r.b.k}</span></div>`
         +`<div class="paren">${r.target} · ${costHtml}</div>`;
   }
-  const sub=own?(r.h.asc+" SI"+r.h.si):"not owned";
+  const sub=own?(r.h.asc+" "+siLabel(r.h.si)):"not owned";
   row.innerHTML=`<div class="nm">${name}<small>${sub}</small></div><div class="tgt">${inner}</div><div class="met">${r.m.label}</div>`;
   row.classList.add("clickable");row.onclick=()=>heroDetail(r.h.name);
   return row;
@@ -995,31 +1070,194 @@ function simpleList(title,fcvar,items,fn,emptyMsg){
   const body=el("div","body");
   const mapped=items.map(fn);mapped.sort((a,z)=>a.m.v-z.m.v);
   mapped.forEach(x=>{const row=el("div","rrow");
-    row.innerHTML=`<div class="nm">${x.nm}<small>${x.sub}</small></div><div class="tgt"><div class="tline"><span class="pill ${pillClass(x.pill)}" style="margin-right:6px">${x.pill==="None"?"—":x.pill}</span><span style="color:var(--mut)">${x.tgt}</span></div></div><div class="met">${x.m.label}</div>`;
+    row.innerHTML=`<div class="nm">${x.nm}<small>${x.sub}</small></div><div class="tgt"><div class="tline"><span class="pill ${pillClass(x.pill)}" style="margin-right:6px">${x.pill==="None"?"—":x.pill}</span><span style="color:var(--mut)">${x.tgt}</span></div>${x.tgt2?`<div class="tcost">${x.tgt2}</div>`:""}</div><div class="met">${x.m.label}</div>`;
     if(TIER[x.nm]){row.classList.add("clickable");row.onclick=()=>heroDetail(x.nm);}
     body.appendChild(row);});
   if(!mapped.length)body.appendChild(el("div","note",emptyMsg||"Nothing here right now."));
   d.appendChild(body);return d;
 }
 
+/* ---- Tools: Realm of Shadows / Mythic Gate calculator ----
+   State lives under its own localStorage key and is deliberately NOT part of the roster export. */
+const TKEY="afkc_tools_v1";
+let TOOLS={ros:{floor:0,teams:3,stamina:0,maxFloor:200}};
+function loadTools(){try{const v=localStorage.getItem(TKEY);if(v){const t=JSON.parse(v);if(t&&t.ros)TOOLS.ros={...TOOLS.ros,...t.ros};}}catch(e){}}
+function saveTools(){try{localStorage.setItem(TKEY,JSON.stringify(TOOLS));}catch(e){}}
+const ROS_BOSSES=[20,40,60,80,100,125,150,175,200];
+const ROS_BOSSET=new Set(ROS_BOSSES);
+function rosEnemies(f){return f<=5?1:f<=15?2:f<=50?3:4;}            // base enemies (and stamina) per floor
+function rosFloorCost(f){return ROS_BOSSET.has(f)?0:rosEnemies(f);} // boss = 0 net (not consumed) when passed through
+function rosCost(from,to){let s=0;for(let f=from+1;f<=to;f++)s+=rosFloorCost(f);return s;}
+function rosNextBoss(f){for(const b of ROS_BOSSES)if(b>f)return b;return null;}
+function commas(n){return (""+n).replace(/\B(?=(\d{3})+(?!\d))/g,",");}
+function fmtMins(m){m=Math.ceil(m);if(m<=0)return"0m";const d=Math.floor(m/1440);m-=d*1440;const h=Math.floor(m/60);const mm=m-h*60;const p=[];if(d)p.push(d+"d");if(h)p.push(h+"h");if(mm||!p.length)p.push(mm+"m");return p.join(" ");}
+function rosRegen(deficit,teams){return Math.ceil(Math.max(0,deficit)/Math.max(1,teams))*100;}  // regen ticks every 100 min: +teams flames per tick, so round up to whole ticks
+const ROS_ICO=p=>`<svg class="rosicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const ROS_ICO_TIME=ROS_ICO('<circle cx="12" cy="12" r="9"></circle><path d="M12 8v4l3 2"></path>');
+const ROS_ICO_ARMY=ROS_ICO('<path d="M12 3l7 3v5c0 4-3 7-7 9-4-2-7-5-7-9V6z"></path>');
+const ROS_ICO_INFO=`<svg class="discicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 11.5v4.5"></path><path d="M12 8h.01"></path></svg>`;
+function rosClampAll(){const r=TOOLS.ros;r.teams=Math.min(20,Math.max(1,r.teams|0));r.floor=Math.min(200,Math.max(0,r.floor|0));r.maxFloor=Math.min(200,Math.max(1,r.maxFloor|0));r.stamina=Math.min(6*r.teams,Math.max(0,r.stamina|0));}
+function rosAdjust(k,delta){TOOLS.ros[k]=(TOOLS.ros[k]|0)+delta;rosClampAll();saveTools();rosSync();}
+function rosSetVal(k,v){TOOLS.ros[k]=v|0;rosClampAll();saveTools();rosSync();}
+function clockAfter(mins){try{const now=new Date(),t=new Date(now.getTime()+Math.ceil(mins)*60000),p=n=>("0"+n).slice(-2);return (t.toDateString()===now.toDateString()?"":"tomorrow ")+p(t.getHours())+":"+p(t.getMinutes());}catch(e){return"";}}
+function rosSync(){
+  const r=TOOLS.ros,set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  set("rosTeamsV",r.teams);set("rosFloorV",r.floor);set("rosStamV",r.stamina);set("rosMaxV",r.maxFloor);
+  document.querySelectorAll("#toolsPane .rosq").forEach(x=>{
+    let on=false;
+    if(x.dataset.k==="teams")on=+x.dataset.v===r.teams;
+    else if(x.dataset.k==="stamina")on=(x.dataset.set==="empty"&&r.stamina===0)||(x.dataset.set==="full"&&r.stamina===6*r.teams);
+    x.classList.toggle("on",on);
+  });
+  renderRosFull();renderRosResult();
+}
+function renderRosFull(){
+  const box=document.getElementById("rosFull");if(!box)return;
+  const r=TOOLS.ros,teams=Math.max(1,r.teams),max=6*teams,cur=Math.min(r.stamina,max);
+  if(cur>=max){box.innerHTML=`${ROS_ICO_TIME}<div><b>Flames are full</b> <small>(${max}/${max})</small></div>`;return;}
+  const mins=rosRegen(max-cur,teams),at=clockAfter(mins);
+  box.innerHTML=`${ROS_ICO_TIME}<div><b>Full in ${fmtMins(mins)}</b>${at?` · by ${at}`:""} <small>(${cur}/${max})</small></div>`;
+}
+/* ---- Ascension cost mini-calculators (copies / spirits between tiers) ---- */
+const ASC_TIERS=TIERS.slice(1);  // E .. T (drops the "—" not-owned sentinel)
+const ASC_LADDERS=[
+  {key:"base",name:"Base factions",sub:"Lightbearer, Mauler, Wilder, Graveborn",ladder:LBASE,u:"copies",u1:"copy",col:"Copies",fc:"--soft"},
+  {key:"sg",name:"Stargazer",sub:"Celestial, Hypogean",ladder:LSG,u:"copies",u1:"copy",col:"Copies",fc:"--hypogean"},
+  {key:"dim",name:"Dimensional",sub:"Dimensional heroes (shared Spirit pool)",ladder:LDIM,u:"spirits",u1:"spirit",col:"Spirits",fc:"--dimensional"}
+];
+function ascSectionHTML(spec){
+  const opts=ASC_TIERS.map(t=>`<option value="${t}">${t}</option>`).join("");
+  let rows="";
+  for(let i=0;i<ASC_TIERS.length-1;i++){const a=ASC_TIERS[i],bn=ASC_TIERS[i+1];rows+=`<tr><td class="sf">${a}</td><td class="sa">→</td><td class="st">${bn}</td><td class="sc">${spec.ladder[bn]-spec.ladder[a]}</td></tr>`;}
+  return `<p class="secsub" style="margin:0 0 10px">${spec.sub}.</p>`
+    +`<div class="ascrow"><select class="ascpick" data-r="${spec.key}" data-e="from">${opts}</select><span class="ascarr">→</span><select class="ascpick" data-r="${spec.key}" data-e="to">${opts}</select></div>`
+    +`<div class="ascres" id="ascRes-${spec.key}"></div>`
+    +`<table class="asctbl"><thead><tr><th colspan="3">Ascension</th><th>${spec.col}</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function ascUpdate(key){
+  const spec=ASC_LADDERS.find(s=>s.key===key);if(!spec)return;
+  const fs=document.querySelector(`.ascpick[data-r="${key}"][data-e="from"]`),ts=document.querySelector(`.ascpick[data-r="${key}"][data-e="to"]`),res=document.getElementById("ascRes-"+key);
+  if(!fs||!ts||!res)return;
+  const cost=spec.ladder[ts.value]-spec.ladder[fs.value];
+  res.innerHTML=cost<0?`<span class="ascresnote">Pick a target above the starting tier.</span>`:`<b>${cost}</b> ${cost===1?spec.u1:spec.u} <small>from ${fs.value} to ${ts.value}</small>`;
+}
+function siSectionHTML(){
+  const opts=SI_LEVELS.map(v=>`<option value="${v}">${siLabel(v)}</option>`).join("");
+  let rows="";
+  SI_STEPS.forEach(s=>{rows+=`<tr><td class="sf">${siLabel(s.from)}</td><td class="sa">→</td><td class="st">${siLabel(s.to)}</td><td class="sc"><span class="${EMBLEM[s.em].cls}">${s.amt} ${EMBLEM[s.em].name}</span></td></tr>`;});
+  return `<p class="secsub" style="margin:0 0 10px">Emblems to upgrade a Signature Item.</p>`
+    +`<div class="ascrow"><select class="sipick" data-e="from">${opts}</select><span class="ascarr">→</span><select class="sipick" data-e="to">${opts}</select></div>`
+    +`<div class="ascres" id="siRes"></div>`
+    +`<table class="asctbl"><thead><tr><th colspan="3">Upgrade</th><th>Emblems</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function siUpdate(){
+  const fs=document.querySelector('.sipick[data-e="from"]'),ts=document.querySelector('.sipick[data-e="to"]'),res=document.getElementById("siRes");
+  if(!fs||!ts||!res)return;
+  const from=+fs.value,to=+ts.value;
+  res.innerHTML=to<=from?`<span class="ascresnote">Pick a target above the starting level.</span>`:siCostStr(from,to,false);
+}
+function renderTools(){
+  const app=document.getElementById("toolsPane");app.innerHTML="";
+  app.appendChild(el("div","sechead",'<div class="sectitle">Tools</div><div class="secsub">Calculators and references for AFK Companions. These are local helpers and are not part of your roster export.</div>'));
+  const ta=el("div","toggleall","open / close all");
+  ta.onclick=()=>{const ds=[...app.querySelectorAll("details.fac")];const openAll=ds.some(x=>!x.open);ds.forEach(x=>{x.open=openAll;});};
+  app.appendChild(ta);
+  app.appendChild(el("div","sechead",'<div class="sectitle">Expedition</div><div class="secsub">Calculators for the Expedition game mode.</div>'));
+  const d=el("details","fac");d.style.setProperty("--fc","var(--hypogean)");
+  const sum=el("summary");sum.innerHTML=`<span class="chev">▶</span><span class="fname">Realm of Shadows</span>`;d.appendChild(sum);
+  const body=el("div","body");
+  const fld=(key,label,valId,below)=>`<div class="toolfield"><div class="tflbl">${label}</div>`
+    +`<div class="estepper"><button class="estep" data-k="${key}" data-d="-1" aria-label="decrease">−</button><span class="eval" id="${valId}">0</span><button class="estep" data-k="${key}" data-d="1" aria-label="increase">+</button></div>`
+    +(below||"")+`</div>`;
+  const tens=key=>`<div class="estepper tens"><button class="estep wide" data-k="${key}" data-d="-10">−10</button><button class="estep wide" data-k="${key}" data-d="10">+10</button></div>`;
+  body.innerHTML=`<p class="secsub" style="margin:0 0 14px">Blessed Flame cost to your next stopping point (the next boss, or your max floor), and the wait time or Army Units to get there.</p>`
+    +`<div class="tooldisc">${ROS_ICO_INFO}<span>Flames are assumed to be spread evenly across your teams, which can be slightly off in edge cases. For most situations it stays close, and keeps the controls simple.</span></div>`
+    +`<div class="toolgrid2">`
+    +fld("teams","Teams available","rosTeamsV",`<div class="setupbtns ebtns"><button class="setupbtn rosq" data-k="teams" data-v="3">3</button><button class="setupbtn rosq" data-k="teams" data-v="5">5</button><button class="setupbtn rosq" data-k="teams" data-v="8">8</button></div>`)
+    +fld("floor","Completed floors","rosFloorV",tens("floor"))
+    +fld("stamina","Total flames now","rosStamV",`<div class="setupbtns ebtns2"><button class="setupbtn rosq" data-k="stamina" data-set="empty">Empty</button><button class="setupbtn rosq" data-k="stamina" data-set="full">Full</button></div>`)
+    +fld("maxFloor","Max floor","rosMaxV",tens("maxFloor"))
+    +`</div>`
+    +`<div id="rosFull" class="rosfull"></div>`
+    +`<div id="rosResult" class="rosresult"></div>`
+    +`<button class="btn ghost rosreset" id="rosReset" type="button">Reset calculator</button>`;
+  d.appendChild(body);app.appendChild(d);
+  body.onclick=e=>{
+    const b=e.target.closest("button[data-k]");if(!b)return;
+    if(b.dataset.d!=null)rosAdjust(b.dataset.k,parseInt(b.dataset.d,10));
+    else if(b.dataset.v!=null)rosSetVal(b.dataset.k,parseInt(b.dataset.v,10));
+    else if(b.dataset.set==="empty")rosSetVal("stamina",0);
+    else if(b.dataset.set==="full")rosSetVal("stamina",6*TOOLS.ros.teams);
+  };
+  document.getElementById("rosReset").onclick=()=>{TOOLS.ros={floor:0,teams:3,stamina:0,maxFloor:200};saveTools();renderTools();};
+  rosClampAll();rosSync();
+  // ---- Ascension cost section ----
+  app.appendChild(el("div","sechead",'<div class="sectitle">Ascension cost</div><div class="secsub">Copies or Spirits to ascend between tiers, by faction type.</div>'));
+  ASC_LADDERS.forEach(spec=>{
+    const sd=el("details","fac");sd.style.setProperty("--fc","var("+spec.fc+")");
+    const ss=el("summary");ss.innerHTML=`<span class="chev">▶</span><span class="fname">${spec.name}</span>`;sd.appendChild(ss);
+    const sb=el("div","body");sb.innerHTML=ascSectionHTML(spec);
+    sd.appendChild(sb);app.appendChild(sd);
+  });
+  app.querySelectorAll(".ascpick").forEach(s=>{s.onchange=()=>ascUpdate(s.dataset.r);});
+  ASC_LADDERS.forEach(spec=>{const ts=document.querySelector(`.ascpick[data-r="${spec.key}"][data-e="to"]`);if(ts)ts.value="T";ascUpdate(spec.key);});
+  // ---- Signature Item cost section ----
+  app.appendChild(el("div","sechead",'<div class="sectitle">Signature Item cost</div><div class="secsub">Emblems to upgrade Signature Items.</div>'));
+  const sid=el("details","fac");sid.style.setProperty("--fc","var(--lb)");
+  const sis=el("summary");sis.innerHTML=`<span class="chev">▶</span><span class="fname">Signature Item</span>`;sid.appendChild(sis);
+  const sib=el("div","body");sib.innerHTML=siSectionHTML();
+  sid.appendChild(sib);app.appendChild(sid);
+  app.querySelectorAll(".sipick").forEach(s=>{s.onchange=siUpdate;});
+  const sitTo=document.querySelector('.sipick[data-e="to"]');if(sitTo)sitTo.value="30";siUpdate();
+}
+function renderRosResult(){
+  const box=document.getElementById("rosResult");if(!box)return;
+  const r=TOOLS.ros,floor=r.floor,teams=Math.max(1,r.teams),stamina=r.stamina,maxFloor=r.maxFloor;
+  const nb=rosNextBoss(floor);
+  let target=maxFloor,why="your max floor";
+  if(nb!=null&&nb<=maxFloor){target=nb;why="next boss";}
+  target=Math.min(target,200);
+  if(target<=floor){box.innerHTML=`<div class="rosnote">Nothing to climb here — your completed floor is already at or past the stopping point (floor ${target}). Raise the max floor once more opens up.</div>`;return;}
+  const targetIsBoss=ROS_BOSSET.has(target);
+  const needed=rosCost(floor,target)+(targetIsBoss?1:0);   // a boss target needs 1 Blessed Flame available to beat it (not consumed)
+  const deficit=Math.max(0,needed-stamina);
+  let html=`<div class="rosline"><span>Stopping point</span><b>Floor ${target}${targetIsBoss?` <span class="rosbosstag">boss</span>`:""}</b><small>${why}</small></div>`
+    +`<div class="rosline"><span>Flames needed</span><b>${needed}</b><small>from floor ${floor}</small></div>`;
+  if(deficit<=0){
+    const spare=stamina-needed;
+    html+=`<div class="rosok">✓ You can reach floor ${target} right now${spare>0?` — ${spare} flames to spare`:""}.</div>`;
+  }else{
+    const cap=6*teams,fullR=Math.floor(deficit/cap),singles=deficit%cap,br=[];
+    if(fullR)br.push(fullR+" full recover"+(fullR>1?"s":""));
+    if(singles)br.push(singles+" single");
+    html+=`<div class="rosdeficit">Short by <b>${deficit}</b> flames. Reach it by:</div>`
+      +`<div class="rosopt"><div class="rosopth">${ROS_ICO_TIME}Wait for auto-regen</div><div class="rosoptv">${fmtMins(rosRegen(deficit,teams))}</div><div class="rosopts">+${teams} flames every 100 min</div></div>`
+      +`<div class="rosopt"><div class="rosopth">${ROS_ICO_ARMY}Spend Army Units</div><div class="rosoptv">${commas(deficit*1000)}</div><div class="rosopts">${br.length?("press "+br.join(" + ")):""}</div></div>`;
+  }
+  box.innerHTML=html;
+}
 function showTab(t){
   document.getElementById("tabRoster").classList.toggle("on",t==="roster");
   document.getElementById("tabRecs").classList.toggle("on",t==="recs");
+  document.getElementById("tabTools").classList.toggle("on",t==="tools");
   document.getElementById("rosterPane").classList.toggle("hide",t!=="roster");
   document.getElementById("recsPane").classList.toggle("hide",t!=="recs");
+  document.getElementById("toolsPane").classList.toggle("hide",t!=="tools");
   document.getElementById("barRoster").style.display=(t==="roster")?"flex":"none";
   document.body.classList.toggle("hasbar",t==="roster");
   if(t==="recs")renderRecs();
+  if(t==="tools")renderTools();
 }
 document.getElementById("tabRoster").onclick=()=>showTab("roster");
 document.getElementById("tabRecs").onclick=()=>showTab("recs");
+document.getElementById("tabTools").onclick=()=>showTab("tools");
 const toTop=document.getElementById("toTop");
 toTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
 addEventListener("scroll",()=>toTop.classList.toggle("show",window.scrollY>400),{passive:true});
 
 function exportText(){let t=`STARGAZER TARGET: ${S.account.stargazer||""}\nDIMENSIONAL SPIRITS: ${S.account.spirits||0}\nHIDDEN DIMENSIONAL: ${[...(S.account.hiddenDims||[])].sort().join(", ")}\n\nWISHLIST\n`;
   BASE_FACS.forEach(f=>{t+=`${f}: ${(S.wishlist[f]||[]).filter(Boolean).join(", ")}\n`;});t+="\n";
-  FAC_ORDER.forEach(fac=>{t+=fac.toUpperCase()+"\n";S.factions[fac].forEach(h=>{t+=(h.e==null?`${h.name}, ${h.asc}, SI${h.si}\n`:`${h.name}, ${h.asc}, SI${h.si}, ${h.e}\n`);});t+="\n";});
+  FAC_ORDER.forEach(fac=>{t+=fac.toUpperCase()+"\n";S.factions[fac].forEach(h=>{t+=(h.e==null?`${h.name}, ${h.asc}, ${siTok(h.si)}\n`:`${h.name}, ${h.asc}, ${siTok(h.si)}, ${h.e}\n`);});t+="\n";});
   return t.trim()+"\n";}
 document.getElementById("exportBtn").onclick=()=>{document.getElementById("out").value=exportText();document.getElementById("drawer").classList.add("on");};
 document.getElementById("closeDrawer").onclick=()=>document.getElementById("drawer").classList.remove("on");
@@ -1033,7 +1271,7 @@ function heroDetail(name){
   const cb=own?curBracket(t,h.asc):null;
   let cur="Not owned",bandPill="";
   if(own){
-    cur=h.asc+" · SI "+h.si;
+    cur=h.asc+" · "+siLabel(h.si);
     bandPill=`<span class="pill ${pillClass(cb||"None")}" style="margin-right:8px">${cb||"pre-Min"}</span>`;
   }
   const starred=BASE_FACS.some(f=>(S.wishlist[f]||[]).indexOf(name)>=0)||(S.account.stargazer||"").trim().toLowerCase()===name.toLowerCase();
@@ -1054,8 +1292,8 @@ function heroDetail(name){
   };
   const siBadge=(p,raw)=>{
     if(!p||!/SI/i.test(raw||""))return"";   // show only when the breakpoint mentions SI (incl. an explicit "SI 0")
-    const tgt=p.si||0,csi=(h&&h.si)||0;
-    return csi>=tgt?`<span class="bpe reached">SI ✓</span>`:`<span class="bpe">SI ${csi}→${tgt}</span>`;
+    const tgt=p.si||0,csi=h?h.si:-1;
+    return csi>=tgt?`<span class="bpe reached">SI ✓</span>`:`<span class="bpe">${siLabel(csi)} → ${siLabel(tgt)}</span>`;
   };
   const bp=(lab,raw,p)=>`<div class="bprow"><span class="bplab">${lab}</span><span class="bpright"><span class="bpval${raw?"":" none"}">${raw?esc(raw):"—"}</span>${raw?`<span class="bpbadges">${eBadge(p)}${siBadge(p,raw)}</span>`:""}</span></div>`;
   const g=GUIDES[name];
@@ -1094,6 +1332,8 @@ document.getElementById("editDrawer").onclick=e=>{if(e.target.id==="editDrawer")
 
 /* ---- Changelog ---- */
 const CHANGELOG=[
+  {d:"2026-06-24",tier:false,t:"Heroes now have an SI- state (no Signature Item unlocked yet) below SI0, since Signature Items only unlock at Mythic. New rosters start every hero at SI-, and any hero below Mythic is tidied to SI- on load and import; Mythic-and-above heroes keep their SI. SI Targets now also show the Emblem cost and skip heroes below Mythic."},
+  {d:"2026-06-24",tier:false,t:"New Tools tab with a Realm of Shadows (Mythic Gate) calculator: set your completed floors, teams, Blessed Flame, and max floor to see the flames, wait time, or Army Units needed to reach the next boss or your max floor, plus when auto-replenish will refill you. Also Ascension cost and Signature Item cost references: the copies, Spirits, or Emblems to go between any two tiers."},
   {d:"2026-06-24",tier:true, t:"Tier list update: new hero Awakened Baden, plus score and mode tweaks for Judy & Punch and Rowan."},
   {d:"2026-06-24",tier:false,t:"Fixed the Elite-copy ascension costs for base heroes (Lightbearer, Mauler, Wilder, Graveborn) in the Legendary–Mythic range, which were counted 2 copies too high from Legendary onward. Quick-ascend, the copies-needed numbers, and the account summary now match the in-game costs."},
   {d:"2026-06-21",tier:true, t:"Tier list update: Judy & Punch's ranking refined (now S-)."},
@@ -1157,11 +1397,12 @@ function parseImport(text){
       if(p.length<3) throw "Malformed line: "+line;
       const name=p[0];
       if(!TIERS.includes(p[1])) throw "Bad ascension '"+p[1]+"' for "+name;
-      const sim=p[2].match(/^SI\s*(\d+)$/i);
-      if(!sim||![0,10,20,30].includes(+sim[1])) throw "Bad SI '"+p[2]+"' for "+name;
+      let si;
+      if(/^NOSI$/i.test(p[2])) si=-1;
+      else{const sim=p[2].match(/^SI\s*(\d+)$/i);if(!sim||![0,10,20,30].includes(+sim[1])) throw "Bad SI '"+p[2]+"' for "+name;si=+sim[1];}
       let e=null;
       if(p.length>=4&&p[3]!==""){if(!/^\d+$/.test(p[3])) throw "Bad E '"+p[3]+"' for "+name;e=+p[3];}
-      (res.factions[mode]=res.factions[mode]||[]).push({name,asc:p[1],si:+sim[1],e});
+      (res.factions[mode]=res.factions[mode]||[]).push({name,asc:p[1],si,e});
       continue;
     }
     throw "Unexpected line: "+line;
@@ -1178,8 +1419,8 @@ function applyImport(res){
     const inc={};(res.factions[fac]||[]).forEach(ih=>inc[aliasName(ih.name)]=ih);
     (S.factions[fac]||[]).forEach(h=>{
       const ih=inc[h.name];
-      if(ih){h.asc=ih.asc;h.si=ih.si;if(h.e!=null)h.e=(ih.e==null?0:ih.e);}
-      else{h.asc="—";h.si=0;if(h.e!=null)h.e=0;} // not in import → reset to not owned
+      if(ih){h.asc=ih.asc;h.si=ih.si;if(ai(h.asc)<ai("M"))h.si=-1;if(h.e!=null)h.e=(ih.e==null?0:ih.e);}  // below Mythic -> NOSI
+      else{h.asc="—";h.si=-1;if(h.e!=null)h.e=0;} // not in import → reset to not owned (NOSI)
     });
   });
 }
@@ -1208,7 +1449,7 @@ document.getElementById("impDo").onclick=()=>{
   };
 })();
 
-load();loadPrefs();renderRoster();document.body.classList.add("hasbar");
+load();loadPrefs();loadTools();renderRoster();document.body.classList.add("hasbar");
 </script>
 </body>
 </html>
