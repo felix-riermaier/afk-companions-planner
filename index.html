@@ -93,6 +93,15 @@
   .slottgt{color:var(--mut);font-size:11px}
   .slotchip .slotmiss{margin-left:auto;color:var(--mauler);font-size:11px;font-weight:700;text-align:right}
   .slotchip .slotok{margin-left:auto;color:var(--ok);font-weight:800}
+  .petchip{border-left-color:var(--celestial)}
+  .petico{flex:0 0 auto;font-size:13px;line-height:1}
+  .petchip .slottgt{margin-left:auto}
+  .petlabel{margin-top:14px}
+  .petrow{margin-top:6px}
+  .petbtns{display:flex;gap:8px;margin-top:8px}
+  .petbtns .btn{flex:1}
+  .lnsumpet{color:var(--celestial)}
+  .petrowitem .pickfac{color:var(--mut)}
   .teamfoot{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--line)}
   .teamfoot .btn{flex:1}
   /* team editor */
@@ -694,6 +703,39 @@ const GUIDES={
   "Walker":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-walker-1szadhl",
   "Warek":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-warek-1kow9py"
 };
+
+/* Pet tier list (https://afk-web.onrender.com/tier-list/pets). Pets have no faction. Columns:
+   [name, score, rank, Min, Opt, Stat, modes8]. Only "special" (hard-to-get) pets carry Min/Opt
+   ascension breakpoints; `Stat` is a gear-stat priority string (e.g. "ATK > MP > HP"), NOT a
+   Competitive breakpoint. Investment/stat are kept for future use but not surfaced yet: for now a
+   pet is just selectable per team and assumed available to everyone. Refresh via scrape-tier.ps1 -Pets. */
+const PET_ROWS=[
+["Twinlum Spirit",82,"SS","L/M/A0","A2 < A4","","SS,SS,SS,SSS,SSS,SS,SS,X"],
+["Nightfall Pegasus",72.6,"S","A1 < A3","A5","ATK > CRIT > PP > CBR HP > PR/MR > DEF","SS,SS,SS,S-,S-,A+,SS,SS"],
+["Celestwing",68.8,"S","A0","A2","CDA > CRIT > ATK > MP CDR > HP > MR > DEF","S+,S-,S,S+,S+,A+,S,S"],
+["Flutterplume Owl",68.1,"S","","","ATK/PP > MP > HP","S,S-,S-,SS,SS,S,S-,S-"],
+["Bellbellow",60.04,"A+","","","ATK > MP > HP > PP","S,S+,S+,D,D,S,A+,SS"],
+["Fire Breather",59.5,"A+","","","CRIT > ATK LL > HP","S-,S-,S-,A+,A+,B,S-,X"],
+["Grassy Orb",47.9,"B","","","ATK > HP > MR/PR","A+,A,B,A+,A,C,C,X"],
+["Ice Crown",46.8,"B","","","ATK > MP/PP > HP","A,A,B,B,C,D,A,X"],
+["Shroom Spooder",46.4,"B","","","CRIT > ATK > HP > LL","B,B,A+,B,B,D,A,X"],
+["Count Snickerfang",41.4,"C","A2","A2 < A4","CRIT > CDA > MP > ATK PR/MR > HP > DEF","B,B,A+,C,F,C,A+,X"],
+["Spirit Orb",38.4,"C","","","ATK > HP > MR/PR","B,B,B,B,B,F,D,X"],
+["Blade Ridge",34.8,"C","","","ATK > MP/PP > HP","B,C,B,C,D,E,C,X"],
+["Feline Vesperio",23.8,"D","","","ATK > MP > PP > HP","C,D,C,D,E,E,D,X"],
+["Dinocera Orb",13,"E","","","LL > (MR/PR) > ATK > HP","D,D,C,E,F,C,F,X"],
+["Tuffy Ears",9.2,"F","","","(MR/PR) > ATK > HP","D,D,D,F,F,F,F,X"]
+];
+const PET={};PET_ROWS.forEach(r=>{PET[r[0]]={score:r[1],rank:r[2],mn:r[3],op:r[4],stat:r[5],md:(r[6]||"").split(",")};});
+const PET_NAMES=PET_ROWS.map(r=>r[0]);   // tier order (best first) — used by the pet picker
+const PET_ALIASES={};                     // old pet name -> current (renames; mirrors ALIASES)
+function petAlias(n){return (n!=null&&PET_ALIASES[n])?PET_ALIASES[n]:n;}
+function validPet(n){const a=petAlias(n);return (a&&PET[a])?a:null;}
+/* Append-only, frozen pet id list for share codes (same rules as HID; 255 = none/unknown). */
+const PET_HID=["Bellbellow","Blade Ridge","Celestwing","Count Snickerfang","Dinocera Orb","Feline Vesperio","Fire Breather","Flutterplume Owl","Grassy Orb","Ice Crown","Nightfall Pegasus","Shroom Spooder","Spirit Orb","Tuffy Ears","Twinlum Spirit"];
+const PET_IX=(function(){const m={};PET_HID.forEach((n,i)=>m[n]=i);return m;})();
+function petCode(name){const a=petAlias(name),id=PET_IX[a];return (a&&id!=null)?id:255;}
+function petFromCode(c){if(c===255)return null;const nm=petAlias(PET_HID[c]);return (nm&&PET[nm])?nm:null;}
 
 const SEED=(function(){
   const factions={};FAC_ORDER.forEach(f=>factions[f]=[]);
@@ -1392,11 +1434,11 @@ function reconcileTeams(saved){
   if(!saved||typeof saved!=="object")return out;
   (Array.isArray(saved.teams)?saved.teams:[]).forEach(t=>{
     if(!t||typeof t!=="object")return;
-    out.teams.push({id:t.id||newId(),name:(""+(t.name||"")).slice(0,40),slots:reconcileTeamSlots(t.slots)});
+    out.teams.push({id:t.id||newId(),name:(""+(t.name||"")).slice(0,40),slots:reconcileTeamSlots(t.slots),pet:validPet(t.pet)});
   });
   (Array.isArray(saved.lineups)?saved.lineups:[]).forEach(l=>{
     if(!l||typeof l!=="object")return;
-    const teams=(Array.isArray(l.teams)?l.teams:[]).slice(0,6).map(tm=>({slots:reconcileTeamSlots(tm&&tm.slots)}));
+    const teams=(Array.isArray(l.teams)?l.teams:[]).slice(0,6).map(tm=>({slots:reconcileTeamSlots(tm&&tm.slots),pet:validPet(tm&&tm.pet)}));
     out.lineups.push({id:l.id||newId(),name:(""+(l.name||"")).slice(0,40),teams});
   });
   return out;
@@ -1423,7 +1465,9 @@ function slotStatus(s){
   const dim=t&&t.fac==="Dimensional",own=!!rh&&rh.asc!=="—",curSi=rh?rh.si:-1;
   if(tgt.asc==="—")return{tgt,rh,own,dim,met:true,ascMet:true,siMet:true,copies:0,curSi,unit:dim?"S":"E"};
   const ascMet=own&&ai(rh.asc)>=ai(tgt.asc);
-  const siMet=curSi>=tgt.si;
+  // SI only matters when the target actually calls for a level (>0) at/above Mythic; below Mythic
+  // SI can't exist, so a NOSI hero must still count as meeting an SI-less (or sub-Mythic) target.
+  const siMet=tgt.si<=0||ai(tgt.asc)<ai("M")||curSi>=tgt.si;
   const ladder=ladderFor(t.fac),banked=dim?(S.account.spirits||0):(rh?(rh.e||0):0);
   let copies=0;if(!ascMet){copies=(ladder[tgt.asc]||0)-(ladder[own?rh.asc:"—"]||0)-banked;if(copies<0)copies=0;}
   return{tgt,rh,own,dim,met:ascMet&&siMet,ascMet,siMet,copies,curSi,unit:dim?"S":"E"};
@@ -1444,8 +1488,8 @@ function renderTeams(){
   help.appendChild(el("summary",null,`<span class="chev">▶</span><span class="fname">How to use</span>`));
   const hbody=el("div","body");
   hbody.innerHTML=`<div class="howto">
-    <p>1. Tap <b>+ New team</b> to build a team of up to 5 heroes. Tap a slot to pick a hero, set its target investment (<b>Min</b> / <b>Optimal</b> / <b>Competitive</b> from the tier list, or a <b>Custom</b> ascension and SI), and reorder with the arrows.</p>
-    <p>2. Tap <b>+ New lineup</b> to group up to 6 teams. A hero can appear only once across the whole lineup.</p>
+    <p>1. Tap <b>+ New team</b> to build a team of up to 5 heroes. Tap a slot to pick a hero, set its target investment (<b>Min</b> / <b>Optimal</b> / <b>Competitive</b> from the tier list, or a <b>Custom</b> ascension and SI), reorder with the arrows, and optionally add a <b>pet</b>.</p>
+    <p>2. Tap <b>+ New lineup</b> to group up to 6 teams. A hero can appear only once across the whole lineup, but the same pet may be used on multiple teams.</p>
     <p>3. Each saved team or lineup shows whether your current roster can field it, and for any hero that falls short, its current investment. Building is never limited by your roster.</p>
     <p>4. <b>Share</b> a team or lineup as a link, a code (paste it straight into game chat, it is found even inside a longer message), or plain readable text. <b>Import</b> the same ways; you can rename before saving.</p>
   </div>`;
@@ -1477,14 +1521,19 @@ function slotChip(s,i){
   chip.innerHTML=`<span class="slotpos">${i+1}</span><span class="slotname">${esc(s.n)}</span><span class="slottgt">${esc(MODE_LABEL[s.mode])} · ${esc(tgtLabel(st.tgt))}</span>${tail}`;
   return chip;
 }
+function petChip(name){const c=el("div","slotchip petchip");c.innerHTML=`<span class="petico">🐾</span><span class="slotname">${esc(name)}</span><span class="slottgt">Pet</span>`;return c;}
+function teamBodyEls(team){const out=[];
+  if(!team.slots.length)out.push(el("div","note","No heroes."));
+  else team.slots.forEach((s,i)=>out.push(slotChip(s,i)));
+  if(team.pet)out.push(petChip(team.pet));
+  return out;}
 function teamCard(team){
   const card=el("div","card teamcard");
   const head=el("div","teamhead");
   head.innerHTML=`<div class="teamname">${esc(team.name||"Untitled team")}</div>${fieldBadge(teamFieldSummary(team.slots))}`;
   card.appendChild(head);
   const body=el("div","teambody");
-  if(!team.slots.length)body.appendChild(el("div","note","No heroes."));
-  else team.slots.forEach((s,i)=>body.appendChild(slotChip(s,i)));
+  teamBodyEls(team).forEach(e=>body.appendChild(e));
   card.appendChild(body);
   const foot=el("div","teamfoot");
   const ed=el("button","btn ghost sm","Edit");ed.onclick=()=>openTeamBuilder(team);
@@ -1501,18 +1550,18 @@ function delIconBtn(title,fn){
   return b;
 }
 
-/* ---- Team builder (shared by standalone teams and, later, lineup teams) ----
-   teamEdit = {title, showName, name, slots:[{n,mode,asc,si}], excludeNames:Set, onSave(name,slots)} */
+/* ---- Team builder (shared by standalone teams and lineup teams) ----
+   teamEdit = {title, showName, name, slots:[{n,mode,asc,si}], pet, excludeNames:Set, onSave(name,slots,pet)} */
 let teamEdit=null,pickReplace=null,pickFac=new Set();
 const TEAM_MAG='<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="20.5" y1="20.5" x2="16.5" y2="16.5"></line></svg>';
 function closeTeamDrawer(){document.getElementById("teamDrawer").classList.remove("on");}
 function openTeamBuilder(team){
   teamEdit={
     title:team?"Edit team":"New team",showName:true,name:team?(team.name||""):"",
-    slots:team?team.slots.map(s=>({...s})):[],excludeNames:new Set(),editId:team?team.id:null,
-    onSave:(name,slots)=>{
-      if(teamEdit.editId){const t=TEAMS.teams.find(x=>x.id===teamEdit.editId);if(t){t.name=name;t.slots=slots;}}
-      else TEAMS.teams.push({id:newId(),name,slots});
+    slots:team?team.slots.map(s=>({...s})):[],pet:team?(team.pet||null):null,excludeNames:new Set(),editId:team?team.id:null,
+    onSave:(name,slots,pet)=>{
+      if(teamEdit.editId){const t=TEAMS.teams.find(x=>x.id===teamEdit.editId);if(t){t.name=name;t.slots=slots;t.pet=pet;}}
+      else TEAMS.teams.push({id:newId(),name,slots,pet});
       saveTeams();renderTeams();
     }
   };
@@ -1563,21 +1612,51 @@ function renderTeamEditor(){
   if(e.showName)h+=`<input class="teamnameinp" id="teName" type="text" maxlength="40" placeholder="Team name" value="${esc(e.name||"")}">`;
   h+=`<div class="teslots" id="teSlots"></div>`;
   if(e.slots.length<5)h+=`<button class="teaddbtn" id="teAdd">+ Add hero (${e.slots.length}/5)</button>`;
+  h+=`<div class="hd-h petlabel">Pet</div><div class="petrow" id="tePetRow"></div>`;
   h+=`<div class="tenote" id="teNote"></div>`;
   h+=`<div class="setupactions" id="teActions"><button class="btn ghost" id="teCancel">Cancel</button><button class="btn primary" id="teSave">${e.saveLabel||"Save team"}</button></div>`;
   sheet.innerHTML=h;
   if(e.showName&&e.editId){const acts=sheet.querySelector("#teActions");acts.insertBefore(delIconBtn("Delete team",()=>{TEAMS.teams=TEAMS.teams.filter(x=>x.id!==e.editId);saveTeams();renderTeams();closeTeamDrawer();}),acts.firstChild);}
   const box=sheet.querySelector("#teSlots");e.slots.forEach((s,i)=>box.appendChild(teSlotEl(s,i)));
+  renderTePet(sheet.querySelector("#tePetRow"));
   if(e.showName){const ni=sheet.querySelector("#teName");ni.oninput=()=>{e.name=ni.value;};}
   const add=sheet.querySelector("#teAdd");if(add)add.onclick=()=>openTeamPicker(null);
   sheet.querySelector("#teClose").onclick=()=>e.onCancel?e.onCancel():closeTeamDrawer();
   sheet.querySelector("#teCancel").onclick=()=>e.onCancel?e.onCancel():closeTeamDrawer();
   sheet.querySelector("#teSave").onclick=()=>{
     if(!e.slots.length){const n=sheet.querySelector("#teNote");n.textContent="Add at least one hero.";n.className="tenote err";return;}
-    e.onSave((e.name||"").trim()||"Untitled team",e.slots.map(s=>({...s})));
+    e.onSave((e.name||"").trim()||"Untitled team",e.slots.map(s=>({...s})),e.pet||null);
     if(!e.keepOpen)closeTeamDrawer();
   };
 }
+function renderTePet(box){box.innerHTML="";const e=teamEdit;
+  if(e.pet){const chip=el("div","slotchip petchip");chip.innerHTML=`<span class="petico">🐾</span><span class="slotname">${esc(e.pet)}</span>`;box.appendChild(chip);
+    const btns=el("div","petbtns");
+    const ch=el("button","btn ghost sm","Change");ch.onclick=openPetPicker;
+    const rm=el("button","btn ghost sm","Remove");rm.onclick=()=>{e.pet=null;renderTePet(box);};
+    btns.append(ch,rm);box.appendChild(btns);
+  }else{const b=el("button","teaddbtn","+ Add pet");b.onclick=openPetPicker;box.appendChild(b);}
+}
+function openPetPicker(){renderPetPicker();}
+function renderPetPicker(){
+  const sheet=document.getElementById("teamSheet");
+  sheet.innerHTML=`<div class="hd-top"><div class="hd-name">${teamEdit.pet?"Change pet":"Add pet"}</div><button class="resetic" id="ppBack" aria-label="Back">←</button></div>`
+    +`<div class="rsearch"><div class="rsearchwrap"><input id="ppSearch" type="text" placeholder="Search pets…" autocomplete="off"><button class="rsclear" id="ppClr" type="button"></button></div></div>`
+    +`<div class="picklist" id="ppList"></div>`;
+  const list=sheet.querySelector("#ppList");
+  const none=el("div","pickrow petnone");none.innerHTML=`<span class="pickname">No pet</span>`;none.onclick=()=>petPick(null);list.appendChild(none);
+  PET_NAMES.forEach(n=>{const row=el("div","pickrow petrowitem");row.dataset.name=n;
+    row.innerHTML=`<span class="petico">🐾</span><span class="pickname">${esc(n)}</span><span class="pickfac">${esc(PET[n].rank)}</span>`;row.onclick=()=>petPick(n);list.appendChild(row);});
+  const sin=sheet.querySelector("#ppSearch"),clr=sheet.querySelector("#ppClr");
+  const syncClr=()=>{const has=sin.value.length>0;clr.classList.toggle("active",has);clr.setAttribute("aria-label",has?"Clear search":"Search");clr.innerHTML=has?"✕":TEAM_MAG;};
+  sin.oninput=()=>{syncClr();ppFilter();};sin.onkeydown=ev=>{if(ev.key==="Enter"){ev.preventDefault();sin.blur();}};
+  clr.onmousedown=ev=>ev.preventDefault();clr.onclick=()=>{if(sin.value){sin.value="";syncClr();ppFilter();}sin.focus();};
+  syncClr();ppFilter();
+  sheet.querySelector("#ppBack").onclick=()=>renderTeamEditor();
+}
+function ppFilter(){const sin=document.getElementById("ppSearch");const term=sin?sin.value.trim().toLowerCase():"";
+  document.querySelectorAll("#ppList .petrowitem").forEach(r=>{r.style.display=(!term||r.dataset.name.toLowerCase().includes(term))?"":"none";});}
+function petPick(name){teamEdit.pet=name||null;renderTeamEditor();}
 /* hero picker — swaps the team sheet content, returns to the editor on pick/back */
 function openTeamPicker(replaceIdx){pickReplace=replaceIdx;pickFac=new Set();renderTeamPicker();}
 function renderTeamPicker(){
@@ -1615,7 +1694,7 @@ let lineupEdit=null;
 function closeLineupDrawer(){document.getElementById("lineupDrawer").classList.remove("on");}
 function openLineupBuilder(lineup){
   lineupEdit={title:lineup?"Edit lineup":"New lineup",name:lineup?(lineup.name||""):"",
-    teams:lineup?lineup.teams.map(t=>({slots:t.slots.map(s=>({...s}))})):[],editId:lineup?lineup.id:null};
+    teams:lineup?lineup.teams.map(t=>({slots:t.slots.map(s=>({...s})),pet:t.pet||null})):[],editId:lineup?lineup.id:null};
   document.getElementById("lineupDrawer").classList.add("on");
   renderLineupEditor();
 }
@@ -1626,9 +1705,9 @@ function openLineupTeam(idx){
   teamEdit={
     title:idx!=null?("Team "+(idx+1)):("Team "+(L.teams.length+1)),
     showName:false,name:"",saveLabel:"Save team",
-    slots:existing?existing.slots.map(s=>({...s})):[],
+    slots:existing?existing.slots.map(s=>({...s})):[],pet:existing?(existing.pet||null):null,
     excludeNames:lineupOtherHeroes(L.teams,idx!=null?idx:-1),
-    onSave:(name,slots)=>{if(idx!=null)L.teams[idx]={slots};else L.teams.push({slots});renderLineupEditor();},
+    onSave:(name,slots,pet)=>{if(idx!=null)L.teams[idx]={slots,pet};else L.teams.push({slots,pet});renderLineupEditor();},
     onCancel:()=>closeTeamDrawer()
   };
   document.getElementById("teamDrawer").classList.add("on");
@@ -1642,11 +1721,10 @@ function lnTeamCard(t,i){
   const dn=el("button","miniic","▼");dn.disabled=i===lineupEdit.teams.length-1;dn.onclick=()=>lnMove(i,1);
   moves.append(up,dn);head.appendChild(moves);card.appendChild(head);
   const body=el("div","lnbody");
-  if(!t.slots.length)body.appendChild(el("div","note","No heroes."));
-  else t.slots.forEach((s,k)=>body.appendChild(slotChip(s,k)));
+  teamBodyEls(t).forEach(e=>body.appendChild(e));
   card.appendChild(body);
   const foot=el("div","lnfoot");
-  const ed=el("button","btn ghost sm",t.slots.length?"Edit":"Add heroes");ed.onclick=()=>openLineupTeam(i);
+  const ed=el("button","btn ghost sm",(t.slots.length||t.pet)?"Edit":"Add heroes");ed.onclick=()=>openLineupTeam(i);
   const rm=el("button","btn ghost sm del","Remove");armDelete(rm,()=>{lineupEdit.teams.splice(i,1);renderLineupEditor();});
   foot.append(ed,rm);card.appendChild(foot);
   return card;
@@ -1669,7 +1747,7 @@ function renderLineupEditor(){
   sheet.querySelector("#lnSave").onclick=()=>{
     if(!L.teams.length){const n=sheet.querySelector("#lnNote");n.textContent="Add at least one team.";n.className="tenote err";return;}
     const name=(L.name||"").trim()||"Untitled lineup";
-    const teams=L.teams.map(t=>({slots:t.slots.map(s=>({...s}))}));
+    const teams=L.teams.map(t=>({slots:t.slots.map(s=>({...s})),pet:t.pet||null}));
     if(L.editId){const x=TEAMS.lineups.find(y=>y.id===L.editId);if(x){x.name=name;x.teams=teams;}}
     else TEAMS.lineups.push({id:newId(),name,teams});
     saveTeams();renderTeams();closeLineupDrawer();
@@ -1684,11 +1762,11 @@ function lineupCard(L){
   if(!L.teams.length)body.appendChild(el("div","note","No teams."));
   else L.teams.forEach((t,i)=>{
     const d=el("details","lnview"),sum=el("summary","lnsum");
-    sum.innerHTML=`<span class="chev">▶</span><span class="lnsumlabel">${i+1}</span><span class="lnsumnames">${t.slots.map(s=>esc(s.n)).join(", ")||"empty"}</span>${fieldBadge(teamFieldSummary(t.slots))}`;
+    const names=t.slots.map(s=>esc(s.n)).join(", ")||"empty";
+    sum.innerHTML=`<span class="chev">▶</span><span class="lnsumlabel">${i+1}</span><span class="lnsumnames">${names}${t.pet?` <span class="lnsumpet">🐾 ${esc(t.pet)}</span>`:""}</span>${fieldBadge(teamFieldSummary(t.slots))}`;
     d.appendChild(sum);
     const vb=el("div","lnviewbody");
-    if(!t.slots.length)vb.appendChild(el("div","note","No heroes."));
-    else t.slots.forEach((s,k)=>vb.appendChild(slotChip(s,k)));
+    teamBodyEls(t).forEach(e=>vb.appendChild(e));
     d.appendChild(vb);body.appendChild(d);});
   card.appendChild(body);
   const foot=el("div","teamfoot");
@@ -1710,8 +1788,9 @@ function b64urlDec(str){str=str.replace(/-/g,"+").replace(/_/g,"/");while(str.le
 function encName(a,name){const b=new TextEncoder().encode((""+(name||"")).slice(0,40)),n=Math.min(255,b.length);a.push(n);for(let i=0;i<n;i++)a.push(b[i]);}
 function encSlots(a,slots){a.push(slots.length);slots.forEach(s=>{const id=HID_IX[s.n];a.push(id==null?255:id);const mode=TEAM_MODES.indexOf(s.mode);a.push(mode<0?0:mode);
   if(s.mode==="cust"){a.push(Math.max(0,ai(validAsc(s.asc))));const si=SIS.indexOf(validSi(s.si));a.push(si<0?1:si);}});}
-function encodeTeam(team){const a=[1,0];encName(a,team.name);encSlots(a,team.slots);return "AFKC1."+b64urlEnc(a);}
-function encodeLineup(L){const a=[1,1];encName(a,L.name);a.push(L.teams.length);L.teams.forEach(t=>encSlots(a,t.slots));return "AFKC1."+b64urlEnc(a);}
+// format version 2 adds a 1-byte pet code per team (255 = none/unknown); v1 codes still decode.
+function encodeTeam(team){const a=[2,0];encName(a,team.name);encSlots(a,team.slots);a.push(petCode(team.pet));return "AFKC1."+b64urlEnc(a);}
+function encodeLineup(L){const a=[2,1];encName(a,L.name);a.push(L.teams.length);L.teams.forEach(t=>{encSlots(a,t.slots);a.push(petCode(t.pet));});return "AFKC1."+b64urlEnc(a);}
 function decName(d,st){const len=d[st.i++]||0,bytes=d.slice(st.i,st.i+len);st.i+=len;try{return new TextDecoder().decode(bytes);}catch(e){return "";}}
 function decSlots(d,st){const n=d[st.i++]||0,slots=[];for(let k=0;k<n;k++){
   const id=d[st.i++],mode=TEAM_MODES[d[st.i++]]||"min";let asc="E",si=-1;
@@ -1721,16 +1800,16 @@ function decSlots(d,st){const n=d[st.i++]||0,slots=[];for(let k=0;k<n;k++){
 function decodeShare(text){
   const m=(""+text).match(/AFKC1\.([A-Za-z0-9_-]+)/);if(!m)return null;
   let d;try{d=b64urlDec(m[1]);}catch(e){return null;}
-  try{const st={i:0};if(d[st.i++]!==1)return null;const type=d[st.i++];const name=decName(d,st);
-    if(type===0)return{kind:"team",team:{name,slots:decSlots(d,st)}};
-    if(type===1){const tc=d[st.i++]||0,teams=[];for(let t=0;t<tc;t++)teams.push({slots:decSlots(d,st)});return{kind:"lineup",lineup:{name,teams}};}
+  try{const st={i:0},ver=d[st.i++];if(ver!==1&&ver!==2)return null;const type=d[st.i++];const name=decName(d,st);
+    if(type===0){const slots=decSlots(d,st);const pet=ver>=2?petFromCode(d[st.i++]):null;return{kind:"team",team:{name,slots,pet}};}
+    if(type===1){const tc=d[st.i++]||0,teams=[];for(let t=0;t<tc;t++){const slots=decSlots(d,st);const pet=ver>=2?petFromCode(d[st.i++]):null;teams.push({slots,pet});}return{kind:"lineup",lineup:{name,teams}};}
     return null;
   }catch(e){return null;}
 }
 function shareLink(token){return location.origin+location.pathname+"#t="+token;}
 function slotPlain(s){const tgt=slotTarget(s);return `${s.n}: ${MODE_LABEL[s.mode]} (${tgtLabel(tgt)})`;}
-function teamPlain(team){let s=`${team.name||"Team"}\n`;team.slots.forEach((sl,i)=>{s+=`  ${i+1}. ${slotPlain(sl)}\n`;});return s+`\nImport code: ${encodeTeam(team)}\n`;}
-function lineupPlain(L){let s=`${L.name||"Lineup"}\n`;L.teams.forEach((t,i)=>{s+=`Team ${i+1}:\n`;t.slots.forEach((sl,k)=>{s+=`  ${k+1}. ${slotPlain(sl)}\n`;});});return s+`\nImport code: ${encodeLineup(L)}\n`;}
+function teamPlain(team){let s=`${team.name||"Team"}\n`;team.slots.forEach((sl,i)=>{s+=`  ${i+1}. ${slotPlain(sl)}\n`;});if(team.pet)s+=`  Pet: ${team.pet}\n`;return s+`\nImport code: ${encodeTeam(team)}\n`;}
+function lineupPlain(L){let s=`${L.name||"Lineup"}\n`;L.teams.forEach((t,i)=>{s+=`Team ${i+1}:\n`;t.slots.forEach((sl,k)=>{s+=`  ${k+1}. ${slotPlain(sl)}\n`;});if(t.pet)s+=`  Pet: ${t.pet}\n`;});return s+`\nImport code: ${encodeLineup(L)}\n`;}
 
 /* ---- Share sheet ---- */
 function shareBlock(title,desc,id,val,multi){
@@ -1753,14 +1832,13 @@ function openShare(kind,obj){
 }
 
 /* ---- Import + preview (used by the Import button and by share-link open) ---- */
-function cleanLineup(teams){const seen=new Set();return (teams||[]).slice(0,6).map(t=>{const out=[];reconcileTeamSlots(t.slots).forEach(s=>{if(!seen.has(s.n)){seen.add(s.n);out.push(s);}});return{slots:out};});}
+function cleanLineup(teams){const seen=new Set();return (teams||[]).slice(0,6).map(t=>{const out=[];reconcileTeamSlots(t.slots).forEach(s=>{if(!seen.has(s.n)){seen.add(s.n);out.push(s);}});return{slots:out,pet:validPet(t.pet)};});}
 function pvTeamNode(team,idx){
   const card=el("div","card teamcard"),head=el("div","teamhead");
   head.innerHTML=`<div class="teamname">${esc(idx!=null?("Team "+(idx+1)):(team.name||"Team"))}</div>${fieldBadge(teamFieldSummary(team.slots))}`;
   card.appendChild(head);
   const body=el("div","teambody");
-  if(!team.slots.length)body.appendChild(el("div","note","No heroes."));
-  else team.slots.forEach((s,i)=>body.appendChild(slotChip(s,i)));
+  teamBodyEls(team).forEach(e=>body.appendChild(e));
   card.appendChild(body);return card;
 }
 function showImportPreview(dec){
@@ -1779,7 +1857,7 @@ function showImportPreview(dec){
   sheet.querySelector("#pvCancel").onclick=close;
   sheet.querySelector("#pvSave").onclick=()=>{
     const nameVal=(sheet.querySelector("#pvName").value||"").trim();
-    if(isTeam)TEAMS.teams.push({id:newId(),name:nameVal||"Untitled team",slots:reconcileTeamSlots(dec.team.slots)});
+    if(isTeam)TEAMS.teams.push({id:newId(),name:nameVal||"Untitled team",slots:reconcileTeamSlots(dec.team.slots),pet:validPet(dec.team.pet)});
     else TEAMS.lineups.push({id:newId(),name:nameVal||"Untitled lineup",teams:cleanLineup(dec.lineup.teams)});
     saveTeams();renderTeams();showTab("teams");close();
   };
@@ -1909,6 +1987,7 @@ document.getElementById("editDrawer").onclick=e=>{if(e.target.id==="editDrawer")
 
 /* ---- Changelog ---- */
 const CHANGELOG=[
+  {d:"2026-06-25",tier:false,t:"Teams can now have a pet: tap a team to add one of the game's pets (assumed available to everyone for now). The same pet may be used on multiple teams in a lineup. Pets travel in share codes and backups. Also fixed a check where a hero that met a sub-Mythic target (for example E+ against an Elite minimum) was wrongly shown as not fielded over its Signature Item."},
   {d:"2026-06-24",tier:false,t:"New Teams tab (with Tools moved into the ⋯ menu next to the tabs): save squads of up to 5 heroes and group them into lineups of up to 6 teams. Pick each hero's investment as Min, Optimal or Competitive (from the tier list) or a custom ascension and SI; every slot shows whether your current roster can field it and what's missing. Build freely; your roster doesn't limit planning. Share a team or lineup as a link, a code (paste it straight into game chat, found even inside a longer message), or plain readable text, and import the same ways. The Roster tab's Export/Import are now Backup/Restore and include your saved teams, so one backup covers everything (except the Tools tab)."},
   {d:"2026-06-24",tier:false,t:"Heroes now have an SI- state (no Signature Item unlocked yet) below SI0, since Signature Items only unlock at Mythic. New rosters start every hero at SI-, and any hero below Mythic is tidied to SI- on load and import; Mythic-and-above heroes keep their SI. SI Targets now also show the Emblem cost and skip heroes below Mythic."},
   {d:"2026-06-24",tier:false,t:"New Tools tab with a Realm of Shadows (Mythic Gate) calculator: set your completed floors, teams, Blessed Flame, and max floor to see the flames, wait time, or Army Units needed to reach the next boss or your max floor, plus when auto-replenish will refill you. Also Ascension cost and Signature Item cost references: the copies, Spirits, or Emblems to go between any two tiers."},
@@ -2009,7 +2088,7 @@ function applyImport(res){
   // backups without it leave saved teams untouched). Bad codes are skipped, not fatal.
   if(res.teamsSeen){
     TEAMS={teams:[],lineups:[]};
-    (res.teams||[]).forEach(code=>{const d=decodeShare(code);if(d&&d.kind==="team")TEAMS.teams.push({id:newId(),name:d.team.name||"Untitled team",slots:reconcileTeamSlots(d.team.slots)});});
+    (res.teams||[]).forEach(code=>{const d=decodeShare(code);if(d&&d.kind==="team")TEAMS.teams.push({id:newId(),name:d.team.name||"Untitled team",slots:reconcileTeamSlots(d.team.slots),pet:validPet(d.team.pet)});});
     (res.lineups||[]).forEach(code=>{const d=decodeShare(code);if(d&&d.kind==="lineup")TEAMS.lineups.push({id:newId(),name:d.lineup.name||"Untitled lineup",teams:cleanLineup(d.lineup.teams)});});
     saveTeams();
   }
