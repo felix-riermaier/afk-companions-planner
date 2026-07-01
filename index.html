@@ -400,7 +400,7 @@
 <body>
 <header>
   <div class="hbar">
-    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-06-24</span></div>
+    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-07-01</span></div>
     <div class="hr">
       <button class="resetic" id="resetBtn" title="Reset everything (clears your roster)" aria-label="Reset everything (clears your roster)">⟲</button>
       <div class="save" id="save">saved</div>
@@ -427,7 +427,7 @@
   <footer class="foot">
     <a href="#" id="changelogLink">Changelog</a><br>
     Unofficial fan-made tool. Not affiliated with, endorsed, or sponsored by Lilith Games. AFK Arena: Companions and all related content are the property of Lilith Games.<br>
-    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-06-24.<br>
+    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-07-01.<br>
     Your data is stored only in this browser. Use Backup to keep a copy.
   </footer>
 </div>
@@ -543,17 +543,17 @@ const TIER_ROWS=[
 ["Sung Jinwoo","Dimensional",73.1,"S+","A3 SI 20","A5 SI 20 < SI 30","T SI 30","S+,S+,SS,S,S+,S,SS,SS"],
 ["Liberta","Celestial",73,"S+","Mythic SI 20 < SI 30","A3 < A5 SI 30","A5 Si 30","S+,S+,S+,S+,SSS,SS,S,X"],
 ["Terrible Tornado","Dimensional",72.4,"S","A1 SI 20 < SI 30","A5 SI 30","","SS,SS,SS,SS,SS,A+,A+,S+"],
-["Awakened Talene","Celestial",71,"S","A SI 20","A SI 30","A5 SI 30","S,SS,S,S,S+,S-,S+,S"],
+["Awakened Talene","Celestial",72.3,"S","A SI 20","A SI 30","A5 SI 30","S,SS,S,S+,S+,S-,S+,S"],
 ["Awakened Brutus","Mauler",69.73,"S","A SI 20","A SI 20","A5 SI 30","SS,SS,SS,B,D,S+,SS,SS"],
 ["Saitama","Dimensional",69.6,"S","M < A3 SI 20","A3 < A5 SI 20","A5 SI 30","S,S,S,S+,SS,S+,S,S"],
 ["Lyca","Wilder",68.9,"S","Mythic SI 0","A3 < A5 SI 20 < SI 30","A5 T / SI 30","S,S,S,S+,S+,S-,S,S"],
-["Mira","Graveborn",66.8,"S-","A1 SI 0 < SI 20","A3 < A5 SI 20","A5 SI 30","S+,S+,SS,S,A,S-,S-,S-"],
+["Mira","Graveborn",65,"S-","A1 SI 0 < SI 20","A3 < A5 SI 20","A5 SI 30","S+,S+,SS,S-,B,S-,S-,S-"],
 ["Albedo","Dimensional",66.7,"S-","Mythic SI 20 < SI 30","A3 SI 30","A5 T / SI 30","S+,S+,S,A,A,S+,SS,S+"],
-["Marcille","Dimensional",66.2,"S-","A3 SI 20","A5 SI 20","A5 SI 30","S,S,S,S+,S+,S,A+,SS"],
-["Talene","Celestial",65.3,"S-","Elite","Mythic SI 20 / SI 30","A5 SI 30","A+,S,S,S,S+,B,S,C"],
+["Marcille","Dimensional",64.4,"S-","A3 SI 20","A5 SI 20","A5 SI 30","S,S,S,S,S,S,A+,SS"],
+["Talene","Celestial",64.8,"S-","Elite","Mythic SI 20 / SI 30","A5 SI 30","A+,S,S,S,S,B,S,C"],
 ["Maetria","Hypogean",64.56,"S-","A SI 30","A SI 30","A5 SI 30","S,S+,S+,B,C,S+,S+,S"],
-["Judy & Punch","Dimensional",64.4,"S-","A3 < A5 SI 20 < SI 30","A5 SI 30","","A+,A+,A+,S+,S+,S,S,X"],
-["Palmer","Lightbearer",64.1,"S-","Mythic SI 20","A3 < A5 SI 20","","A+,A+,S,S+,SS,S,S-,X"],
+["Judy & Punch","Dimensional",66.2,"S-","A3 < A5 SI 20 < SI 30","A5 SI 30","","A+,A+,A+,SS,SS,S,S,X"],
+["Palmer","Lightbearer",65.4,"S-","Mythic SI 20","A3 < A5 SI 20","","A+,A+,S,SS,SS,S,S-,X"],
 ["Haelus","Celestial",64,"S-","Elite","A3 SI 20","A5 SI 30","S,S,S,S-,S-,S,S-,S"],
 ["Merlin","Dimensional",63.91,"S-","A5 SI 0","A5 SI 30","","SS,SS,SS,D,F,S,SS,SS"],
 ["Shalltear","Dimensional",62.81,"S-","A1 SI 10","A3 SI 20","A5 T / SI 30","S+,SS,SS,D,F,S,SS,SS"],
@@ -573,25 +573,25 @@ const TIER_ROWS=[
 ["Raine","Lightbearer",53.7,"A","Elite < Mythic SI 10","A3 SI 10","A5 SI 10 < SI 20","A,B,S,S+,SS,B,C,A+"],
 ["Zolrath","Hypogean",53.5,"A","Elite < A1 SI 30","A1 SI 30","A5 SI 30","A+,A+,S,C,C,A,S+,S"],
 ["Satrana","Mauler",52.9,"A","Elite","A1 SI 0","A5 SI 20 < SI 30","S-,A+,S,B,C,A,A+,A+"],
-["Skriath","Mauler",52.7,"A","Elite < A1 SI 0","A5 SI 0 < SI 20","A5 SI 30","S-,A+,S-,S,B,D,C,A"],
-["Mishka","Wilder",52.5,"A","A3 SI 10","A5 SI 20","","A+,A+,S,A,B,C,A,A+"],
-["Brutus","Mauler",52.3,"A","Elite","Elite < A1 SI 0","A5 SI 0 < SI 20","S,S+,S-,B,D,D,B,B"],
+["Skriath","Mauler",53,"A","Elite < A1 SI 0","A5 SI 0 < SI 20","A5 SI 30","S-,A+,S,S,B,D,C,A"],
+["Mishka","Wilder",50.2,"B","A3 SI 10","A5 SI 20","","A+,A+,S,B,C,C,A,A+"],
+["Brutus","Mauler",52.6,"A","Elite","Elite < A1 SI 0","A5 SI 0 < SI 20","S,S+,S,B,D,D,B,B"],
 ["Skreg","Mauler",50.6,"A","A1 SI 0","A5 SI 0 < SI 20","A5 SI 30","A+,A+,S,C,C,B,S-,S-"],
 ["Audrae","Celestial",50.5,"A","Elite < A1 SI 20","A3 < A5 SI 20","A5 SI 30","A,A,S-,A+,B,A+,B,S-"],
 ["Estrilda","Lightbearer",50.2,"B","Elite < A1 SI 0","A3 < A5 SI 0 / SI 10","","A,B,B,S-,A,B,B,B"],
 ["Crassio","Mauler",49.8,"B","A1 SI 0 < SI 10","A3 < A5 SI 10 < SI 20","A5 T / SI 30","A+,A+,S,B,B,C,B,A"],
 ["Flora","Celestial",49.4,"B","A1 SI 10","A1 SI 30","","S,S+,S,D,F,E,S-,A+"],
 ["Mehira","Hypogean",48.3,"B","Elite","Elite","M A5 / SI 30","B,B,S-,A+,B,B,B,A"],
-["Orthros","Celestial",48.2,"B","A3 SI 0","A5 SI 0","A5 SI 30","B,C,S-,A+,A,B,A,A+"],
+["Orthros","Celestial",50.8,"A","A3 SI 0","A3 A5 / SI 0","A5 SI 30","B,C,S-,S,A,B,A,A+"],
 ["Lucretia","Hypogean",48,"B","A1 SI 30","A3 < A5 SI 30","A5 SI 30","S,B,S,B,A+,C,C,S-"],
 ["Elijah & Lailah","Celestial",47.5,"B","Elite","Elite Elite+","","C,D,A,SS,SS,S,C,S"],
-["Walker","Lightbearer",47.5,"B","Elite","A1 < A5 SI 0","A5 SI 20","B,C,A+,S+,SS,A+,D,S+"],
+["Walker","Lightbearer",48.8,"B","Elite","A1 < A5 SI 0","A5 SI 20","B,C,A+,SS,SS,A+,D,S+"],
 ["Mortas","Hypogean",47.5,"B","Elite","Elite Elite+","Mythic SI 20","B,C,S,S+,S+,A,D,B"],
-["Khasos","Mauler",46.4,"B","Elite < A3","A5 SI 0","A5 SI 20","A+,A+,C,C,D,B,A+,X"],
-["Safiya","Mauler",45.8,"B","Elite < M SI 0","A5 SI 20","","A+,B,A+,B,C,E,B,A"],
+["Khasos","Mauler",45.8,"B","Elite < A3","A5 SI 0","A5 SI 20","A+,A+,D,C,D,B,A+,X"],
+["Safiya","Mauler",45.5,"B","Elite < M SI 0","A5 SI 20","","A+,B,A,B,C,E,B,A"],
 ["Silas","Graveborn",45.5,"B","A1 SI 0","A3 < A5 SI 10","A5 SI 30","B,C,S,A,B,A+,B,A"],
 ["Khazard","Hypogean",45.5,"B","Mythic SI 0 < SI 30","A5 SI 30","","S-,S-,S-,C,E,E,B,B"],
-["Kren","Mauler",44.9,"B","Mythic SI 0","A1 SI 10","A3 < A5 SI 10 < (SI 20)","S-,A+,S,A,C,F,D,A"],
+["Kren","Mauler",42.6,"C","Mythic SI 0","A1 SI 10","A3 < A5 SI 10 < (SI 20)","S-,A+,S,B,D,F,D,A"],
 ["Tasi","Wilder",44.9,"B","A3 SI 0","A5 SI 0","A5 SI 10 < SI 20","A,A,S-,B,F,C,A,S"],
 ["Scarlet","Lightbearer",44.6,"C","A3 SI 20","A5 SI 20","A5 SI 30","C,D,B,S+,S+,D,C,A"],
 ["Sonja","Lightbearer",44.6,"C","Mythic < A1 SI 0","A5 SI 10","","S-,S-,S,D,D,C,B,S-"],
@@ -603,9 +603,9 @@ const TIER_ROWS=[
 ["Oscar","Lightbearer",38.8,"C","Elite","Elite < A3 SI 0","A5 SI 20","D,E,B,S,C,C,B,X"],
 ["Pippa","Wilder",38.1,"C","A3 SI 0","A5 SI 20","","S,S,S-,D,F,F,D,B"],
 ["Oden","Graveborn",38,"C","A3 SI 10","A5 SI 20","A5 SI 30","B,B,A+,C,F,F,B,A"],
-["Anasta","Mauler",37.3,"C","Mythic SI 10","A5 SI 10","A5 SI 30","C,B,A,B,E,B,C,S-"],
+["Anasta","Mauler",37.6,"C","Mythic SI 10","A5 SI 10","A5 SI 30","C,B,A+,B,E,B,C,S-"],
 ["Thoran","Graveborn",37,"C","A3 SI 0","A5 SI 0","","A+,A+,A+,F,F,F,A+,C"],
-["Raku","Wilder",36.1,"C","Mythic SI 30","A1 < A3 SI 30","A5 SI 30","B,C,A+,A,B,C,E,D"],
+["Raku","Wilder",40.5,"C","Mythic SI 30","A1 < A3 SI 30","A5 SI 30","B,C,A+,S,A,C,E,D"],
 ["Tidus","Mauler",36,"C","A3 SI 0","A5 SI 10 < SI 20","","C,C,B,B,F,F,B,X"],
 ["Leonardo","Dimensional",35.9,"C","A5 SI 0","A5 SI 20","","A+,A,A,C,C,C,E,B"],
 ["Hodgkin","Graveborn",35.8,"C","A3 SI 0","A5 SI 0","","C,C,B,B,D,C,C,X"],
@@ -631,19 +631,19 @@ const TIER_ROWS=[
 ["Kaz","Wilder",22.3,"E","A3 SI 0","A5 SI 0","A5 SI 20","B,B,A,F,F,B,E,X"],
 ["Morrow","Lightbearer",20,"E","A1 SI 0","A5 SI 10 < SI 20","","C,D,C,E,F,F,D,X"],
 ["Nara","Graveborn",17.2,"E","Elite","Elite < A3 SI 0","A5 SI 0","C,C,B,F,F,F,E,X"],
-["Thesku","Mauler",16.6,"E","A1 SI 0","A3 < A5 SI 10","","D,E,B,E,F,F,D,X"],
+["Thesku","Mauler",16,"E","A1 SI 0","A3 < A5 SI 10","","D,E,C,E,F,F,D,X"],
 ["Lucius","Lightbearer",13.4,"E","A1 SI 0","A3 < A5 SI 0","","D,E,C,F,F,F,D,X"],
 ["Gorvo","Wilder",13.2,"E","A3 SI 0","A5 SI 0","","D,D,B,F,F,F,E,X"],
 ["Cecilia","Lightbearer",12.2,"E","A1 SI 0","A3 < A5 SI 0","","E,F,D,F,F,C,C,X"],
-["Antandra","Mauler",9.4,"F","A1 SI 0","A3 < A5 SI 10 < SI 20","","E,F,C,E,F,E,E,X"],
+["Antandra","Mauler",8.8,"F","A1 SI 0","A3 < A5 SI 10 < SI 20","","E,F,D,E,F,E,E,X"],
 ["Nemora","Wilder",7.8,"F","A3 SI 0","A5 SI 0","","E,D,C,F,F,F,F,D"],
 ["Seirus","Wilder",7.6,"F","A3 SI 0","A5 SI 0","","E,E,E,F,F,E,E,X"],
 ["Respen","Wilder",6.6,"F","A3 SI 10","A5 SI 20","","E,F,C,F,F,F,E,X"],
 ["Fawkes","Lightbearer",5.6,"F","A1 SI 0","A3 SI 10","","E,F,E,F,F,E,E,X"],
-["Vurk","Mauler",4.4,"F","A3 SI 0","A5 SI 0","","F,F,C,E,F,F,F,X"],
+["Vurk","Mauler",3.2,"F","A3 SI 0","A5 SI 0","","F,F,E,E,F,F,F,X"],
 ["Theowyn","Graveborn",4,"F","A3 SI 0","A5 SI 10","","F,F,D,F,F,F,E,X"],
-["Talimar","Mauler",0,"X","","","","X,X,X,X,X,X,X,X"],
-["Awakened Baden","Graveborn",0,"X","","","","X,X,X,X,X,X,X,X"],
+["Talimar","Mauler",0,"X","Elite A1 / SI 0 < SI 20","A5 SI 20","","X,X,X,X,X,X,X,X"],
+["Awakened Baden","Graveborn",0,"X","A SI 10","A SI 30","A5 SI 30","X,X,X,X,X,X,X,X"],
 ["Izold","Graveborn",0,"X","A3 SI 20","A5 SI 20","","X,X,X,X,X,X,X,X"],
 ];
 const TIER={};
@@ -654,6 +654,7 @@ const GUIDES={
   "Albedo":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-albedo-1ka9i5o",
   "Anasta":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-anasta-1p3fitq",
   "Audrae":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-audrae-1oy9f52",
+  "Awakened Baden":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-awakened-baden-1uf67ej",
   "Awakened Brutus":"https://afk-web.onrender.com/guides/afkarenacompanions-light-companions-hero-deep-dive-abrutus-1n1qqsb",
   "Belinda":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-belinda-1toly5h",
   "Crassio":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-crassio-1k8lryc",
@@ -678,7 +679,7 @@ const GUIDES={
   "Nara":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-nara-1orbilx",
   "Nevanthi":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-nevanthi-1p0sboi",
   "Oden":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-oden-1otsszr",
-  "Orthros":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-game-mechanics-orthros-timestop-1sy8gvf",
+  "Orthros":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-orthros-1ujxo5j",
   "Oscar":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-oscar-1u1ymfr",
   "Palmer":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-meta-breakdown-guide-palmer-by-sailus-1sorr6m",
   "Raine":"https://afk-web.onrender.com/guides/afkarenacompanions-light-companions-hero-deep-dive-raine-1nkhwty",
@@ -697,11 +698,13 @@ const GUIDES={
   "Solise":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-asolise-1kazbr3",
   "Sung Jinwoo":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-early-impression-jinwoo-by-light-shodee-and-sailus-1mj8ipa",
   "Talene":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-talene-a5-1kt6pmr",
+  "Talimar":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-talimar-1uf7t6d",
   "Terrible Tornado":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-first-impression-tatsumaki-1q0eekr",
-  "Thane":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-thane-1kxt02x",
+  "Thane":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-thane-1uir6uw",
   "Trishea":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-trishea-1k9csjf",
   "Walker":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-walker-1szadhl",
-  "Warek":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-warek-1kow9py"
+  "Warek":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-warek-1ui7ei4",
+  "Zolrath":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-zolrath-1uiy9t2"
 };
 
 /* Pet tier list (https://afk-web.onrender.com/tier-list/pets). Pets have no faction. Columns:
@@ -1987,6 +1990,7 @@ document.getElementById("editDrawer").onclick=e=>{if(e.target.id==="editDrawer")
 
 /* ---- Changelog ---- */
 const CHANGELOG=[
+  {d:"2026-07-01",tier:true,t:"Tier list update: score and per-mode rank tweaks across 21 heroes (including Orthros up to A, Mishka down to B, and Kren down to C), refreshed investment breakpoints for Orthros, Awakened Baden and Talimar, and new guide links for Awakened Baden, Talimar and Zolrath."},
   {d:"2026-06-25",tier:false,t:"Teams can now have a pet: tap a team to add one of the game's pets (assumed available to everyone for now). The same pet may be used on multiple teams in a lineup. Pets travel in share codes and backups. Also fixed a check where a hero that met a sub-Mythic target (for example E+ against an Elite minimum) was wrongly shown as not fielded over its Signature Item."},
   {d:"2026-06-24",tier:false,t:"New Teams tab (with Tools moved into the ⋯ menu next to the tabs): save squads of up to 5 heroes and group them into lineups of up to 6 teams. Pick each hero's investment as Min, Optimal or Competitive (from the tier list) or a custom ascension and SI; every slot shows whether your current roster can field it and what's missing. Build freely; your roster doesn't limit planning. Share a team or lineup as a link, a code (paste it straight into game chat, found even inside a longer message), or plain readable text, and import the same ways. The Roster tab's Export/Import are now Backup/Restore and include your saved teams, so one backup covers everything (except the Tools tab)."},
   {d:"2026-06-24",tier:false,t:"Heroes now have an SI- state (no Signature Item unlocked yet) below SI0, since Signature Items only unlock at Mythic. New rosters start every hero at SI-, and any hero below Mythic is tidied to SI- on load and import; Mythic-and-above heroes keep their SI. SI Targets now also show the Emblem cost and skip heroes below Mythic."},
