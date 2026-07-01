@@ -170,6 +170,12 @@
   .card>.cap{padding:11px 14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);border-bottom:1px solid var(--line)}
   .readycard{border:1px solid var(--ok);box-shadow:0 0 0 2px rgba(70,196,122,.12)}
   .readycard>.cap{color:var(--ok);border-bottom-color:rgba(70,196,122,.35)}
+  .acctsum .sumstars{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:10px 8px;text-align:center;margin-bottom:8px}
+  .acctsum .sumstars .num{font-size:22px;font-weight:800;color:var(--lb);line-height:1.1}
+  .acctsum .sumstars .lbl{font-size:11px;color:var(--mut);margin-top:3px}
+  .acctsum .sumsplit{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+  .acctsum .sumsplit .sumstars{margin-bottom:0}
+  .acctsum .sumstars.dia .num{color:var(--dimensional)}
   .acctsum .sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
   .acctsum .stat{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:10px 8px;text-align:center}
   .acctsum .stat .num{font-size:19px;font-weight:800;color:var(--ink);line-height:1.1}
@@ -516,6 +522,10 @@ const RANKN={SSS:0,SS:1,"S+":2,S:3,"S-":4,"A+":5,A:6,B:7,C:8,D:9,E:10,F:11,X:12}
 const MODES=[["camp","Campaign"],["ff","Forked Fate"],["tower","Faction Tower"],["dr","Dream Realm"],["gh","Guild Hunt"],["abex","AbEx"],["arena","Arena"],["tr","Temporal Rift"]];
 const MIDX={camp:0,ff:1,tower:2,dr:3,gh:4,abex:5,arena:6,tr:7};
 const NON_SUMMON=new Set(["Awakened Brutus","Solise","Maetria","Awakened Talene","Awakened Baden"]);
+/* Awakened heroes (and Solise, whom the tier list calls "Awakened Solise") are upgraded WITHOUT
+   Elite/stargazer copies, so they must NOT count toward "Elite used". They still count as owned,
+   toward SI/emblems/bands, and toward Stars. */
+const NO_ELITE=new Set(["Awakened Brutus","Awakened Talene","Awakened Baden","Solise","Maetria"]);
 /* Renamed heroes: map an OLD display name -> the CURRENT one. Applied when loading a saved
    roster and when importing, so a tier-list rename never silently drops a user's hero/data.
    Add an entry whenever a hero's display name changes (e.g. {"Wukong":"Wu Kong"}). */
@@ -816,27 +826,39 @@ function fullBracket(t,asc){
   [["Min",t.mn],["Opt",t.op],["Comp",t.cp]].forEach(([cat,bp])=>{if(bp&&bp.ascs)bp.ascs.forEach(a=>{const i=ai(a);if(i>=0)ms.push({i,cat});});});
   ms.sort((a,b)=>a.i-b.i);let b=null;for(const m of ms){if(m.i<=cur)b=m.cat;else break;}return b;
 }
+/* stars from ascension: A1..A5 give 1..5; T also gives 5 (capped); A0 and below give 0.
+   Each T additionally grants 1 Diamond (counted in accountStats but not shown yet). */
+const starVal=asc=>{const d=ai(asc)-ai("A0");return d<=0?0:Math.min(5,d);};
+/* Diamonds (past-T upgrades) aren't fully modelled yet — the extra Elite cost beyond T is unknown.
+   Keep the counting + display code, but hide it for now. Flip to true to show the Stars|Diamonds
+   split row once past-T costs are added. */
+const SHOW_DIAMONDS=false;
 /* account totals from the saved roster (copies/spirits spent to reach each owned hero's ascension) */
 function accountStats(){
-  const si={0:0,10:0,20:0,30:0},band={pre:0,Min:0,Opt:0,Comp:0},emb={P:0,G:0,R:0};let owned=0,total=0,eUsed=0,sUsed=0;
+  const si={0:0,10:0,20:0,30:0},band={pre:0,Min:0,Opt:0,Comp:0},emb={P:0,G:0,R:0};let owned=0,total=0,eUsed=0,sUsed=0,stars=0,diamonds=0;
   FAC_ORDER.forEach(fac=>{
     const dim=fac==="Dimensional",ladder=dim?LDIM:(BASE_FACS.indexOf(fac)>=0?LBASE:LSG);
     S.factions[fac].forEach(h=>{
       total++;
       if(h.asc==="—")return;
-      owned++;const used=ladder[h.asc]||0;if(dim)sUsed+=used;else eUsed+=used;
+      owned++;stars+=starVal(h.asc);if(h.asc==="T")diamonds++;
+      const used=ladder[h.asc]||0;
+      if(dim)sUsed+=used;else if(!NO_ELITE.has(h.name))eUsed+=used;   // awakened/Solise cost no copies
       if(si[h.si]!=null)si[h.si]++;
       const ec=siCostParts(-1,h.si);emb.P+=ec.P;emb.G+=ec.G;emb.R+=ec.R;
       const t=TIER[h.name];band[(t?fullBracket(t,h.asc):null)||"pre"]++;
     });
   });
-  return {owned,total,eUsed,sUsed,si,band,emb};
+  return {owned,total,eUsed,sUsed,stars,diamonds,si,band,emb};
 }
 function accountSummaryHTML(){
   const s=accountStats();
   const stat=(n,l)=>`<div class="stat"><div class="num">${n}</div><div class="lbl">${l}</div></div>`;
   const chip=(l,n)=>`<span class="sumchip">${l}<b>${n}</b></span>`;
-  return `<div class="sgrid">${stat(s.owned+"/"+s.total,"Heroes owned")}${stat(s.eUsed,"Elite used")}${stat(s.sUsed,"Spirits used")}</div>`
+  const starsBox=`<div class="sumstars"><div class="num">★ ${commas(s.stars)}</div><div class="lbl">Stars obtained</div></div>`;
+  const diaBox=`<div class="sumstars dia"><div class="num">◆ ${commas(s.diamonds)}</div><div class="lbl">Diamonds</div></div>`;
+  return (SHOW_DIAMONDS&&s.diamonds>0?`<div class="sumsplit">${starsBox}${diaBox}</div>`:starsBox)
+    +`<div class="sgrid">${stat(s.owned+"/"+s.total,"Heroes owned")}${stat(s.eUsed,"Elite used")}${stat(s.sUsed,"Spirits used")}</div>`
     +`<div class="sumsec"><div class="h">Signature Item</div><div class="sumchips">${chip("SI0",s.si[0])}${chip("SI10",s.si[10])}${chip("SI20",s.si[20])}${chip("SI30",s.si[30])}</div></div>`
     +`<div class="sumsec"><div class="h">Emblems used</div><div class="sumchips">${chip('<span class="em-p">Purple</span>',commas(s.emb.P))}${chip('<span class="em-g">Gold</span>',commas(s.emb.G))}${chip('<span class="em-r">Red</span>',commas(s.emb.R))}</div></div>`
     +`<div class="sumsec"><div class="h">Investment band</div><div class="sumchips">${chip("pre-Min",s.band.pre)}${chip("Min",s.band.Min)}${chip("Opt",s.band.Opt)}${chip("Comp",s.band.Comp)}</div></div>`;
@@ -1990,6 +2012,7 @@ document.getElementById("editDrawer").onclick=e=>{if(e.target.id==="editDrawer")
 
 /* ---- Changelog ---- */
 const CHANGELOG=[
+  {d:"2026-07-01",tier:false,t:"Account summary now shows your total Stars obtained (each hero counts its ascension level as stars, 1 to 5 from A1 to A5, and T also counts as 5). Also corrected the Elite used total: heroes that upgrade without copies (the Awakened heroes, plus Solise and Maetria) are no longer counted toward it."},
   {d:"2026-07-01",tier:true,t:"Tier list update: score and per-mode rank tweaks across 21 heroes (including Orthros up to A, Mishka down to B, and Kren down to C), refreshed investment breakpoints for Orthros, Awakened Baden and Talimar, and new guide links for Awakened Baden, Talimar and Zolrath."},
   {d:"2026-06-25",tier:false,t:"Teams can now have a pet: tap a team to add one of the game's pets (assumed available to everyone for now). The same pet may be used on multiple teams in a lineup. Pets travel in share codes and backups. Also fixed a check where a hero that met a sub-Mythic target (for example E+ against an Elite minimum) was wrongly shown as not fielded over its Signature Item."},
   {d:"2026-06-24",tier:false,t:"New Teams tab (with Tools moved into the ⋯ menu next to the tabs): save squads of up to 5 heroes and group them into lineups of up to 6 teams. Pick each hero's investment as Min, Optimal or Competitive (from the tier list) or a custom ascension and SI; every slot shows whether your current roster can field it and what's missing. Build freely; your roster doesn't limit planning. Share a team or lineup as a link, a code (paste it straight into game chat, found even inside a longer message), or plain readable text, and import the same ways. The Roster tab's Export/Import are now Backup/Restore and include your saved teams, so one backup covers everything (except the Tools tab)."},
