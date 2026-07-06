@@ -406,7 +406,7 @@
 <body>
 <header>
   <div class="hbar">
-    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-07-02</span></div>
+    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-07-06</span></div>
     <div class="hr">
       <button class="resetic" id="resetBtn" title="Reset everything (clears your roster)" aria-label="Reset everything (clears your roster)">⟲</button>
       <div class="save" id="save">saved</div>
@@ -433,7 +433,7 @@
   <footer class="foot">
     <a href="#" id="changelogLink">Changelog</a><br>
     Unofficial fan-made tool. Not affiliated with, endorsed, or sponsored by Lilith Games. AFK Arena: Companions and all related content are the property of Lilith Games.<br>
-    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-07-02.<br>
+    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-07-06.<br>
     Your data is stored only in this browser. Use Backup to keep a copy.
   </footer>
 </div>
@@ -547,11 +547,11 @@ function parseBP(str){
 
 /* tier rows: [name, fac, score, rank, Min, Opt, Comp, modes(camp,ff,tower,dr,gh,abex,arena,tr)] */
 const TIER_ROWS=[
-["Dracula","Dimensional",78.4,"SS","Mythic < A5 SI 20","A5 SI 30","T SI 30","SS,SS,SS,SS,SS,SS,SS,SSS"],
+["Dracula","Dimensional",78.4,"SS","Mythic < A5 SI 20","A5 SI 30","T SI 30","SS,SS,SS,SS,SS,SS,SS,SS"],
 ["Lucilla","Hypogean",77.1,"S+","M < A1 SI 20","A3 < A5 SI 20 < SI 30","A5 SI 30","SS,SS,SS,S+,SS,SS,SS,SS"],
 ["Trishea","Wilder",73.4,"S+","A1 SI 20","A3 < A5 SI 20","A5 T / SI 30","S+,S,SS,SS,S+,S+,S+,S"],
 ["Sung Jinwoo","Dimensional",73.1,"S+","A3 SI 20","A5 SI 20 < SI 30","T SI 30","S+,S+,SS,S,S+,S,SS,S+"],
-["Liberta","Celestial",73,"S+","Mythic SI 20 < SI 30","A3 < A5 SI 30","A5 Si 30","S+,S+,S+,S+,SSS,SS,S,SSS"],
+["Liberta","Celestial",73,"S+","Mythic SI 20 < SI 30","A3 < A5 SI 30","A5 Si 30","S+,S+,S+,S+,SSS,SS,S,SS"],
 ["Terrible Tornado","Dimensional",72.4,"S","A1 SI 20 < SI 30","A5 SI 30","","SS,SS,SS,SS,SS,A+,A+,S+"],
 ["Awakened Talene","Celestial",72.3,"S","A SI 20","A SI 30","A5 SI 30","S,SS,S,S+,S+,S-,S+,S"],
 ["Awakened Brutus","Mauler",69.73,"S","A SI 20","A SI 20","A5 SI 30","SS,SS,SS,B,D,S+,SS,SS"],
@@ -652,8 +652,8 @@ const TIER_ROWS=[
 ["Fawkes","Lightbearer",5.6,"F","A1 SI 0","A3 SI 10","","E,F,E,F,F,E,E,X"],
 ["Vurk","Mauler",3.2,"F","A3 SI 0","A5 SI 0","","F,F,E,E,F,F,F,X"],
 ["Theowyn","Graveborn",4,"F","A3 SI 0","A5 SI 10","","F,F,D,F,F,F,E,X"],
-["Talimar","Mauler",0,"X","Elite < A1 SI 0 < SI 20","A5 SI 20","","X,X,X,X,X,X,X,X"],
-["Awakened Baden","Graveborn",0,"X","A SI 10","A SI 30","A5 SI 30","X,X,X,X,X,X,X,X"],
+["Talimar","Mauler",67.8,"S","Elite < A1 SI 0 < SI 20","A5 SI 20","","S,S,S+,SS,S+,S,A+,A+"],
+["Awakened Baden","Graveborn",66.6,"S-","A SI 10","A SI 30","A5 SI 30","S,S,S+,S,S+,S,S-,X"],
 ["Izold","Graveborn",0,"X","A3 SI 20","A5 SI 20","","X,X,X,X,X,X,X,X"],
 ];
 const TIER={};
@@ -2012,6 +2012,7 @@ document.getElementById("editDrawer").onclick=e=>{if(e.target.id==="editDrawer")
 
 /* ---- Changelog ---- */
 const CHANGELOG=[
+  {d:"2026-07-06",tier:true,t:"Tier list update: Awakened Baden and Talimar are now ranked (S- and S), and per-mode Temporal Rift tweaks for Dracula and Liberta."},
   {d:"2026-07-02",tier:true,t:"Tier list update: per-mode rank tweaks for Dracula, Liberta, Lucilla, Sung Jinwoo, Framton, Judy & Punch and Eluard, and a corrected minimum investment breakpoint for Talimar."},
   {d:"2026-07-01",tier:false,t:"Account summary now shows your total Stars obtained (each hero counts its ascension level as stars, 1 to 5 from A1 to A5, and T also counts as 5). Also corrected the Elite used total: heroes that upgrade without copies (the Awakened heroes, plus Solise and Maetria) are no longer counted toward it."},
   {d:"2026-07-01",tier:true,t:"Tier list update: score and per-mode rank tweaks across 21 heroes (including Orthros up to A, Mishka down to B, and Kren down to C), refreshed investment breakpoints for Orthros, Awakened Baden and Talimar, and new guide links for Awakened Baden, Talimar and Zolrath."},
