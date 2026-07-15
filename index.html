@@ -406,7 +406,7 @@
 <body>
 <header>
   <div class="hbar">
-    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-07-06</span></div>
+    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-07-14</span></div>
     <div class="hr">
       <button class="resetic" id="resetBtn" title="Reset everything (clears your roster)" aria-label="Reset everything (clears your roster)">⟲</button>
       <div class="save" id="save">saved</div>
@@ -433,7 +433,7 @@
   <footer class="foot">
     <a href="#" id="changelogLink">Changelog</a><br>
     Unofficial fan-made tool. Not affiliated with, endorsed, or sponsored by Lilith Games. AFK Arena: Companions and all related content are the property of Lilith Games.<br>
-    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-07-06.<br>
+    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-07-14.<br>
     Your data is stored only in this browser. Use Backup to keep a copy.
   </footer>
 </div>
@@ -521,7 +521,7 @@ const ai=a=>ASCO.indexOf(a);
 const RANKN={SSS:0,SS:1,"S+":2,S:3,"S-":4,"A+":5,A:6,B:7,C:8,D:9,E:10,F:11,X:12};
 const MODES=[["camp","Campaign"],["ff","Forked Fate"],["tower","Faction Tower"],["dr","Dream Realm"],["gh","Guild Hunt"],["abex","AbEx"],["arena","Arena"],["tr","Temporal Rift"]];
 const MIDX={camp:0,ff:1,tower:2,dr:3,gh:4,abex:5,arena:6,tr:7};
-const NON_SUMMON=new Set(["Awakened Brutus","Solise","Maetria","Awakened Talene","Awakened Baden"]);
+const NON_SUMMON=new Set(["Awakened Brutus","Solise","Maetria","Awakened Talene","Awakened Baden","Alna"]);
 /* Awakened heroes (and Solise, whom the tier list calls "Awakened Solise") are upgraded WITHOUT
    Elite/stargazer copies, so they must NOT count toward "Elite used". They still count as owned,
    toward SI/emblems/bands, and toward Stars. */
@@ -630,7 +630,7 @@ const TIER_ROWS=[
 ["Mezoth","Hypogean",29.8,"D","A1 SI 20","A1 SI 20","A5 SI 30","B,B,B,F,F,E,B,B"],
 ["Zikis","Hypogean",28.8,"D","A1 SI 0","A1 SI 20","","C,D,C,D,C,D,C,B"],
 ["Isabella","Graveborn",28.3,"D","A1 SI 10","A3 SI 10 < SI 20","","D,D,C,A,B,F,E,X"],
-["Daimon","Graveborn",27.6,"D","A1 SI 0 < SI 10","A3 < A5 SI 20","","A,A,S,F,F,D,D,X"],
+["Daimon","Graveborn",26.6,"D","A1 SI 0 < SI 10","A3 < A5 SI 20","","A,B,S,F,F,D,D,X"],
 ["Shemira","Graveborn",27.4,"D","A1 SI 0","A5 SI 10","","C,D,B,A+,D,F,F,X"],
 ["Wu Kong","Celestial",27.2,"D","A1 SI 0","A1 SI 20","","C,C,D,E,F,E,B,X"],
 ["Saurus","Wilder",26.1,"D","A1 SI 0","A1 SI 0 < SI 10","A5 SI 20","D,D,B,B,A,B,F,X"],
@@ -654,6 +654,7 @@ const TIER_ROWS=[
 ["Theowyn","Graveborn",4,"F","A3 SI 0","A5 SI 10","","F,F,D,F,F,F,E,X"],
 ["Talimar","Mauler",67.8,"S","Elite < A1 SI 0 < SI 20","A5 SI 20","","S,S,S+,SS,S+,S,A+,A+"],
 ["Awakened Baden","Graveborn",66.6,"S-","A SI 10","A SI 30","A5 SI 30","S,S,S+,S,S+,S,S-,X"],
+["Alna","Celestial",0,"X","","","","X,X,X,X,X,X,X,X"],
 ["Izold","Graveborn",0,"X","A3 SI 20","A5 SI 20","","X,X,X,X,X,X,X,X"],
 ];
 const TIER={};
@@ -662,6 +663,7 @@ TIER_ROWS.forEach(r=>{TIER[r[0]]={fac:r[1],sc:r[2],rk:r[3],mn:parseBP(r[4]),op:p
    tier-list page; refresh alongside TIER_ROWS). Heroes without a guide are simply absent. */
 const GUIDES={
   "Albedo":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-albedo-1ka9i5o",
+  "Alna":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-alna-1urmume",
   "Anasta":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-anasta-1p3fitq",
   "Audrae":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-audrae-1oy9f52",
   "Awakened Baden":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-awakened-baden-1uf67ej",
@@ -1806,7 +1808,7 @@ function lineupCard(L){
    so codes shared today still decode after tier updates. NEVER reorder or remove entries — on a
    tier update, append new heroes to the end (and add an ALIASES entry for renames). Keep length
    <=254 (255 is the unknown-hero sentinel). */
-const HID=["Ainz Ooal Gown","Albedo","Anasta","Antandra","Arthur","Athalia","Audrae","Awakened Baden","Awakened Brutus","Awakened Talene","Belinda","Brutus","Cecilia","Cha Hae-In","Crassio","Daimon","Desira","Dracula","Drez","Eironn","Elijah & Lailah","Eluard","Estrilda","Ezizh","Fawkes","Ferael","Flora","Framton","Gorvo","Grezhul","Gwyneth","Haelus","Hendrik","Hodgkin","Isabella","Izold","Judy & Punch","Kaz","Kelthur","Khasos","Khazard","Kren","Laios","Leonardo","Liberta","Lorsan","Lucilla","Lucius","Lucretia","Lyca","Maetria","Marcille","Mehira","Merlin","Mezoth","Mira","Mishka","Morrow","Mortas","Nara","Nemora","Nevanthi","Numisu","Oden","Oku","Orthros","Oscar","Palmer","Pippa","Raine","Raku","Respen","Rosaline","Rowan","Safiya","Saitama","Salaki","Satrana","Saurus","Scarlet","Seirus","Selene","Shalltear","Shemira","Silas","Skreg","Skriath","Solise","Sonja","Sung Jinwoo","Talene","Talimar","Tasi","Terrible Tornado","Thane","Theowyn","Thesku","Thoran","Tidus","Treznor","Trishea","Vurk","Walker","Warek","Wu Kong","Zaphrael","Zikis","Zolrath"];
+const HID=["Ainz Ooal Gown","Albedo","Anasta","Antandra","Arthur","Athalia","Audrae","Awakened Baden","Awakened Brutus","Awakened Talene","Belinda","Brutus","Cecilia","Cha Hae-In","Crassio","Daimon","Desira","Dracula","Drez","Eironn","Elijah & Lailah","Eluard","Estrilda","Ezizh","Fawkes","Ferael","Flora","Framton","Gorvo","Grezhul","Gwyneth","Haelus","Hendrik","Hodgkin","Isabella","Izold","Judy & Punch","Kaz","Kelthur","Khasos","Khazard","Kren","Laios","Leonardo","Liberta","Lorsan","Lucilla","Lucius","Lucretia","Lyca","Maetria","Marcille","Mehira","Merlin","Mezoth","Mira","Mishka","Morrow","Mortas","Nara","Nemora","Nevanthi","Numisu","Oden","Oku","Orthros","Oscar","Palmer","Pippa","Raine","Raku","Respen","Rosaline","Rowan","Safiya","Saitama","Salaki","Satrana","Saurus","Scarlet","Seirus","Selene","Shalltear","Shemira","Silas","Skreg","Skriath","Solise","Sonja","Sung Jinwoo","Talene","Talimar","Tasi","Terrible Tornado","Thane","Theowyn","Thesku","Thoran","Tidus","Treznor","Trishea","Vurk","Walker","Warek","Wu Kong","Zaphrael","Zikis","Zolrath","Alna"];
 const HID_IX=(function(){const m={};HID.forEach((n,i)=>m[n]=i);return m;})();
 function b64urlEnc(bytes){let bin="";for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);return btoa(bin).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");}
 function b64urlDec(str){str=str.replace(/-/g,"+").replace(/_/g,"/");while(str.length%4)str+="=";const bin=atob(str),out=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)out[i]=bin.charCodeAt(i);return out;}
@@ -2012,6 +2014,7 @@ document.getElementById("editDrawer").onclick=e=>{if(e.target.id==="editDrawer")
 
 /* ---- Changelog ---- */
 const CHANGELOG=[
+  {d:"2026-07-14",tier:true,t:"Tier list update: new hero Alna (Celestial, awakened-style so not summonable or stargazable), and a per-mode Forked Fate tweak for Daimon (A down to B)."},
   {d:"2026-07-06",tier:true,t:"Tier list update: Awakened Baden and Talimar are now ranked (S- and S), and per-mode Temporal Rift tweaks for Dracula and Liberta."},
   {d:"2026-07-02",tier:true,t:"Tier list update: per-mode rank tweaks for Dracula, Liberta, Lucilla, Sung Jinwoo, Framton, Judy & Punch and Eluard, and a corrected minimum investment breakpoint for Talimar."},
   {d:"2026-07-01",tier:false,t:"Account summary now shows your total Stars obtained (each hero counts its ascension level as stars, 1 to 5 from A1 to A5, and T also counts as 5). Also corrected the Elite used total: heroes that upgrade without copies (the Awakened heroes, plus Solise and Maetria) are no longer counted toward it."},
