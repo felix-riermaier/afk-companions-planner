@@ -406,7 +406,7 @@
 <body>
 <header>
   <div class="hbar">
-    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-07-29</span></div>
+    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-07-31</span></div>
     <div class="hr">
       <button class="resetic" id="resetBtn" title="Reset everything (clears your roster)" aria-label="Reset everything (clears your roster)">⟲</button>
       <div class="save" id="save">saved</div>
@@ -433,7 +433,7 @@
   <footer class="foot">
     <a href="#" id="changelogLink">Changelog</a><br>
     Unofficial fan-made tool. Not affiliated with, endorsed, or sponsored by Lilith Games. AFK Arena: Companions and all related content are the property of Lilith Games.<br>
-    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-07-29.<br>
+    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-07-31.<br>
     Your data is stored only in this browser. Use Backup to keep a copy.
   </footer>
 </div>
@@ -549,26 +549,28 @@ function parseBP(str){
 const TIER_ROWS=[
 ["Dracula","Dimensional",77,"SS","Mythic < A5 SI 20","A5 SI 30","T SI 30","SS,SS,SS,SS,SS,SS,SS,SS"],
 ["Lucilla","Hypogean",75.7,"S+","M < A1 SI 20","A3 < A5 SI 20 < SI 30","A5 SI 30","SS,SS,SS,S+,SS,SS,SS,SS"],
-["Trishea","Wilder",71.9,"S+","A1 SI 20","A3 < A5 SI 20","A5 T / SI 30","S+,S,SS,SS,S+,S+,S+,S"],
+["Medusa","Dimensional",73.07,"S+","A1 < A3 SI 20","A5 SI 30","","SS,SS,SS,X,X,S,SS,SS"],
 ["Sung Jinwoo","Dimensional",71.6,"S+","A3 SI 20","A5 SI 20 < SI 30","T SI 30","S+,S+,SS,S,S+,S,SS,S"],
-["Awakened Talene","Celestial",71,"S","A SI 20","A SI 30","A5 SI 30","S,SS,S,S+,S+,S-,S+,S+"],
 ["Liberta","Celestial",71,"S","Mythic SI 20 < SI 30","A3 < A5 SI 30","A5 Si 30","S+,S+,S+,S+,SSS,SS,S,SS"],
+["Trishea","Wilder",70.9,"S","A1 SI 20","A3 < A5 SI 20","A5 T / SI 30","S,S,SS,SS,S+,S+,S+,S"],
 ["Terrible Tornado","Dimensional",70.8,"S","A1 SI 20 < SI 30","A5 SI 30","","SS,SS,SS,SS,SS,A+,A+,S+"],
+["Athena","Dimensional",68.88,"S","A1 SI 30","A5 Si 30","","S+,S,SS,X,X,S,SS,S+"],
 ["Awakened Brutus","Mauler",68.8,"S","A SI 20","A SI 20","A5 SI 30","SS,SS,SS,B,D,S+,SS,SS"],
+["Awakened Talene","Celestial",68,"S","A SI 20","A SI 30","A5 SI 30","A,SS,S,S+,S+,S-,S+,S+"],
 ["Saitama","Dimensional",67.8,"S","M < A3 SI 20","A3 < A5 SI 20","A5 SI 30","S,S,S,S+,SS,S+,S,S"],
 ["Lyca","Wilder",67.4,"S","Mythic SI 0","A3 < A5 SI 20 < SI 30","A5 T / SI 30","S,S,S,S+,S+,S-,S,S"],
 ["Albedo","Dimensional",66.6,"S","Mythic SI 20 < SI 30","A3 SI 30","A5 T / SI 30","S+,S+,S,A,A,S+,SS,S+"],
 ["Awakened Baden","Graveborn",65.1,"S-","A SI 10","A SI 30","A5 SI 30","S,S,S+,S,S+,S,S-,S"],
-["Mira","Graveborn",64.8,"S-","A1 SI 0 < SI 20","A3 < A5 SI 20","A5 SI 30","S+,S+,SS,S-,B,S-,S-,S-"],
+["Mira","Graveborn",65,"S-","A1 SI 0 < SI 20","A3 < A5 SI 20","A5 SI 30","S+,S+,SS,S-,B,S-,S-,S"],
 ["Judy & Punch","Dimensional",64.7,"S-","A3 < A5 SI 20 < SI 30","A5 SI 30","","A+,A+,S-,SS,SS,S,S,S"],
+["Marcille","Dimensional",64.4,"S-","A3 SI 20","A5 SI 20","A5 SI 30","S+,S,S,S,S,S,A+,S+"],
 ["Maetria","Hypogean",63.72,"S-","A SI 30","A SI 30","A5 SI 30","S,S+,S+,B,C,S+,S+,S+"],
-["Marcille","Dimensional",63.6,"S-","A3 SI 20","A5 SI 20","A5 SI 30","S,S,S,S,S,S,A+,SS"],
 ["Palmer","Lightbearer",63.4,"S-","Mythic SI 20","A3 < A5 SI 20","","A+,A+,S,SS,SS,S,S-,S-"],
-["Merlin","Dimensional",63.3,"S-","A5 SI 0","A5 SI 30","","SS,SS,SS,D,F,S,SS,SS"],
 ["Haelus","Celestial",62.9,"S-","Elite","A3 SI 20","A5 SI 30","S,S,S,S-,S-,S,S-,S-"],
 ["Talene","Celestial",62.4,"S-","Elite","Mythic SI 20 / SI 30","A5 SI 30","A+,S,S,S,S,B,S,C"],
+["Merlin","Dimensional",62.26,"S-","A5 SI 0","A5 SI 30","","S+,SS,SS,D,F,S,SS,SS"],
 ["Shalltear","Dimensional",62.26,"S-","A1 SI 10","A3 SI 20","A5 T / SI 30","S+,SS,SS,D,F,S,SS,SS"],
-["Talimar","Mauler",60.7,"S-","Elite < A1 SI 0 < SI 20","A5 SI 20","","A+,A,S+,SS,S+,S,A+,A"],
+["Talimar","Mauler",59.3,"A+","Elite < A1 SI 0 < SI 20","A5 SI 20","","A+,A,S+,SS,S+,S,A,A"],
 ["Salaki","Mauler",58.9,"A+","Elite < A1 SI 0","A3 < A5 SI 0","A5 SI 30","S,S,S,B,D,A,S,S"],
 ["Solise","Wilder",58.5,"A+","A SI 30","A SI 30","A5 SI 30","S,S-,S+,A,C,A,S-,S"],
 ["Arthur","Dimensional",58.1,"A+","Mythic SI 20","Mythic < A5 SI 20","A5 SI 20 < 30","S,S,S,A,C,B,A+,SS"],
@@ -576,47 +578,47 @@ const TIER_ROWS=[
 ["Nevanthi","Wilder",57.6,"A+","A1 < A3 SI 0","A5 SI 10 < 20","T SI 30","A+,A+,S,A,A+,A,S,S+"],
 ["Framton","Hypogean",57.5,"A+","Elite < A1 SI 20","A3 SI 20 < SI 30","A5 SI 30","S+,S+,S+,D,E,A+,S+,SS"],
 ["Cha Hae-In","Dimensional",56.7,"A+","A5 SI 20","A5 SI 30","","S-,S-,S-,A+,A+,SS,A,S"],
-["Gwyneth","Lightbearer",56.3,"A+","A1 SI 10","A3 SI 20","A5 SI 20 < SI 30","S,S-,S,S-,C,D,A,C"],
 ["Rowan","Lightbearer",55.8,"A+","Mythic < A1 SI 0 < SI 20","A5 SI 20","A5 SI 30","S,S-,S,S,S-,B,C,S-"],
 ["Laios","Dimensional",55.1,"A+","Elite < Mythic SI 20","A1 < A3 SI 20","A5 SI 20","A+,A,A+,SS,S+,S+,C,S+"],
 ["Selene","Celestial",54.8,"A","Elite < Mythic SI 20","A3 SI 20","A5 SI 30","S-,A+,S-,A+,B,A,A,S"],
 ["Zolrath","Hypogean",54.1,"A","Elite < A1 SI 30","A1 SI 30","A5 SI 30","A+,A+,S,C,C,A,S+,S"],
+["Gwyneth","Lightbearer",53.9,"A","A1 SI 10","A3 SI 20","A5 SI 20 < SI 30","S-,S-,S,S-,C,D,B,C"],
+["Skriath","Mauler",53.4,"A","Elite < A1 SI 0","A5 SI 0 < SI 20","A5 SI 30","S,A+,S,S,B,D,C,A"],
 ["Brutus","Mauler",53,"A","Elite","Elite < A1 SI 0","A5 SI 0 < SI 20","S,S+,S,B,D,D,B,B"],
-["Satrana","Mauler",52.9,"A","Elite","A1 SI 0","A5 SI 20 < SI 30","S-,A+,S,B,C,A,A+,A"],
 ["Rosaline","Lightbearer",52.7,"A","Mythic < A SI 0","A5 SI 20","A5 SI 30","A,B,S,SS,SS,A,C,A"],
 ["Thane","Lightbearer",52.5,"A","A3 SI 10","A5 SI 20","","A,B,S,S-,S,A+,A,B"],
-["Skriath","Mauler",52.4,"A","Elite < A1 SI 0","A5 SI 0 < SI 20","A5 SI 30","S-,A+,S,S,B,D,C,A"],
+["Satrana","Mauler",51.9,"A","Elite","A1 SI 0","A5 SI 20 < SI 30","A+,A+,S,B,C,A,A+,A"],
 ["Raine","Lightbearer",51.5,"A","Elite < Mythic SI 10","A3 SI 10","A5 SI 10 < SI 20","A,B,S,S+,SS,B,C,A+"],
 ["Flora","Celestial",51.4,"A","A1 SI 10","A1 SI 30","","S,S+,S,D,F,E,S-,A+"],
 ["Skreg","Mauler",51,"A","A1 SI 0","A5 SI 0 < SI 20","A5 SI 30","A+,A+,S,C,C,B,S-,S-"],
 ["Audrae","Celestial",50.3,"A","Elite < A1 SI 20","A3 < A5 SI 20","A5 SI 30","A,A,S-,A+,B,A+,B,S-"],
 ["Mishka","Wilder",50.2,"A","A3 SI 10","A5 SI 20","","A+,A+,S,B,C,C,A,A"],
-["Orthros","Celestial",50.1,"A","A3 SI 0","A3 A5 / SI 0","A5 SI 30","B,C,S-,S,A,B,A,A+"],
 ["Crassio","Mauler",49,"B","A1 SI 0 < SI 10","A3 < A5 SI 10 < SI 20","A5 T / SI 30","A+,A+,S,B,B,C,B,B"],
 ["Estrilda","Lightbearer",48.7,"B","Elite < A1 SI 0","A3 < A5 SI 0 / SI 10","","A,B,B,S-,A,B,B,C"],
+["Walker","Lightbearer",48.2,"B","Elite","A1 < A5 SI 0","A5 SI 20","A,C,A+,SS,SS,A+,D,S+"],
 ["Mehira","Hypogean",47.7,"B","Elite","Elite","M A5 / SI 30","B,B,S-,A+,B,B,B,A"],
-["Walker","Lightbearer",47.2,"B","Elite","A1 < A5 SI 0","A5 SI 20","B,C,A+,SS,SS,A+,D,S+"],
 ["Lucretia","Hypogean",47,"B","A1 SI 30","A3 < A5 SI 30","A5 SI 30","S,B,S,B,A+,C,C,A+"],
-["Tasi","Wilder",46.9,"B","A3 SI 0","A5 SI 0","A5 SI 10 < SI 20","A,A,S-,B,F,C,A,A+"],
 ["Khasos","Mauler",46.6,"B","Elite < A3","A5 SI 0","A5 SI 20","A+,A+,D,C,D,B,A+,A+"],
+["Tasi","Wilder",46.5,"B","A3 SI 0","A5 SI 0","A5 SI 10 < SI 20","A,A,S-,B,F,C,A,B"],
 ["Khazard","Hypogean",46.5,"B","Mythic SI 0 < SI 30","A5 SI 30","","S-,S-,S-,C,E,E,B,B"],
+["Orthros","Celestial",46.1,"B","A3 SI 0","A3 A5 / SI 0","A5 SI 30","C,D,S-,S,A,B,A,A+"],
 ["Elijah & Lailah","Celestial",45.7,"B","Elite","Elite Elite+","","C,D,A,SS,SS,S,C,S"],
-["Mortas","Hypogean",45.4,"B","Elite","Elite Elite+","Mythic SI 20","B,C,S,S+,S+,A,D,A"],
 ["Sonja","Lightbearer",45.4,"B","Mythic < A1 SI 0","A5 SI 10","","S-,S-,S,D,D,C,B,A+"],
+["Mortas","Hypogean",45.4,"B","Elite","Elite Elite+","Mythic SI 20","B,C,S,S+,S+,A,D,A"],
 ["Safiya","Mauler",45.3,"B","Elite < M SI 0","A5 SI 20","","A+,B,A,B,C,E,B,B"],
 ["Silas","Graveborn",45.1,"B","A1 SI 0","A3 < A5 SI 10","A5 SI 30","B,C,S,A,B,A+,B,A+"],
 ["Numisu","Mauler",44.7,"B","A1 SI 0","A3 SI 10","A5 SI 20","A,A+,S-,B,C,D,C,A+"],
 ["Kren","Mauler",43,"C","Mythic SI 0","A1 SI 10","A3 < A5 SI 10 < (SI 20)","S-,A+,S,B,D,F,D,B"],
-["Zaphrael","Celestial",42.8,"C","Elite","Elite","A1 A5 / SI 30","A,B,B,C,F,F,A+,B"],
 ["Ezizh","Hypogean",42.8,"C","Elite","Elite","A5 SI 20","B,C,A+,A+,F,D,B,C"],
+["Zaphrael","Celestial",42.8,"C","Elite","Elite","A1 A5 / SI 30","A,B,B,C,F,F,A+,B"],
 ["Scarlet","Lightbearer",41.9,"C","A3 SI 20","A5 SI 20","A5 SI 30","C,D,B,S+,S+,D,C,C"],
 ["Eironn","Wilder",40.8,"C","A3 SI 0","A5 SI 0","A5 SI 15","S+,S+,S,D,F,F,D,E"],
 ["Athalia","Celestial",40.6,"C","Elite < A3 SI 20","A5 SI 20","A5 SI 30","B,B,A+,C,D,C,B,C"],
 ["Pippa","Wilder",39.7,"C","A3 SI 0","A5 SI 20","","S,S,S-,D,F,F,D,B"],
 ["Oden","Graveborn",39.2,"C","A3 SI 10","A5 SI 20","A5 SI 30","B,B,A+,C,F,F,B,C"],
 ["Anasta","Mauler",39.2,"C","Mythic SI 10","A5 SI 10","A5 SI 30","C,B,A+,B,E,B,C,S-"],
-["Thoran","Graveborn",38.6,"C","A3 SI 0","A5 SI 0","","A+,A+,A+,F,F,F,A+,B"],
 ["Oscar","Lightbearer",38.6,"C","Elite","Elite < A3 SI 0","A5 SI 20","D,E,B,S,C,C,B,B"],
+["Thoran","Graveborn",38.6,"C","A3 SI 0","A5 SI 0","","A+,A+,A+,F,F,F,A+,B"],
 ["Raku","Wilder",38.2,"C","Mythic SI 30","A1 < A3 SI 30","A5 SI 30","B,C,A+,S,A,C,E,E"],
 ["Treznor","Graveborn",36.9,"C","Mythic < A1 SI 0","A3 < A5 SI 0 < SI 20","","B,B,A,D,F,E,B,B"],
 ["Tidus","Mauler",36.8,"C","A3 SI 0","A5 SI 10 < SI 20","","C,C,B,B,F,F,B,D"],
@@ -655,9 +657,7 @@ const TIER_ROWS=[
 ["Theowyn","Graveborn",4,"F","A3 SI 0","A5 SI 10","","F,F,D,F,F,F,E,F"],
 ["Vurk","Mauler",3.2,"F","A3 SI 0","A5 SI 0","","F,F,E,E,F,F,F,F"],
 ["Alna","Celestial",0,"X","","","","X,X,X,X,X,X,X,X"],
-["Medusa","Dimensional",0,"X","","","","X,X,X,X,X,X,X,X"],
 ["Izold","Graveborn",0,"X","A3 SI 20","A5 SI 20","","X,X,X,X,X,X,X,X"],
-["Athena","Dimensional",0,"X","","","","X,X,X,X,X,X,X,X"],
 ];
 const TIER={};
 TIER_ROWS.forEach(r=>{TIER[r[0]]={fac:r[1],sc:r[2],rk:r[3],mn:parseBP(r[4]),op:parseBP(r[5]),cp:parseBP(r[6]),md:r[7].split(","),mnR:r[4],opR:r[5],cpR:r[6]};});
@@ -672,6 +672,7 @@ const GUIDES={
   "Awakened Baden":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-awakened-baden-1uf67ej",
   "Awakened Brutus":"https://afk-web.onrender.com/guides/afkarenacompanions-light-companions-hero-deep-dive-abrutus-1n1qqsb",
   "Belinda":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-belinda-1toly5h",
+  "Brutus":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-brutus-1vbn58l",
   "Crassio":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-crassio-1k8lryc",
   "Dracula":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-meta-breakdown-guide-dracula-by-sailus-1s9zga9",
   "Drez":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-drez-by-sailus-and-shodee-1r3tciy",
@@ -703,7 +704,7 @@ const GUIDES={
   "Rosaline":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-rosaline-1kbrc3u",
   "Rowan":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-rowan-1kq5ab3",
   "Saitama":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-first-impression-saitama-1q0mrjm",
-  "Salaki":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-salaki-1ozr15t",
+  "Salaki":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-salaki-1var642",
   "Satrana":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-satrana-by-sailus-and-shodee-1qm52kd",
   "Saurus":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-saurus-by-sailus-1tctihp",
   "Scarlet":"https://afk-web.onrender.com/guides/afkarenacompanions-light-companions-hero-deep-dive-scarlett-1m909yh",
@@ -2018,6 +2019,7 @@ document.getElementById("editDrawer").onclick=e=>{if(e.target.id==="editDrawer")
 
 /* ---- Changelog ---- */
 const CHANGELOG=[
+  {d:"2026-07-31",tier:true,t:"Tier list update: Medusa and Athena are now ranked (S+ and S) after arriving as placeholders last update, though their Dream Realm and Graveyard Hunting ratings are still pending. Rank drops for Talimar (S- to A+), Trishea (S+ to S), Gwyneth (A+ to A) and Orthros (A to B), plus score and per-mode tweaks for Awakened Talene, Marcille, Merlin, Mira, Satrana, Skriath, Tasi and Walker. Pet ratings are unchanged."},
   {d:"2026-07-29",tier:true,t:"Tier list update: two new (upcoming) Dimensional heroes, Athena and Medusa; Temporal Rift per-mode ratings filled in across the roster and pets; and broad score/rank shifts including Talimar down to S-, Liberta down to S, Albedo up to S, Flora and Mishka up to A, Belinda down to D, and pets Nightfall Pegasus up to S+ and Bellbellow up to S-."},
   {d:"2026-07-14",tier:true,t:"Tier list update: new hero Alna (Celestial, awakened-style so not summonable or stargazable), and a per-mode Forked Fate tweak for Daimon (A down to B)."},
   {d:"2026-07-06",tier:true,t:"Tier list update: Awakened Baden and Talimar are now ranked (S- and S), and per-mode Temporal Rift tweaks for Dracula and Liberta."},
