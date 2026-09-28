@@ -406,7 +406,7 @@
 <body>
 <header>
   <div class="hbar">
-    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-09-10</span></div>
+    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-09-28</span></div>
     <div class="hr">
       <button class="resetic" id="resetBtn" title="Reset everything (clears your roster)" aria-label="Reset everything (clears your roster)">⟲</button>
       <div class="save" id="save">saved</div>
@@ -433,7 +433,7 @@
   <footer class="foot">
     <a href="#" id="changelogLink">Changelog</a><br>
     Unofficial fan-made tool. Not affiliated with, endorsed, or sponsored by Lilith Games. AFK Arena: Companions and all related content are the property of Lilith Games.<br>
-    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-09-10.<br>
+    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-09-28.<br>
     Your data is stored only in this browser. Use Backup to keep a copy.
   </footer>
 </div>
@@ -591,6 +591,7 @@ const TIER_ROWS=[
 ["Satrana","Mauler",51,"A","Elite","A1 SI 0","A5 SI 20 < SI 30","A+,A+,S,B,C,C,A+,C"],
 ["Audrae","Celestial",50.1,"A","Elite < A1 SI 20","A3 < A5 SI 20","A5 SI 30","A,A,S-,A+,B,A+,B,A+"],
 ["Rowan","Lightbearer",49.9,"A","Mythic < A1 SI 0 < SI 20","A5 SI 20","A5 SI 30","A+,A+,S,A+,A+,A,C,A+"],
+["Canisa & Ruke","Hypogean",49.7,"A","Elite","A3 SI 30","A5 SI 30","S+,S+,S+,E,E,X,S,X"],
 ["Estrilda","Lightbearer",48.7,"B","Elite < A1 SI 0","A3 < A5 SI 0 / SI 10","","A,B,B,S-,A,B,B,C"],
 ["Crassio","Mauler",48.4,"B","A1 SI 0 < SI 10","A3 < A5 SI 10 < SI 20","A5 T / SI 30","A+,A+,S,B,B,D,B,C"],
 ["Walker","Lightbearer",48.2,"B","Elite","A1 < A5 SI 0","A5 SI 20","A,C,A+,SS,SS,A+,D,S+"],
@@ -615,11 +616,11 @@ const TIER_ROWS=[
 ["Pippa","Wilder",39.7,"C","A3 SI 0","A5 SI 20","","S,S,S-,D,F,F,D,B"],
 ["Anasta","Mauler",39,"C","Mythic SI 10","A5 SI 10","A5 SI 30","C,B,A+,B,E,B,C,A+"],
 ["Eironn","Wilder",38.8,"C","A3 SI 0","A5 SI 0","A5 SI 15","S,S,S,D,F,F,D,E"],
-["Thoran","Graveborn",38.6,"C","A3 SI 0","A5 SI 0","","A+,A+,A+,F,F,F,A+,B"],
 ["Oscar","Lightbearer",38.6,"C","Elite","Elite < A3 SI 0","A5 SI 20","D,E,B,S,B,C,B,C"],
+["Thoran","Graveborn",38.6,"C","A3 SI 0","A5 SI 0","","A+,A+,A+,F,F,F,A+,B"],
 ["Raku","Wilder",38,"C","Mythic SI 30","A1 < A3 SI 30","A5 SI 30","B,C,A+,S,B,C,E,E"],
-["Athalia","Celestial",37.6,"C","Elite < A3 SI 20","A5 SI 20","A5 SI 30","B,B,A+,D,D,E,B,C"],
 ["Oden","Graveborn",37.6,"C","A3 SI 10","A5 SI 20","A5 SI 30","A,B,A+,D,F,F,B,C"],
+["Athalia","Celestial",37.6,"C","Elite < A3 SI 20","A5 SI 20","A5 SI 30","B,B,A+,D,D,E,B,C"],
 ["Treznor","Graveborn",36.5,"C","Mythic < A1 SI 0","A3 < A5 SI 0 < SI 20","","B,B,A,D,F,E,B,C"],
 ["Ainz Ooal Gown","Dimensional",35.8,"C","A5 SI 10","A5 SI 20","","A,B,B,B,F,F,D,E"],
 ["Hodgkin","Graveborn",35.4,"C","A3 SI 0","A5 SI 0","","C,C,B,B,D,C,C,D"],
@@ -633,8 +634,8 @@ const TIER_ROWS=[
 ["Belinda","Lightbearer",30.9,"D","A1 < A3 SI 10","A5 SI 20","","D,E,B,S+,S,D,E,F"],
 ["Alna","Celestial",29.8,"D","Elite < M SI 30","A1 SI 30","","S,S,A+,X,X,X,X,SS"],
 ["Wu Kong","Celestial",28.2,"D","A1 SI 0","A1 SI 20","","C,C,D,E,F,F,B,C"],
-["Daimon","Graveborn",27.2,"D","A1 SI 0 < SI 10","A3 < A5 SI 20","","A,B,S,F,F,E,D,D"],
 ["Oku","Wilder",27.2,"D","A1 SI 0","A3 < A5 SI 0","","B,C,S,F,F,F,C,C"],
+["Daimon","Graveborn",27.2,"D","A1 SI 0 < SI 10","A3 < A5 SI 20","","A,B,S,F,F,E,D,D"],
 ["Zikis","Hypogean",27,"D","A1 SI 0","A1 SI 20","","C,D,C,D,C,F,C,E"],
 ["Warek","Mauler",26.6,"D","Elite","Elite","A5 SI 0","E,F,B,SS,SS,B,F,E"],
 ["Ferael","Graveborn",26.2,"D","A1 SI 0","A3 < A5 SI 10 < SI 20","","B,C,A+,F,F,F,C,D"],
@@ -658,9 +659,10 @@ const TIER_ROWS=[
 ["Theowyn","Graveborn",4,"F","A3 SI 0","A5 SI 10","","F,F,D,F,F,F,E,F"],
 ["Vurk","Mauler",3.2,"F","A3 SI 0","A5 SI 0","","F,F,E,E,F,F,F,F"],
 ["Izold","Graveborn",0,"X","A3 SI 20","A5 SI 20","","X,X,X,X,X,X,X,X"],
-["Canisa & Ruke","Hypogean",0,"X","","","","X,X,X,X,X,X,X,X"],
+["Kafka","Dimensional",0,"X","A3 SI 20","A3 SI 20","A5 SI 20 < SI 30","X,X,X,X,X,X,X,X"],
 ["Lady Simona","Graveborn",0,"X","A1 SI 0 < SI 10","A5 SI 10 < 20","","X,X,X,X,X,X,X,X"],
 ["Vyloris","Hypogean",0,"X","","","","X,X,X,X,X,X,X,X"],
+["Kikoru","Dimensional",0,"X","A3 SI 20","A3 < A5 SI 20","A5 SI 20 < SI 30","X,X,X,X,X,X,X,X"],
 ];
 const TIER={};
 TIER_ROWS.forEach(r=>{TIER[r[0]]={fac:r[1],sc:r[2],rk:r[3],mn:parseBP(r[4]),op:parseBP(r[5]),cp:parseBP(r[6]),md:r[7].split(","),mnR:r[4],opR:r[5],cpR:r[6]};});
@@ -687,7 +689,9 @@ const GUIDES={
   "Hodgkin":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-hodgkin-1nmc2rr",
   "Isabella":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-isabella-by-shodee-and-sailus-1ok9yq2",
   "Judy & Punch":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-judy-and-punch-1u2x8t4",
+  "Kafka":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-kafka-1wn66l5",
   "Kelthur":"https://afk-web.onrender.com/guides/afkarenacompanions-total-western8607-hero-overview-kelthur-by-sailus-and-shodee-1qm0eie",
+  "Kikoru":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-kikoru-1wn67mw",
   "Lady Simona":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-lady-simona-1w3eg8k",
   "Liberta":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-liberta-by-sailus-1t0zmt8",
   "Lorsan":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-lorsan-1t0963f",
@@ -1827,7 +1831,7 @@ function lineupCard(L){
    so codes shared today still decode after tier updates. NEVER reorder or remove entries — on a
    tier update, append new heroes to the end (and add an ALIASES entry for renames). Keep length
    <=254 (255 is the unknown-hero sentinel). */
-const HID=["Ainz Ooal Gown","Albedo","Anasta","Antandra","Arthur","Athalia","Audrae","Awakened Baden","Awakened Brutus","Awakened Talene","Belinda","Brutus","Cecilia","Cha Hae-In","Crassio","Daimon","Desira","Dracula","Drez","Eironn","Elijah & Lailah","Eluard","Estrilda","Ezizh","Fawkes","Ferael","Flora","Framton","Gorvo","Grezhul","Gwyneth","Haelus","Hendrik","Hodgkin","Isabella","Izold","Judy & Punch","Kaz","Kelthur","Khasos","Khazard","Kren","Laios","Leonardo","Liberta","Lorsan","Lucilla","Lucius","Lucretia","Lyca","Maetria","Marcille","Mehira","Merlin","Mezoth","Mira","Mishka","Morrow","Mortas","Nara","Nemora","Nevanthi","Numisu","Oden","Oku","Orthros","Oscar","Palmer","Pippa","Raine","Raku","Respen","Rosaline","Rowan","Safiya","Saitama","Salaki","Satrana","Saurus","Scarlet","Seirus","Selene","Shalltear","Shemira","Silas","Skreg","Skriath","Solise","Sonja","Sung Jinwoo","Talene","Talimar","Tasi","Terrible Tornado","Thane","Theowyn","Thesku","Thoran","Tidus","Treznor","Trishea","Vurk","Walker","Warek","Wu Kong","Zaphrael","Zikis","Zolrath","Alna","Medusa","Athena","Lady Simona","Vyloris","Canisa & Ruke"];
+const HID=["Ainz Ooal Gown","Albedo","Anasta","Antandra","Arthur","Athalia","Audrae","Awakened Baden","Awakened Brutus","Awakened Talene","Belinda","Brutus","Cecilia","Cha Hae-In","Crassio","Daimon","Desira","Dracula","Drez","Eironn","Elijah & Lailah","Eluard","Estrilda","Ezizh","Fawkes","Ferael","Flora","Framton","Gorvo","Grezhul","Gwyneth","Haelus","Hendrik","Hodgkin","Isabella","Izold","Judy & Punch","Kaz","Kelthur","Khasos","Khazard","Kren","Laios","Leonardo","Liberta","Lorsan","Lucilla","Lucius","Lucretia","Lyca","Maetria","Marcille","Mehira","Merlin","Mezoth","Mira","Mishka","Morrow","Mortas","Nara","Nemora","Nevanthi","Numisu","Oden","Oku","Orthros","Oscar","Palmer","Pippa","Raine","Raku","Respen","Rosaline","Rowan","Safiya","Saitama","Salaki","Satrana","Saurus","Scarlet","Seirus","Selene","Shalltear","Shemira","Silas","Skreg","Skriath","Solise","Sonja","Sung Jinwoo","Talene","Talimar","Tasi","Terrible Tornado","Thane","Theowyn","Thesku","Thoran","Tidus","Treznor","Trishea","Vurk","Walker","Warek","Wu Kong","Zaphrael","Zikis","Zolrath","Alna","Medusa","Athena","Lady Simona","Vyloris","Canisa & Ruke","Kafka","Kikoru"];
 const HID_IX=(function(){const m={};HID.forEach((n,i)=>m[n]=i);return m;})();
 function b64urlEnc(bytes){let bin="";for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);return btoa(bin).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");}
 function b64urlDec(str){str=str.replace(/-/g,"+").replace(/_/g,"/");while(str.length%4)str+="=";const bin=atob(str),out=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)out[i]=bin.charCodeAt(i);return out;}
@@ -2033,6 +2037,7 @@ document.getElementById("editDrawer").onclick=e=>{if(e.target.id==="editDrawer")
 
 /* ---- Changelog ---- */
 const CHANGELOG=[
+  {d:"2026-09-28",tier:true,t:"Tier list update: two new Dimensional heroes, Kafka and Kikoru, arrive as unranked placeholders (investment breakpoints already listed, ratings to follow), each with a hero guide linked. Canisa & Ruke are now ranked: A, with investment breakpoints and strong Campaign, Forked Fate and Faction Tower ratings."},
   {d:"2026-09-10",t:"Heroes the tier list has not rated yet (no investment breakpoints at all) now show a blank pill and \"not rated yet\" in the summon and stargazer lists, instead of reading as \"max\" as if they were fully invested. They also no longer count toward a faction's open-work total."},
   {d:"2026-09-10",tier:true,t:"Tier list update: three new heroes arrive as unranked placeholders. Vyloris (Hypogean) is a \"Boon\" hero like Alna, from the new Voyage of Secrets guild event, so she is not summonable or stargazable; Canisa & Ruke (Hypogean) and Lady Simona (Graveborn) join too, Lady Simona already with investment breakpoints. New pet: Blazefang, also unranked. The big shift is Abyssal Expedition, re-rated for 45 heroes (more down than up), with Dream Realm tweaked for 16 more; Medusa's and Athena's pending AbEx ratings are now filled in at S. Rank moves: Mira and Maetria up to S and Selene up to A+, while Athena slips to S, Rowan to A, Mishka and Skreg to B, Safiya to C, and Drez, Grezhul and Kelthur to D. Five new hero guides linked (Vyloris, Canisa & Ruke, Lady Simona, Framton, Treznor)."},
   {d:"2026-08-08",tier:true,t:"Tier list update: Alna is finally ranked (D, with investment breakpoints and per-mode ratings). Athena climbs to S+ and gets her Dream Realm and Guild Hunt ratings, and Medusa's are filled in too, though both are now pending an AbEx rating instead. Judy & Punch up to S. Awakened Baden's score drops within S-, and Temporal Rift ratings were re-scaled downward across roughly 40 heroes. Pets: Nightfall Pegasus down to S, with small tweaks for Celestwing and Bellbellow."},
