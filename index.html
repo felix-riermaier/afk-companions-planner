@@ -51,9 +51,10 @@
   .switch .track::before{content:"";position:absolute;height:17px;width:17px;left:3px;top:3px;background:var(--soft);border-radius:50%;transition:transform .15s}
   .switch input:checked + .track{background:var(--dimensional)}
   .switch input:checked + .track::before{transform:translateX(17px);background:#08121c}
-  .save{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
-  .save.flash{color:var(--ok)}
-  .hr{display:flex;align-items:center;gap:10px}
+  .save{position:absolute;right:0;top:calc(100% + 2px);font-size:9px;color:var(--ok);text-transform:uppercase;letter-spacing:.08em;opacity:0;transition:opacity .3s;pointer-events:none}   /* brief flash under the buttons; takes no header width */
+  .save.flash{opacity:1;transition:none}
+  .hr{display:flex;align-items:center;gap:7px;position:relative;flex-shrink:0}
+  @media (max-width:400px){.title{font-size:15px}.hbar{gap:8px}}
   .resetic{background:var(--panel2);border:1px solid var(--line);color:var(--soft);border-radius:8px;width:30px;height:30px;font-size:16px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;font-family:inherit}
   .resetic:active{opacity:.6}
   .resetic.arm{border-color:var(--mauler);color:var(--mauler)}
@@ -61,17 +62,10 @@
   .tab{flex:1;text-align:center;padding:10px;font-size:13px;font-weight:700;color:var(--mut);
     border:1px solid var(--line);border-bottom:none;border-radius:10px 10px 0 0;background:var(--panel);cursor:pointer}
   .tab.on{color:var(--ink);background:var(--panel2);border-color:var(--line)}
-  .tabmore{position:relative;flex:0 0 auto}
-  .tabmenu{height:100%;min-height:38px;padding:0 12px;font-size:18px;font-weight:700;line-height:1;color:var(--mut);
-    border:1px solid var(--line);border-bottom:none;border-radius:10px 10px 0 0;background:var(--panel);cursor:pointer;font-family:inherit}
-  .tabmenu.on{color:var(--ink);background:var(--panel2)}
-  .menupop{position:absolute;right:0;top:calc(100% + 4px);z-index:60;min-width:140px;background:var(--panel2);
-    border:1px solid var(--line);border-radius:10px;padding:6px;box-shadow:0 8px 24px rgba(0,0,0,.45)}
-  .menupop[hidden]{display:none}
-  .menuitem{display:block;width:100%;text-align:left;padding:9px 10px;font-size:13px;font-weight:700;color:var(--soft);
-    background:none;border:none;border-radius:7px;cursor:pointer;font-family:inherit}
-  .menuitem:active{opacity:.6}
-  .menuitem.on{color:var(--ink);background:var(--panel)}
+  .hdrbtn{height:30px;padding:0 9px;border-radius:8px;border:1px solid var(--dimensional);background:var(--panel2);color:var(--dimensional);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
+  .hdrbtn:active{opacity:.6}
+  .datarow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--soft)}
+  .datarow small{display:block;color:var(--mut);font-size:11px;margin-top:2px}
   /* Teams & Lineups */
   .teamintro{margin:14px 0 2px;line-height:1.5}
   .disclaimer{font-size:12px;color:var(--mauler);background:rgba(220,90,90,.10);border:1px solid rgba(220,90,90,.35);border-radius:9px;padding:9px 12px;margin:12px 0 2px;line-height:1.45}
@@ -351,14 +345,19 @@
   .p-ready{background:rgba(232,162,59,.22);color:var(--warn)}
   .p-none{background:rgba(150,156,171,.14);color:var(--mut)}
   .note{font-size:11px;color:var(--mut);padding:6px 4px 0;line-height:1.45}
-  .bar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(19,21,27,.95);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:12px 14px;display:flex;gap:10px;max-width:680px;margin:0 auto}
+  .controls .srow{flex-basis:100%;display:flex;gap:8px;align-items:center}
+  .controls .srow .rsearch{flex:1;margin:0}
+  .rrow.hiddenrow{opacity:.5}
+  .hidtag{color:var(--warn);font-weight:700}
+  .starbtn{font-size:18px;color:var(--mut)}
+  .starbtn.on{color:var(--warn);border-color:var(--warn)}
+  .dimvis{margin:0 0 14px}
   .btn{flex:1;border-radius:10px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;border:1px solid var(--line)}
   .btn.primary{background:var(--dimensional);border-color:var(--dimensional);color:#08121c}
   .btn.ghost{background:var(--panel);color:var(--soft)}
   body.noscroll{overflow:hidden}
   .totop{position:fixed;right:16px;bottom:16px;z-index:40;width:42px;height:42px;border-radius:50%;background:var(--panel2);border:1px solid var(--line);color:var(--soft);font-size:20px;line-height:1;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.45);font-family:inherit}
   .totop.show{display:flex}
-  body.hasbar .totop{bottom:78px}   /* clear the fixed Import/Export bar on the roster tab */
   body.noscroll .totop{display:none}
   .drawer{position:fixed;inset:0;z-index:50;background:rgba(8,9,12,.7);display:none}
   .drawer.on{display:block}
@@ -408,26 +407,21 @@
   <div class="hbar">
     <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-10-20</span></div>
     <div class="hr">
-      <button class="resetic" id="resetBtn" title="Reset everything (clears your roster)" aria-label="Reset everything (clears your roster)">⟲</button>
+      <button class="resetic" id="helpBtn" title="How to use" aria-label="How to use">?</button>
+      <button class="resetic" id="statsBtn" title="Account summary" aria-label="Account summary"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="20" x2="5" y2="13"></line><line x1="12" y1="20" x2="12" y2="5"></line><line x1="19" y1="20" x2="19" y2="10"></line></svg></button>
+      <button class="hdrbtn" id="dataBtn" type="button" title="Backup, restore, reset">Backup</button>
       <div class="save" id="save">saved</div>
     </div>
   </div>
   <div class="tabs">
-    <div class="tab on" id="tabRoster">Roster</div>
-    <div class="tab" id="tabRecs">Recommendations</div>
+    <div class="tab on" id="tabRecs">Recommendations</div>
     <div class="tab" id="tabTeams">Teams</div>
-    <div class="tabmore">
-      <button class="tabmenu" id="tabMenu" type="button" aria-label="More" aria-haspopup="true" aria-expanded="false">⋯</button>
-      <div class="menupop" id="tabMenuPop" hidden>
-        <button class="menuitem" id="menuTools" type="button">Tools</button>
-      </div>
-    </div>
+    <div class="tab" id="tabTools">Tools</div>
   </div>
 </header>
 
 <div class="wrap">
-  <div id="rosterPane"></div>
-  <div id="recsPane" class="hide"></div>
+  <div id="recsPane"></div>
   <div id="teamsPane" class="hide"></div>
   <div id="toolsPane" class="hide"></div>
   <footer class="foot">
@@ -436,11 +430,6 @@
     Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-10-20.<br>
     Your data is stored only in this browser. Use Backup to keep a copy.
   </footer>
-</div>
-
-<div class="bar" id="barRoster">
-  <button class="btn ghost" id="importBtn">Restore</button>
-  <button class="btn primary" id="exportBtn">Backup</button>
 </div>
 
 <div class="drawer" id="drawer">
@@ -468,8 +457,21 @@
   <div class="sheet setupsheet" id="setupSheet"></div>
 </div>
 
-<div class="drawer" id="editDrawer">
-  <div class="sheet setupsheet" id="editSheet"></div>
+<div class="drawer" id="statsDrawer">
+  <div class="sheet setupsheet acctsum" id="statsSheet"></div>
+</div>
+
+<div class="drawer" id="dataDrawer">
+  <div class="sheet">
+    <div class="hd-top"><div class="hd-name">Your data</div><button class="resetic" id="dataClose" aria-label="Close">✕</button></div>
+    <p>Your data is stored only in this browser. Backup copies your roster, wishlist, and saved teams as text (Tools are not included); Restore brings it back, here or on another device.</p>
+    <div class="drow"><button class="btn ghost" id="importBtn">Restore</button><button class="btn primary" id="exportBtn">Backup</button></div>
+    <div class="datarow"><div>Reset everything<small>Clears your roster, wishlist, and saved teams. Tap twice.</small></div><button class="resetic" id="resetBtn" title="Reset everything (clears your roster)" aria-label="Reset everything (clears your roster)">⟲</button></div>
+  </div>
+</div>
+
+<div class="drawer" id="helpDrawer">
+  <div class="sheet setupsheet" id="helpSheet"></div>
 </div>
 
 <div class="drawer" id="lineupDrawer">
@@ -523,9 +525,10 @@ const MODES=[["camp","Campaign"],["ff","Forked Fate"],["tower","Faction Tower"],
 const MIDX={camp:0,ff:1,tower:2,dr:3,gh:4,abex:5,arena:6,tr:7};
 const NON_SUMMON=new Set(["Awakened Brutus","Solise","Maetria","Awakened Talene","Awakened Baden","Alna","Vyloris","Awakened Thane"]);
 /* Awakened heroes (and Solise, whom the tier list calls "Awakened Solise") are upgraded WITHOUT
-   Elite/stargazer copies, so they must NOT count toward "Elite used". They still count as owned,
+   Elite/stargazer copies, so they must NOT count toward "Elite used", get no Copies controls or
+   ascend-now, and show no copy costs. Add every new awakened hero here on a tier update. They still count as owned,
    toward SI/emblems/bands, and toward Stars. */
-const NO_ELITE=new Set(["Awakened Brutus","Awakened Talene","Awakened Baden","Solise","Maetria"]);
+const NO_ELITE=new Set(["Awakened Brutus","Awakened Talene","Awakened Baden","Awakened Thane","Solise","Maetria"]);
 /* Renamed heroes: map an OLD display name -> the CURRENT one. Applied when loading a saved
    roster and when importing, so a tier-list rename never silently drops a user's hero/data.
    Add an entry whenever a hero's display name changes (e.g. {"Wukong":"Wu Kong"}). */
@@ -777,7 +780,8 @@ function petFromCode(c){if(c===255)return null;const nm=petAlias(PET_HID[c]);ret
 const SEED=(function(){
   const factions={};FAC_ORDER.forEach(f=>factions[f]=[]);
   TIER_ROWS.forEach(r=>{const fac=r[1];factions[fac].push(fac==="Dimensional"?[r[0],"—",-1]:[r[0],"—",-1,0]);});
-  return {account:{stargazer:"",spirits:0,hiddenDims:[]},wishlist:{Lightbearer:[],Mauler:[],Wilder:[],Graveborn:[]},factions};
+  const wishlist={};FAC_ORDER.forEach(f=>wishlist[f]=[]);
+  return {account:{spirits:0,hiddenDims:[]},wishlist,factions};
 })();
 let S;
 function toState(raw){const f={};for(const fac of FAC_ORDER){f[fac]=(raw.factions[fac]||[]).map(r=>({name:r[0],asc:r[1],si:r[2],e:r.length>3?r[3]:null}));}return{account:{...raw.account,hiddenDims:[...(raw.account.hiddenDims||[])]},wishlist:JSON.parse(JSON.stringify(raw.wishlist)),factions:f};}
@@ -812,37 +816,29 @@ function reconcile(saved){
     const old=sv[h.name];if(!old)return;
     h.asc=validAsc(old.asc);h.si=validSi(old.si);if(ai(h.asc)<ai("M"))h.si=-1;if(h.e!=null)h.e=validE(old.e);  // SI can't exist below Mythic -> NOSI
   });
-  if(saved.account&&typeof saved.account.stargazer==="string"){
-    const sg=aliasName(saved.account.stargazer);
-    base.account.stargazer=STAR_FACS.some(f=>base.factions[f].some(h=>h.name===sg))?sg:"";
-  }
   if(saved.account&&typeof saved.account.spirits==="number")base.account.spirits=Math.max(0,Math.floor(saved.account.spirits));
   if(saved.account&&Array.isArray(saved.account.hiddenDims))base.account.hiddenDims=saved.account.hiddenDims.map(aliasName).filter(n=>base.factions.Dimensional.some(h=>h.name===n));
-  if(saved.wishlist)BASE_FACS.forEach(f=>{
-    base.wishlist[f]=(saved.wishlist[f]||[]).map(aliasName).filter(n=>base.factions[f].some(h=>h.name===n)).slice(0,5);
-  });
+  // wishlist = starred heroes, any faction, unlimited (was: 5 per base faction + one stargazer target)
+  if(saved.wishlist)FAC_ORDER.forEach(f=>{base.wishlist[f]=cleanWish(base,f,saved.wishlist[f]);});
+  if(saved.account&&typeof saved.account.stargazer==="string")addWish(base,saved.account.stargazer);   // legacy stargazer target -> starred
   return base;
 }
+function cleanWish(st,fac,names){return [...new Set((names||[]).filter(n=>typeof n==="string").map(aliasName))].filter(n=>st.factions[fac].some(h=>h.name===n));}
+function addWish(st,name){const n=aliasName(name),t=TIER[n];if(!t||!st.wishlist[t.fac]||st.wishlist[t.fac].indexOf(n)>=0)return;st.wishlist[t.fac].push(n);}
+function isStarred(n){const t=TIER[n];return !!(t&&S.wishlist[t.fac]&&S.wishlist[t.fac].indexOf(n)>=0);}
+function toggleStar(n){const t=TIER[n];if(!t)return;const w=S.wishlist[t.fac]=S.wishlist[t.fac]||[],i=w.indexOf(n);if(i>=0)w.splice(i,1);else w.push(n);save();}
 function load(){let saved=null;try{const v=localStorage.getItem(KEY);if(v)saved=JSON.parse(v);}catch(e){}S=saved?reconcile(saved):toState(SEED);}
-let helpOpen=true;       // remembered open/close state of the How-to section
 let teamsHelpOpen=true;  // remembered open/close state of the Teams How-to section
 let hideTierLog=false;   // changelog: hide pure tier-list updates
-let acctOpen=true;       // remembered open/close state of the Account summary
-function loadPrefs(){try{const v=localStorage.getItem(PKEY);if(v){const p=JSON.parse(v);if(p.sortKey)sortKey=p.sortKey;if(typeof p.noComp==="boolean")noComp=p.noComp;if(typeof p.helpOpen==="boolean")helpOpen=p.helpOpen;if(typeof p.teamsHelpOpen==="boolean")teamsHelpOpen=p.teamsHelpOpen;if(typeof p.hideTierLog==="boolean")hideTierLog=p.hideTierLog;if(typeof p.acctOpen==="boolean")acctOpen=p.acctOpen;}}catch(e){}}
-function savePrefs(){try{localStorage.setItem(PKEY,JSON.stringify({sortKey,noComp,helpOpen,teamsHelpOpen,hideTierLog,acctOpen}));}catch(e){}}
+function loadPrefs(){try{const v=localStorage.getItem(PKEY);if(v){const p=JSON.parse(v);if(p.sortKey)sortKey=p.sortKey;if(typeof p.noComp==="boolean")noComp=p.noComp;if(typeof p.teamsHelpOpen==="boolean")teamsHelpOpen=p.teamsHelpOpen;if(typeof p.hideTierLog==="boolean")hideTierLog=p.hideTierLog;}}catch(e){}}
+function savePrefs(){try{localStorage.setItem(PKEY,JSON.stringify({sortKey,noComp,teamsHelpOpen,hideTierLog}));}catch(e){}}
 let saveTimer;
 function save(){flashSave();clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}},300);}
 function flashSave(){const el=document.getElementById("save");el.classList.add("flash");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("flash"),700);}
 const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;};
 const esc=s=>(s==null?"":String(s)).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 const opt=(v,sel)=>`<option ${v==sel?"selected":""}>${v}</option>`;
-function choiceSelect(options,current,placeholder,onchange){
-  const s=el("select");
-  s.innerHTML=`<option value="">${placeholder}</option>`+options.map(n=>`<option value="${n}" ${n===current?"selected":""}>${n}</option>`).join("");
-  s.value=current||"";s.onchange=()=>onchange(s.value);return s;
-}
 const byName=(a,b)=>a.localeCompare(b);
-let rosterFac=new Set();   // active faction filters on the roster list (empty = all)
 
 /* current investment band ignoring the recs Competitive toggle (summary wants the true band) */
 function fullBracket(t,asc){
@@ -863,9 +859,10 @@ function accountStats(){
   FAC_ORDER.forEach(fac=>{
     const dim=fac==="Dimensional",ladder=dim?LDIM:(BASE_FACS.indexOf(fac)>=0?LBASE:LSG);
     S.factions[fac].forEach(h=>{
-      total++;
+      const hid=dim&&isHiddenDim(h.name);   // hidden Dimensionals don't count toward owned/total
+      if(!hid)total++;
       if(h.asc==="—")return;
-      owned++;stars+=starVal(h.asc);if(h.asc==="T")diamonds++;
+      if(!hid)owned++;stars+=starVal(h.asc);if(h.asc==="T")diamonds++;
       const used=ladder[h.asc]||0;
       if(dim)sUsed+=used;else if(!NO_ELITE.has(h.name))eUsed+=used;   // awakened/Solise cost no copies
       if(si[h.si]!=null)si[h.si]++;
@@ -887,135 +884,13 @@ function accountSummaryHTML(){
     +`<div class="sumsec"><div class="h">Emblems used</div><div class="sumchips">${chip('<span class="em-p">Purple</span>',commas(s.emb.P))}${chip('<span class="em-g">Gold</span>',commas(s.emb.G))}${chip('<span class="em-r">Red</span>',commas(s.emb.R))}</div></div>`
     +`<div class="sumsec"><div class="h">Investment band</div><div class="sumchips">${chip("pre-Min",s.band.pre)}${chip("Min",s.band.Min)}${chip("Opt",s.band.Opt)}${chip("Comp",s.band.Comp)}</div></div>`;
 }
-function updateAccountSummary(){const b=document.getElementById("acctSumBody");if(b)b.innerHTML=accountSummaryHTML();}
-function syncSpirits(){
-  const v=document.getElementById("spiritsInp");if(v)v.textContent=S.account.spirits||0;
-  const q=document.getElementById("spiritsQuick");if(q)q.querySelectorAll(".setupbtn").forEach(x=>x.classList.toggle("on",+x.dataset.v===(S.account.spirits||0)));
-}
-function renderRoster(){
-  const app=document.getElementById("rosterPane");app.innerHTML="";
-
-  // how to use
-  const help=el("details","fac help");help.open=helpOpen;help.style.setProperty("--fc","var(--dimensional)");
-  help.addEventListener("toggle",()=>{helpOpen=help.open;savePrefs();});
-  const hsum=el("summary");hsum.innerHTML=`<span class="chev">▶</span><span class="fname">How to use</span>`;help.appendChild(hsum);
-  const hbody=el("div","body");
-  hbody.innerHTML=`<div class="howto">
-    <p>1. <b>Tap a hero</b> in the list below to set its ascension, SI level, and spare Elite copies. Use the search box and faction buttons to narrow the list, or <b>Bulk mode</b> to step through many heroes in a row.</p>
-    <p>2. In <b>Wishlist / Dimensional Spirits</b> (top) set your Stargazer target, per-faction wishlists, and how many <b>Dimensional Spirits</b> you have.</p>
-    <p>3. Open the <b>Recommendations</b> tab to see what to summon, ascend, and which SI items to raise next, ranked by the tier list. <b>Tap any hero</b> to see its Min / Optimal / Competitive breakpoints, the copies (E) or Dimensional Spirits (S) still needed for each, and a link to its guide.</p>
-    <p>4. The <b>Teams</b> tab lets you build and save teams and lineups, see whether your roster can field them, and share them.</p>
-    <p>5. The <b>⋯</b> menu (next to the tabs) has the <b>Tools</b> calculators: a Realm of Shadows (Mythic Gate) Blessed Flame planner, plus Ascension and Signature Item cost references.</p>
-    <p>6. <b>Backup</b> / <b>Restore</b> (bottom) saves or restores everything: roster, wishlist, and saved teams (not Tools). The ⟲ icon top-right clears it all.</p>
-    <p>Your data is saved only in this browser, so back up a copy to keep it safe.</p>
-  </div>`;
-  help.appendChild(hbody);app.appendChild(help);
-
-  // account summary (read-only overview computed from the saved roster)
-  const sum=el("details","fac acctsum");sum.open=acctOpen;sum.style.setProperty("--fc","var(--lb)");
-  sum.addEventListener("toggle",()=>{acctOpen=sum.open;savePrefs();});
-  const ssum=el("summary");ssum.innerHTML=`<span class="chev">▶</span><span class="fname">Account summary</span>`;sum.appendChild(ssum);
-  const sumBody=el("div","body");sumBody.id="acctSumBody";sumBody.innerHTML=accountSummaryHTML();
-  sum.appendChild(sumBody);app.appendChild(sum);
-
-  app.appendChild(el("div","sechead",'<div class="sectitle">Account state</div><div class="secsub">Set your wishlist state and Dimensional Spirits owned.</div>'));
-  // wishlist + dimensional spirits (collapsible)
-  const wc=el("details","fac");wc.open=false;wc.style.setProperty("--fc","var(--dimensional)");
-  const wcsum=el("summary");wcsum.innerHTML=`<span class="chev">▶</span><span class="fname">Wishlist / Dimensional Spirits</span>`;wc.appendChild(wcsum);
-  const wl=el("div","body wl");
-  const spb=el("div","wlf");spb.style.setProperty("--fc","var(--dimensional)");spb.appendChild(el("div","wlh","Dimensional Spirits"));
-  const spStep=el("div","estepper");
-  const spMinus=el("button","estep");spMinus.type="button";spMinus.textContent="−";
-  const spVal=el("span","eval");spVal.id="spiritsInp";spVal.textContent=S.account.spirits||0;
-  const spPlus=el("button","estep");spPlus.type="button";spPlus.textContent="+";
-  spStep.appendChild(spMinus);spStep.appendChild(spVal);spStep.appendChild(spPlus);
-  const spQuick=el("div","setupbtns ebtns");spQuick.id="spiritsQuick";
-  const setSp=v=>{S.account.spirits=Math.max(0,v|0);save();syncSpirits();};
-  spMinus.onclick=()=>setSp((S.account.spirits||0)-1);
-  spPlus.onclick=()=>setSp((S.account.spirits||0)+1);
-  [5,10,20].forEach(v=>{const b=el("button","setupbtn");b.type="button";b.dataset.v=v;b.textContent=v;b.onclick=()=>setSp(v);spQuick.appendChild(b);});
-  spb.appendChild(spStep);spb.appendChild(spQuick);wl.appendChild(spb);
-  syncSpirits();
-  const sg=el("div","wlf");sg.style.setProperty("--fc","var(--hypogean)");sg.appendChild(el("div","wlh","Stargazer target"));
-  const starNames=STAR_FACS.flatMap(f=>S.factions[f].map(h=>h.name)).filter(n=>!NON_SUMMON.has(n)).sort(byName);
-  sg.appendChild(choiceSelect(starNames,S.account.stargazer,"(none)",v=>{S.account.stargazer=v;save();}));
-  wl.appendChild(sg);
-  BASE_FACS.forEach(fac=>{
-    const blk=el("div","wlf");blk.style.setProperty("--fc",`var(${FAC_VAR[fac]})`);blk.appendChild(el("div","wlh",fac));
-    const slots=el("div","wlslots");const names=S.factions[fac].map(h=>h.name).filter(n=>!NON_SUMMON.has(n)).sort(byName);
-    for(let i=0;i<5;i++){slots.appendChild(choiceSelect(names,(S.wishlist[fac]&&S.wishlist[fac][i])||"","(none)",v=>{S.wishlist[fac]=S.wishlist[fac]||[];S.wishlist[fac][i]=v;save();}));}
-    blk.appendChild(slots);wl.appendChild(blk);
-  });
-  wc.appendChild(wl);app.appendChild(wc);
-
-  const rsHead=el("div","sechead withbtn");
-  rsHead.innerHTML='<div><div class="sectitle">Roster state</div><div class="secsub">Set the current state of your roster, including additional copies.</div></div>';
-  const setupBtn=el("button","setupmodebtn","Bulk mode");setupBtn.onclick=openSetup;rsHead.appendChild(setupBtn);
-  app.appendChild(rsHead);
-  // hero search — filters the flat list (combined with the faction filter)
-  const sb=el("div","rsearch");
-  const wrap=el("div","rsearchwrap");
-  const sin=el("input");sin.id="rosterSearch";sin.type="text";sin.placeholder="Search heroes…";sin.setAttribute("autocomplete","off");
-  const clr=el("button","rsclear");clr.type="button";
-  const MAG='<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="20.5" y1="20.5" x2="16.5" y2="16.5"></line></svg>';
-  const syncClr=()=>{const has=sin.value.length>0;clr.classList.toggle("active",has);clr.setAttribute("aria-label",has?"Clear search":"Search");clr.innerHTML=has?"✕":MAG;};
-  sin.oninput=()=>{syncClr();filterRoster();};
-  sin.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();sin.blur();}};
-  clr.onmousedown=e=>e.preventDefault();   // keep input focus when tapping the icon
-  clr.onclick=()=>{if(sin.value){sin.value="";syncClr();filterRoster();}sin.focus();};
-  wrap.appendChild(sin);wrap.appendChild(clr);sb.appendChild(wrap);app.appendChild(sb);
-  syncClr();
-
-  // faction filter buttons (multi-select; none active = show all)
-  const fb=el("div","facfilter");
-  FAC_ORDER.forEach(fac=>{
-    const btn=el("button","fbtn"+(rosterFac.has(fac)?" on":""),fac);btn.style.setProperty("--fc",`var(${FAC_VAR[fac]})`);
-    btn.onclick=()=>{if(rosterFac.has(fac))rosterFac.delete(fac);else rosterFac.add(fac);btn.classList.toggle("on");filterRoster();};
-    fb.appendChild(btn);
-  });
-  app.appendChild(fb);
-
-  renderHeroes(app);
-  filterRoster();
-}
-function filterRoster(){
-  const inp=document.getElementById("rosterSearch");
-  const term=inp?inp.value.trim().toLowerCase():"";
-  document.querySelectorAll('#rosterPane .hrow').forEach(row=>{
-    const okTerm=!term||row.dataset.name.toLowerCase().includes(term);
-    const okFac=rosterFac.size===0||rosterFac.has(row.dataset.fac);
-    row.style.display=(okTerm&&okFac)?"":"none";
-  });
-}
-function renderHeroes(app){
-  const wrap=el("div","herolist");
-  const all=FAC_ORDER.flatMap(fac=>S.factions[fac].map(h=>({h,fac})));
-  all.sort((a,b)=>a.h.name.localeCompare(b.h.name));
-  all.forEach(({h,fac})=>wrap.appendChild(heroRow(h,fac)));
-  app.appendChild(wrap);
+function openStats(){
+  const sheet=document.getElementById("statsSheet");
+  sheet.innerHTML=`<div class="hd-top"><div class="hd-name">Account summary</div><button class="resetic" id="statsClose" aria-label="Close">✕</button></div>`+accountSummaryHTML();
+  sheet.querySelector("#statsClose").onclick=()=>document.getElementById("statsDrawer").classList.remove("on");
+  document.getElementById("statsDrawer").classList.add("on");
 }
 function ascTier(v){const c=(v||"")[0];return c==="E"?"t-e":c==="L"?"t-l":c==="M"?"t-m":c==="T"?"t-t":c==="A"?"t-a":"t-none";}
-function heroStateHTML(h){
-  if(h.asc==="—")return `<span class="st-no">${isHiddenDim(h.name)?"Hidden":"Not owned"}</span>`;
-  return `<span class="hasc">${h.asc}</span><span class="hsi">${siLabel(h.si)}</span>`;
-}
-function heroRow(h,fac){
-  const noE=fac==="Dimensional",own=h.asc!=="—";
-  const row=el("div","hrow"+(own?"":" notowned"));row.style.setProperty("--fc",`var(${FAC_VAR[fac]})`);
-  row.dataset.name=h.name;row.dataset.fac=fac;
-  row.onclick=()=>openHeroEdit(h.name);
-  const main=el("div","hmain");
-  main.innerHTML=`<div class="nm"><b>${esc(h.name)}</b><small class="facsub">${fac}</small></div><div class="hstate">${heroStateHTML(h)}</div>`;
-  row.appendChild(main);
-  // owned copy hero: "+N" copies label (always, incl. +0). Dimensional: none (column reserved). Not owned: nothing.
-  if(own&&!noE)row.appendChild(el("span","he","+"+(h.e||0)));
-  return row;
-}
-function refreshHeroRow(name){
-  const old=document.querySelector('#rosterPane .hrow[data-name="'+name+'"]');if(!old)return;
-  const fac=old.dataset.fac,h=(S.factions[fac]||[]).find(x=>x.name===name);if(!h)return;
-  old.replaceWith(heroRow(h,fac));filterRoster();updateAccountSummary();
-}
 function isHiddenDim(n){return (S.account.hiddenDims||[]).indexOf(n)>=0;}
 function ladderFor(fac){return fac==="Dimensional"?LDIM:(BASE_FACS.indexOf(fac)>=0?LBASE:LSG);}
 /* Quick-ascend target: ascend as far as `banked` allows, but never past the next breakpoint
@@ -1051,33 +926,36 @@ function ascNowMarkup(fac,t,asc,banked){
   if(nbp&&nbp.asc===next)return `<div class="ascnowhint">${amt(tierNeed)} to ascend to ${next} (${nbp.cat} breakpoint)</div>`;
   return `<div class="ascnowhint">${amt(tierNeed)} to ascend to ${next}</div>`+bpLine;
 }
-/* commit a sheet draft onto a hero: asc/si/copies, plus the Dimensional hide flag */
+/* commit a sheet draft onto a hero: asc/si/copies, plus the Dimensional hide flag and the shared spirit pool */
 function commitDraft(h,fac,draft){
   h.asc=draft.asc;h.si=draft.si;if(h.e!=null)h.e=Math.max(0,draft.e||0);
   if(fac==="Dimensional"){
     const hd=S.account.hiddenDims=S.account.hiddenDims||[],i=hd.indexOf(h.name);
     if(draft.hidden&&i<0)hd.push(h.name);else if(!draft.hidden&&i>=0)hd.splice(i,1);
+    if(draft.sp!=null)S.account.spirits=Math.max(0,draft.sp|0);
   }
 }
-/* shared hero controls (used by Bulk mode and the single-hero edit sheet); they update `draft` */
-function heroControlsHTML(fac){
-  const noE=fac==="Dimensional";
+/* shared hero controls (used by Bulk mode and the hero detail sheet); they update `draft`.
+   Dimensional heroes get the global Dimensional Spirits stepper (same value on every one of them) instead of Copies. */
+function heroControlsHTML(fac,name){
+  const noE=fac==="Dimensional",noCopies=!noE&&NO_ELITE.has(name);
   return `<div class="ascnow" id="ascNow"></div>`
     +`<div class="ascblock">`
     +`<div class="asccol"><div class="hd-h">Ascension</div><div class="estepper"><button class="estep" id="aMinus" aria-label="lower">−</button><span class="eval ascval" id="aVal">—</span><button class="estep" id="aPlus" aria-label="higher">+</button></div><select class="ascsel" id="ascSel"></select></div>`
     +(noE
-      ? `<div class="ecol"><div class="hd-h">Visibility</div><label class="swrow dimhide"><span>Hide from recommendations and Bulk mode</span><span class="switch"><input type="checkbox" id="dimHidden"><span class="track"></span></span></label></div>`
+      ? `<div class="ecol"><div class="hd-h">Dimensional Spirits</div><div class="estepper"><button class="estep" id="eMinus" aria-label="decrease">−</button><span class="eval" id="eVal">0</span><button class="estep" id="ePlus" aria-label="increase">+</button></div><div class="setupbtns ebtns" id="setupE"></div></div>`
+      : noCopies?`<div class="ecol"><div class="hd-h">Copies</div><div class="sinote">Not used: this hero is upgraded without Elite copies.</div></div>`
       : `<div class="ecol"><div class="hd-h">Copies</div><div class="estepper"><button class="estep" id="eMinus" aria-label="decrease">−</button><span class="eval" id="eVal">0</span><button class="estep" id="ePlus" aria-label="increase">+</button></div><div class="setupbtns ebtns" id="setupE"></div></div>`)
     +`</div>`
+    +(noE?`<label class="swrow dimhide dimvis"><span>Hidden (listed last in Recommendations, skipped in Can reach next breakpoint, SI Targets and Bulk mode)</span><span class="switch"><input type="checkbox" id="dimHidden"><span class="track"></span></span></label>`:"")
     +`<div class="setupgrp"><div class="hd-h">Signature Item</div><div class="setupbtns" id="setupSI"></div></div>`;
 }
-function wireHeroControls(sheet,fac,draft,name){
-  const noE=fac==="Dimensional";
-  const t=TIER[name];
-  let setE=null;
+function wireHeroControls(sheet,fac,draft,name,onChange){
+  const noE=fac==="Dimensional",ek=noE?"sp":"e",noCopies=!noE&&NO_ELITE.has(name);   // the banked resource: shared spirits (Dimensional) or this hero's copies
+  const t=TIER[name],ch=()=>{if(onChange)onChange();};
   const aVal=sheet.querySelector("#aVal"),ascSel=sheet.querySelector("#ascSel");
   ascSel.innerHTML=TIERS.map(v=>`<option value="${v}">${v}</option>`).join("");
-  const setAsc=v=>{draft.asc=v;aVal.textContent=v;aVal.className="eval ascval "+ascTier(v);ascSel.value=v;updateAscNow();renderSI();};
+  const setAsc=v=>{draft.asc=v;aVal.textContent=v;aVal.className="eval ascval "+ascTier(v);ascSel.value=v;renderSI();updateAscNow();ch();};
   sheet.querySelector("#aMinus").onclick=()=>setAsc(TIERS[Math.max(0,TIERS.indexOf(draft.asc)-1)]);
   sheet.querySelector("#aPlus").onclick=()=>setAsc(TIERS[Math.min(TIERS.length-1,TIERS.indexOf(draft.asc)+1)]);
   ascSel.onchange=()=>setAsc(ascSel.value);
@@ -1086,42 +964,26 @@ function wireHeroControls(sheet,fac,draft,name){
   function renderSI(){
     if(ai(draft.asc)<ai("M")){draft.si=-1;siW.innerHTML=`<div class="sinote">Unlocks at Mythic (M).</div>`;return;}
     siW.innerHTML="";
-    SIS.forEach(v=>{const b=el("button","setupbtn "+(scls[v]||"si-0")+(v===draft.si?" on":""),siLabel(v));b.onclick=()=>{draft.si=v;siW.querySelectorAll('.setupbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');};siW.appendChild(b);});
+    SIS.forEach(v=>{const b=el("button","setupbtn "+(scls[v]||"si-0")+(v===draft.si?" on":""),siLabel(v));b.onclick=()=>{draft.si=v;siW.querySelectorAll('.setupbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');ch();};siW.appendChild(b);});
   }
-  if(noE){
-    const chk=sheet.querySelector("#dimHidden");chk.checked=!!draft.hidden;chk.onchange=()=>{draft.hidden=chk.checked;};
-  }else{
-    const eW=sheet.querySelector("#setupE"),eVal=sheet.querySelector("#eVal");
-    setE=v=>{draft.e=Math.max(0,v|0);eVal.textContent=draft.e;eW.querySelectorAll('.setupbtn').forEach(x=>x.classList.toggle('on',+x.dataset.v===draft.e));updateAscNow();};
-    [0,5,10].forEach(v=>{const b=el("button","setupbtn",v);b.dataset.v=v;b.onclick=()=>setE(v);eW.appendChild(b);});
-    sheet.querySelector("#eMinus").onclick=()=>setE(draft.e-1);
-    sheet.querySelector("#ePlus").onclick=()=>setE(draft.e+1);
+  if(noE){const chk=sheet.querySelector("#dimHidden");chk.checked=!!draft.hidden;chk.onchange=()=>{draft.hidden=chk.checked;};}
+  const eW=sheet.querySelector("#setupE"),eVal=sheet.querySelector("#eVal");
+  const setE=noCopies?()=>{}:v=>{draft[ek]=Math.max(0,v|0);eVal.textContent=draft[ek];eW.querySelectorAll('.setupbtn').forEach(x=>x.classList.toggle('on',+x.dataset.v===draft[ek]));updateAscNow();ch();};
+  if(!noCopies){
+    (noE?[5,10,20]:[0,5,10]).forEach(v=>{const b=el("button","setupbtn",v);b.dataset.v=v;b.onclick=()=>setE(v);eW.appendChild(b);});
+    sheet.querySelector("#eMinus").onclick=()=>setE((draft[ek]||0)-1);
+    sheet.querySelector("#ePlus").onclick=()=>setE((draft[ek]||0)+1);
   }
-  // ascend-now: with the drafted copies, how far can this hero ascend right now?
+  // ascend-now: with the drafted copies/spirits, how far can this hero ascend right now?
   function updateAscNow(){
     const box=sheet.querySelector("#ascNow");if(!box)return;
-    if(noE){box.innerHTML="";return;}
-    box.innerHTML=ascNowMarkup(fac,t,draft.asc,draft.e||0);
+    if(noCopies){box.innerHTML="";return;}   // no banked resource to ascend with
+    box.innerHTML=ascNowMarkup(fac,t,draft.asc,draft[ek]||0);
     const btn=box.querySelector("#ascNowBtn");
-    if(btn)btn.onclick=()=>{const q=quickAscend(fac,t,draft.asc,draft.e||0);if(q){setAsc(q.target);if(setE)setE((draft.e||0)-q.cost);}};
+    if(btn)btn.onclick=()=>{const q=quickAscend(fac,t,draft.asc,draft[ek]||0);if(q){setAsc(q.target);setE((draft[ek]||0)-q.cost);}};
   }
   setAsc(draft.asc);
-  if(setE)setE(draft.e);
-}
-function openHeroEdit(name){
-  const fac=TIER[name]&&TIER[name].fac;if(!fac)return;
-  const h=(S.factions[fac]||[]).find(x=>x.name===name);if(!h)return;
-  const draft={asc:h.asc,si:h.si,e:h.e==null?0:(h.e||0),hidden:isHiddenDim(name)};
-  const sheet=document.getElementById("editSheet");
-  sheet.innerHTML=`<div class="hd-top"><div><div class="hd-name">${esc(name)}</div><div class="facsub" style="--fc:var(${FAC_VAR[fac]})">${fac}</div></div><button class="resetic" id="editClose" aria-label="Close">✕</button></div>`
-    +heroControlsHTML(fac)
-    +`<div class="setupactions"><button class="btn ghost" id="editNO">Not owned</button><button class="btn primary" id="editOK">Confirm</button></div>`;
-  wireHeroControls(sheet,fac,draft,name);
-  const close=()=>document.getElementById("editDrawer").classList.remove("on");
-  sheet.querySelector("#editClose").onclick=close;
-  sheet.querySelector("#editNO").onclick=()=>{h.asc="—";h.si=0;if(h.e!=null)h.e=0;save();refreshHeroRow(name);close();};
-  sheet.querySelector("#editOK").onclick=()=>{commitDraft(h,fac,draft);save();refreshHeroRow(name);close();};
-  document.getElementById("editDrawer").classList.add("on");
+  setE(draft[ek]);
 }
 
 /* ---- Bulk mode: guided, one-hero-at-a-time roster entry ---- */
@@ -1151,9 +1013,9 @@ function renderSetupHero(){
     sheet.querySelector("#setupFinish").onclick=closeSetup;return;
   }
   const o=setupQueue[setupIdx],h=o.h,fac=o.fac,last=setupIdx===setupQueue.length-1;
-  setupDraft={asc:h.asc,si:h.si,e:h.e==null?0:(h.e||0),hidden:isHiddenDim(h.name)};
+  setupDraft={asc:h.asc,si:h.si,e:h.e==null?0:(h.e||0),hidden:isHiddenDim(h.name),sp:S.account.spirits||0};
   sheet.innerHTML=`<div class="hd-top"><div><div class="hd-name">${esc(h.name)}</div><div class="facsub" style="--fc:var(${FAC_VAR[fac]})">${fac}</div></div><div class="hd-right"><span class="hd-count">${setupIdx+1} / ${setupQueue.length}</span><button class="resetic" id="setupClose" aria-label="Close">✕</button></div></div>`
-    +heroControlsHTML(fac)
+    +heroControlsHTML(fac,h.name)
     +`<div class="setupactions"><button class="btn ghost" id="setupNO">Not owned</button><button class="btn primary" id="setupOK">${last?"Finish":"Next"}</button></div>`;
   wireHeroControls(sheet,fac,setupDraft,h.name);
   sheet.querySelector("#setupClose").onclick=closeSetup;
@@ -1162,7 +1024,7 @@ function renderSetupHero(){
 }
 function setupConfirm(){const o=setupQueue[setupIdx];commitDraft(o.h,o.fac,setupDraft);save();setupIdx++;renderSetupHero();}
 function setupNotOwned(){const h=setupQueue[setupIdx].h;h.asc="—";h.si=0;if(h.e!=null)h.e=0;save();setupIdx++;renderSetupHero();}
-function closeSetup(){document.getElementById("setupDrawer").classList.remove("on");renderRoster();}
+function closeSetup(){document.getElementById("setupDrawer").classList.remove("on");rerenderRecs();}
 
 let sortKey="overall", noComp=false;
 function metric(t){ if(sortKey==="overall") return {v:-t.sc, label:t.sc.toFixed(1)}; const r=t.md[MIDX[sortKey]]; return {v:(RANKN[r]==null?99:RANKN[r]), label:r}; }
@@ -1177,84 +1039,98 @@ const isOpenStep=k=>k!=="Done"&&k!=="NoData";   // has an actual next milestone 
 function curBracket(t,asc){const cur=ai(asc);let b=null;for(const m of milestones(t)){if(m.i<=cur)b=m.cat;else break;}return b;}
 function siTarget(t,asc,si){let best=null;(noComp?[t.mn,t.op]:[t.mn,t.op,t.cp]).forEach(bp=>{if(!bp)return;const top=Math.max(...bp.ascs.map(ai));if(ai(asc)>=top){if(best==null||bp.si>best)best=bp.si;}});return(best!=null&&si<best)?best:null;}
 
-let recOpen={};
+let recOpen={},recSearch="";
+const MAG='<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="20.5" y1="20.5" x2="16.5" y2="16.5"></line></svg>';
+/* keep scroll position across a full re-render (sort/competitive changes, detail-sheet saves) */
+function rerenderRecs(){const y=window.scrollY;renderRecs();window.scrollTo(0,y);}
 function renderRecs(){
   const pane=document.getElementById("recsPane");
-  document.querySelectorAll('#recsPane details.fac').forEach(d=>{const n=d.querySelector('.fname');if(n)recOpen[n.textContent]=d.open;});
   pane.innerHTML="";
-  const wantOpen=(k,def)=>(k in recOpen)?recOpen[k]:def;
+
   const cc=el("div","controls");
   const c1=el("div","c");c1.innerHTML="<label>Sort by</label>";
   const sel=el("select");sel.innerHTML=`<option value="overall">Overall Score</option>`+MODES.map(m=>`<option value="${m[0]}">${m[1]}</option>`).join("");
-  sel.value=sortKey;sel.onchange=()=>{const y=window.scrollY;sortKey=sel.value;savePrefs();renderRecs();window.scrollTo(0,y);};c1.appendChild(sel);cc.appendChild(c1);
+  sel.value=sortKey;sel.onchange=()=>{sortKey=sel.value;savePrefs();rerenderRecs();};c1.appendChild(sel);cc.appendChild(c1);
   const c2=el("div","c");c2.innerHTML="<label>Competitive investment</label>";
   const seg=el("div","seg");
-  const b1=el("button",!noComp?"on":null,"Include");b1.onclick=()=>{const y=window.scrollY;noComp=false;savePrefs();renderRecs();window.scrollTo(0,y);};
-  const b2=el("button",noComp?"on":null,"Exclude");b2.onclick=()=>{const y=window.scrollY;noComp=true;savePrefs();renderRecs();window.scrollTo(0,y);};
+  const b1=el("button",!noComp?"on":null,"Include");b1.onclick=()=>{noComp=false;savePrefs();rerenderRecs();};
+  const b2=el("button",noComp?"on":null,"Exclude");b2.onclick=()=>{noComp=true;savePrefs();rerenderRecs();};
   seg.appendChild(b1);seg.appendChild(b2);c2.appendChild(seg);cc.appendChild(c2);
+  // hero search (replaces the sections with a flat list of matches) + Bulk mode
+  const srow=el("div","srow");
+  const sb=el("div","rsearch"),wrap=el("div","rsearchwrap");
+  const sin=el("input");sin.id="recSearch";sin.type="text";sin.placeholder="Search heroes…";sin.setAttribute("autocomplete","off");sin.value=recSearch;
+  const clr=el("button","rsclear");clr.type="button";
+  const syncClr=()=>{const has=sin.value.length>0;clr.classList.toggle("active",has);clr.setAttribute("aria-label",has?"Clear search":"Search");clr.innerHTML=has?"✕":MAG;};
+  sin.oninput=()=>{recSearch=sin.value;syncClr();renderRecsBody();};
+  sin.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();sin.blur();}};
+  clr.onmousedown=e=>e.preventDefault();   // keep input focus when tapping the icon
+  clr.onclick=()=>{if(sin.value){sin.value="";recSearch="";syncClr();renderRecsBody();}sin.focus();};
+  wrap.appendChild(sin);wrap.appendChild(clr);sb.appendChild(wrap);srow.appendChild(sb);
+  const setupBtn=el("button","setupmodebtn","Bulk mode");setupBtn.onclick=openSetup;srow.appendChild(setupBtn);
+  cc.appendChild(srow);syncClr();
   pane.appendChild(cc);
   const hdr=document.querySelector("header");cc.style.top=(hdr?hdr.offsetHeight:96)+"px";
-  const wished=new Set(BASE_FACS.flatMap(f=>(S.wishlist[f]||[]).filter(Boolean)));
-  const activeName=(S.account.stargazer||"").trim().toLowerCase();
 
-  // READY TO ASCEND — fixed (non-collapsible) card, enough copies banked for next ascension
+  const body=el("div");body.id="recsBody";pane.appendChild(body);
+  renderRecsBody();
+}
+function renderRecsBody(){
+  const pane=document.getElementById("recsBody");if(!pane)return;
+  pane.querySelectorAll('details.fac').forEach(d=>{const n=d.querySelector('.fname');if(n)recOpen[n.textContent]=d.open;});
+  pane.innerHTML="";
+  const wantOpen=(k,def)=>(k in recOpen)?recOpen[k]:def;
+  const term=recSearch.trim().toLowerCase();
+
+  // SEARCH — flat list of every matching hero (incl. hidden and non-summonable), alphabetical
+  if(term){
+    const card=el("div","card");const body=el("div","body");
+    const hits=FAC_ORDER.flatMap(fac=>S.factions[fac].filter(h=>TIER[h.name]&&h.name.toLowerCase().includes(term)).map(h=>({h,fac})));
+    hits.sort((a,z)=>a.h.name.localeCompare(z.h.name));
+    hits.forEach(({h,fac})=>{const r=buildRow(h,TIER[h.name],ladderFor(fac),isStarred(h.name));r.fac=fac;r.hidden=fac==="Dimensional"&&isHiddenDim(h.name);body.appendChild(recRow(r));});
+    if(!hits.length)body.appendChild(el("div","note","No hero matches your search."));
+    card.appendChild(body);pane.appendChild(card);return;
+  }
+
+  // CAN REACH NEXT BREAKPOINT — fixed (non-collapsible) card, enough copies/spirits banked to ascend to the next breakpoint; shown only when non-empty
   {
     const rc=el("div","card readycard");
-    rc.appendChild(el("div","cap","Ready to ascend"));
+    rc.appendChild(el("div","cap","Can reach next breakpoint"));
     const body=el("div","body");
     const ready=[];
-    BASE_FACS.forEach(fac=>S.factions[fac].filter(h=>TIER[h.name]&&!NON_SUMMON.has(h.name)).forEach(h=>{const r=buildRow(h,TIER[h.name],LBASE,wished.has(h.name));if(isOpenStep(r.b.k)&&r.ready)ready.push(r);}));
-    STAR_FACS.forEach(fac=>S.factions[fac].filter(h=>TIER[h.name]&&!NON_SUMMON.has(h.name)).forEach(h=>{const r=buildRow(h,TIER[h.name],LSG,h.name.toLowerCase()===activeName);if(isOpenStep(r.b.k)&&r.ready)ready.push(r);}));
-    S.factions.Dimensional.filter(h=>TIER[h.name]&&h.asc!=="—"&&!isHiddenDim(h.name)).forEach(h=>{const r=buildRow(h,TIER[h.name],LDIM,false);if(isOpenStep(r.b.k)&&r.ready)ready.push(r);});
+    // non-summonable heroes count too when they use copies (Alna, Vyloris); copy-less ones (NO_ELITE) are never ready
+    BASE_FACS.forEach(fac=>S.factions[fac].filter(h=>TIER[h.name]).forEach(h=>{const r=buildRow(h,TIER[h.name],LBASE,isStarred(h.name));if(isOpenStep(r.b.k)&&r.ready)ready.push(r);}));
+    STAR_FACS.forEach(fac=>S.factions[fac].filter(h=>TIER[h.name]).forEach(h=>{const r=buildRow(h,TIER[h.name],LSG,isStarred(h.name));if(isOpenStep(r.b.k)&&r.ready)ready.push(r);}));
+    S.factions.Dimensional.filter(h=>TIER[h.name]&&h.asc!=="—"&&!isHiddenDim(h.name)).forEach(h=>{const r=buildRow(h,TIER[h.name],LDIM,isStarred(h.name));if(isOpenStep(r.b.k)&&r.ready)ready.push(r);});
     ready.sort((a,z)=>a.m.v-z.m.v);
     ready.forEach(r=>body.appendChild(recRow(r)));
-    if(!ready.length)body.appendChild(el("div","note","No heroes have enough copies or spirits banked to ascend right now."));
-    rc.appendChild(body);pane.appendChild(rc);
+    rc.appendChild(body);if(ready.length)pane.appendChild(rc);
   }
 
   // open/close all (affects the collapsible sections below)
   const ta=el("div","toggleall","open / close all");
-  ta.onclick=()=>{const ds=[...document.querySelectorAll('#recsPane details.fac')];const openAll=ds.some(d=>!d.open);ds.forEach(d=>{d.open=openAll;const n=d.querySelector('.fname');if(n)recOpen[n.textContent]=openAll;});};
+  ta.onclick=()=>{const ds=[...pane.querySelectorAll('details.fac')];const openAll=ds.some(d=>!d.open);ds.forEach(d=>{d.open=openAll;const n=d.querySelector('.fname');if(n)recOpen[n.textContent]=openAll;});};
   pane.appendChild(ta);
 
-  // SUMMON per base faction — tier-list order, maxed last
-  BASE_FACS.forEach(fac=>{
-    const d=el("details","fac");d.open=wantOpen(fac,false);d.style.setProperty("--fc",`var(${FAC_VAR[fac]})`);
+  // one collapsible section: open work first, then maxed, then hidden (Dimensional only) at the bottom
+  const section=(title,fcvar,rows,emptyMsg)=>{
+    const d=el("details","fac");d.open=wantOpen(title,false);d.style.setProperty("--fc",`var(${fcvar})`);
+    d.addEventListener("toggle",()=>{recOpen[title]=d.open;});   // remember at once, so any re-render keeps it
     const body=el("div","body");
-    const rows=S.factions[fac].filter(h=>TIER[h.name]&&!NON_SUMMON.has(h.name)).map(h=>buildRow(h,TIER[h.name],LBASE,wished.has(h.name)));
-    rows.sort((a,z)=> (isOpenStep(a.b.k)?0:1)-(isOpenStep(z.b.k)?0:1) || a.m.v-z.m.v);
-    const open=rows.filter(r=>isOpenStep(r.b.k)).length;
-    const sum=el("summary");sum.innerHTML=`<span class="chev">▶</span><span class="fname">${fac}</span><span class="fcount">${open}</span>`;d.appendChild(sum);
+    const rank=r=>r.hidden?2:(isOpenStep(r.b.k)?0:1);
+    rows.sort((a,z)=>rank(a)-rank(z)||a.m.v-z.m.v);
+    const open=rows.filter(r=>!r.hidden&&isOpenStep(r.b.k)).length;
+    const sum=el("summary");sum.innerHTML=`<span class="chev">▶</span><span class="fname">${title}</span><span class="fcount">${open}</span>`;d.appendChild(sum);
     rows.forEach(r=>body.appendChild(recRow(r)));
-    if(!rows.length)body.appendChild(el("div","note","No tier data for this faction's heroes."));
+    if(!rows.length)body.appendChild(el("div","note",emptyMsg));
     d.appendChild(body);pane.appendChild(d);
-  });
-
-  // STARGAZER — same current→target indicators as summon
-  {
-    const d=el("details","fac");d.open=wantOpen("Stargazer Priority",false);d.style.setProperty("--fc","var(--hypogean)");
-    const body=el("div","body");
-    const rows=STAR_FACS.flatMap(fac=>S.factions[fac].filter(h=>TIER[h.name]&&!NON_SUMMON.has(h.name)).map(h=>buildRow(h,TIER[h.name],LSG,h.name.toLowerCase()===activeName)));
-    rows.sort((a,z)=> (isOpenStep(a.b.k)?0:1)-(isOpenStep(z.b.k)?0:1) || a.m.v-z.m.v);
-    const open=rows.filter(r=>isOpenStep(r.b.k)).length;
-    const sum=el("summary");sum.innerHTML=`<span class="chev">▶</span><span class="fname">Stargazer Priority</span><span class="fcount">${open}</span>`;d.appendChild(sum);
-    rows.forEach(r=>body.appendChild(recRow(r)));
-    if(!rows.length)body.appendChild(el("div","note","Nothing here."));
-    d.appendChild(body);pane.appendChild(d);
-  }
-
-  // DIMENSIONAL — can't summon; shows where to invest Dimensional Spirits
-  {
-    const d=el("details","fac");d.open=wantOpen("Dimensional",false);d.style.setProperty("--fc","var(--dimensional)");
-    const body=el("div","body");
-    const rows=S.factions.Dimensional.filter(h=>TIER[h.name]&&!isHiddenDim(h.name)).map(h=>buildRow(h,TIER[h.name],LDIM,false));
-    rows.sort((a,z)=> (isOpenStep(a.b.k)?0:1)-(isOpenStep(z.b.k)?0:1) || a.m.v-z.m.v);
-    const open=rows.filter(r=>isOpenStep(r.b.k)).length;
-    const sum=el("summary");sum.innerHTML=`<span class="chev">▶</span><span class="fname">Dimensional</span><span class="fcount">${open}</span>`;d.appendChild(sum);
-    rows.forEach(r=>body.appendChild(recRow(r)));
-    if(!rows.length)body.appendChild(el("div","note","No tier data for Dimensional heroes."));
-    d.appendChild(body);pane.appendChild(d);
-  }
+  };
+  // one section per faction (every hero, non-summonable ones tagged), then the cross-faction views
+  [...BASE_FACS,...STAR_FACS].forEach(fac=>section(fac,FAC_VAR[fac],S.factions[fac].filter(h=>TIER[h.name]).map(h=>buildRow(h,TIER[h.name],ladderFor(fac),isStarred(h.name))),"No tier data for this faction's heroes."));
+  // DIMENSIONAL — can't summon; shows where to invest Dimensional Spirits. Hidden ones listed last, marked.
+  section("Dimensional","--dimensional",S.factions.Dimensional.filter(h=>TIER[h.name]).map(h=>{const r=buildRow(h,TIER[h.name],LDIM,isStarred(h.name));r.hidden=isHiddenDim(h.name);return r;}),"No tier data for Dimensional heroes.");
+  // STARGAZER PRIORITY — Celestial + Hypogean heroes you can actually stargaze (duplicates their faction rows, like SI Targets)
+  section("Stargazer Priority","--hypogean",STAR_FACS.flatMap(fac=>S.factions[fac].filter(h=>TIER[h.name]&&!NON_SUMMON.has(h.name)).map(h=>buildRow(h,TIER[h.name],LSG,isStarred(h.name)))),"Nothing here.");
 
   // SI TARGETS (all factions incl. dimensional + awakened — SI behind reached ascension)
   const siRows=[];
@@ -1267,8 +1143,9 @@ function buildRow(h,t,ladder,star){
   const b=nextStep(t,h.asc);let target=b.asc,req=0,have=0,ready=false;
   const dim=t.fac==="Dimensional",own=h.asc!=="—";
   const banked=dim?(S.account.spirits||0):(h.e||0);   // Dimensional spends a shared spirit pool
-  if(b.asc){req=(ladder[target]||0)-(ladder[h.asc]||0);if(req<1)req=1;have=Math.min(banked,req);ready=banked>=req&&(!dim||own);}
-  return {h,t,b,target,req,have,ready,now:curBracket(t,h.asc),star:!!star,unit:dim?"S":"E",m:metric(t)};
+  const noCopies=!dim&&NO_ELITE.has(h.name);           // awakened & co: upgraded without copies, so no cost and never "ready"
+  if(b.asc&&!noCopies){req=(ladder[target]||0)-(ladder[h.asc]||0);if(req<1)req=1;have=Math.min(banked,req);ready=banked>=req&&(!dim||own);}
+  return {h,t,b,target,req,have,ready,now:curBracket(t,h.asc),star:!!star,unit:dim?"S":"E",noCopies,ns:NON_SUMMON.has(h.name),m:metric(t)};
 }
 function recRow(r){
   const row=el("div","rrow");
@@ -1284,15 +1161,17 @@ function recRow(r){
     const cost=`${r.have}/${r.req} ${r.unit||"E"}`;
     const costHtml=r.ready?`<span class="ready">${cost}</span>`:cost;
     inner=`<div class="tline"><span class="pill ${pillClass(r.now)}">${curK}</span><span class="arr">→</span><span class="pill ${pillClass(r.b.k)}">${r.b.k}</span></div>`
-        +`<div class="paren">${r.target} · ${costHtml}</div>`;
+        +`<div class="paren">${r.target}${r.noCopies?"":" · "+costHtml}</div>`;
   }
-  const sub=own?(r.h.asc+" "+siLabel(r.h.si)):"not owned";
-  row.innerHTML=`<div class="nm">${name}<small>${sub}</small></div><div class="tgt">${inner}</div><div class="met">${r.m.label}</div>`;
+  const sub=(r.fac?r.fac+" · ":"")+(own?(r.h.asc+" "+siLabel(r.h.si)):"not owned")+(r.ns?" · not summonable":"")+(r.hidden?' · <span class="hidtag">hidden</span>':"");
+  if(r.hidden)row.classList.add("hiddenrow");
+  row.innerHTML=`<div class="nm">${esc(name)}<small>${sub}</small></div><div class="tgt">${inner}</div><div class="met">${r.m.label}</div>`;
   row.classList.add("clickable");row.onclick=()=>heroDetail(r.h.name);
   return row;
 }
 function simpleList(title,fcvar,items,fn,emptyMsg){
   const d=el("details","fac");d.open=(title in recOpen)?recOpen[title]:false;d.style.setProperty("--fc",`var(${fcvar})`);
+  d.addEventListener("toggle",()=>{recOpen[title]=d.open;});
   const sum=el("summary");sum.innerHTML=`<span class="chev">▶</span><span class="fname">${title}</span><span class="fcount">${items.length}</span>`;d.appendChild(sum);
   const body=el("div","body");
   const mapped=items.map(fn);mapped.sort((a,z)=>a.m.v-z.m.v);
@@ -1933,106 +1812,119 @@ function checkShareHash(){
 }
 
 function showTab(t){
-  document.getElementById("tabRoster").classList.toggle("on",t==="roster");
   document.getElementById("tabRecs").classList.toggle("on",t==="recs");
   document.getElementById("tabTeams").classList.toggle("on",t==="teams");
-  document.getElementById("tabMenu").classList.toggle("on",t==="tools");
-  document.getElementById("rosterPane").classList.toggle("hide",t!=="roster");
+  document.getElementById("tabTools").classList.toggle("on",t==="tools");
   document.getElementById("recsPane").classList.toggle("hide",t!=="recs");
   document.getElementById("teamsPane").classList.toggle("hide",t!=="teams");
   document.getElementById("toolsPane").classList.toggle("hide",t!=="tools");
-  document.getElementById("barRoster").style.display=(t==="roster")?"flex":"none";
-  document.body.classList.toggle("hasbar",t==="roster");
   if(t==="recs")renderRecs();
   if(t==="teams")renderTeams();
   if(t==="tools")renderTools();
 }
-document.getElementById("tabRoster").onclick=()=>showTab("roster");
 document.getElementById("tabRecs").onclick=()=>showTab("recs");
 document.getElementById("tabTeams").onclick=()=>showTab("teams");
-(function(){
-  const btn=document.getElementById("tabMenu"),pop=document.getElementById("tabMenuPop");
-  const openMenu=o=>{pop.hidden=!o;btn.setAttribute("aria-expanded",o?"true":"false");};
-  btn.onclick=e=>{e.stopPropagation();openMenu(pop.hidden);};
-  document.getElementById("menuTools").onclick=()=>{openMenu(false);showTab("tools");};
-  document.addEventListener("click",e=>{if(!pop.hidden&&!pop.contains(e.target)&&e.target!==btn)openMenu(false);});
-})();
+document.getElementById("tabTools").onclick=()=>showTab("tools");
+document.getElementById("statsBtn").onclick=openStats;
+document.getElementById("dataBtn").onclick=()=>document.getElementById("dataDrawer").classList.add("on");
+document.getElementById("dataClose").onclick=()=>document.getElementById("dataDrawer").classList.remove("on");
+document.getElementById("exportBtn").onclick=()=>{document.getElementById("dataDrawer").classList.remove("on");openBackup();};
+document.getElementById("importBtn").onclick=()=>{document.getElementById("dataDrawer").classList.remove("on");openRestore();};
+["statsDrawer","dataDrawer"].forEach(id=>{const d=document.getElementById(id);d.onclick=e=>{if(e.target.id===id)d.classList.remove("on");};});
 const toTop=document.getElementById("toTop");
 toTop.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
 addEventListener("scroll",()=>toTop.classList.toggle("show",window.scrollY>400),{passive:true});
 
-function exportText(){let t=`STARGAZER TARGET: ${S.account.stargazer||""}\nDIMENSIONAL SPIRITS: ${S.account.spirits||0}\nHIDDEN DIMENSIONAL: ${[...(S.account.hiddenDims||[])].sort().join(", ")}\n\nWISHLIST\n`;
-  BASE_FACS.forEach(f=>{t+=`${f}: ${(S.wishlist[f]||[]).filter(Boolean).join(", ")}\n`;});t+="\n";
+function exportText(){let t=`DIMENSIONAL SPIRITS: ${S.account.spirits||0}\nHIDDEN DIMENSIONAL: ${[...(S.account.hiddenDims||[])].sort().join(", ")}\n\nWISHLIST\n`;
+  FAC_ORDER.forEach(f=>{t+=`${f}: ${(S.wishlist[f]||[]).filter(Boolean).join(", ")}\n`;});t+="\n";
   FAC_ORDER.forEach(fac=>{t+=fac.toUpperCase()+"\n";S.factions[fac].forEach(h=>{t+=(h.e==null?`${h.name}, ${h.asc}, ${siTok(h.si)}\n`:`${h.name}, ${h.asc}, ${siTok(h.si)}, ${h.e}\n`);});t+="\n";});
   // Saved teams/lineups travel as share codes so a backup restores them too (Tools stays excluded).
   t+="TEAMS\n";TEAMS.teams.forEach(tm=>{t+=encodeTeam(tm)+"\n";});t+="\n";
   t+="LINEUPS\n";TEAMS.lineups.forEach(L=>{t+=encodeLineup(L)+"\n";});t+="\n";
   return t.trim()+"\n";}
-document.getElementById("exportBtn").onclick=()=>{document.getElementById("out").value=exportText();document.getElementById("drawer").classList.add("on");};
+function openBackup(){document.getElementById("out").value=exportText();document.getElementById("drawer").classList.add("on");}
 document.getElementById("closeDrawer").onclick=()=>document.getElementById("drawer").classList.remove("on");
 document.getElementById("drawer").onclick=e=>{if(e.target.id==="drawer")e.currentTarget.classList.remove("on");};
+/* Hero detail sheet: breakpoints + the editing controls (former Roster edit sheet) + a wishlist star.
+   Edits live in a `draft` (the breakpoint badges follow it live) and persist only on Save; closing discards.
+   The star toggles immediately (it is a mark, not part of the draft). */
 function heroDetail(name){
   const t=TIER[name];if(!t)return;
+  const fac=t.fac,h=(S.factions[fac]||[]).find(x=>x.name===name);if(!h)return;
   const sheet=document.getElementById("heroSheet");
-  sheet.style.setProperty("--fc",`var(${FAC_VAR[t.fac]||"--soft"})`);
-  const h=(S.factions[t.fac]||[]).find(x=>x.name===name);
-  const own=h&&h.asc!=="—";
-  const cb=own?curBracket(t,h.asc):null;
-  let cur="Not owned",bandPill="";
-  if(own){
-    cur=h.asc+" · "+siLabel(h.si);
-    bandPill=`<span class="pill ${pillClass(cb||"None")}" style="margin-right:8px">${cb||"pre-Min"}</span>`;
-  }
-  const starred=BASE_FACS.some(f=>(S.wishlist[f]||[]).indexOf(name)>=0)||(S.account.stargazer||"").trim().toLowerCase()===name.toLowerCase();
+  sheet.style.setProperty("--fc",`var(${FAC_VAR[fac]||"--soft"})`);
+  const isDim=fac==="Dimensional",ladder=ladderFor(fac),unit=isDim?"S":"E";
+  const draft={asc:h.asc,si:h.si,e:h.e==null?0:(h.e||0),hidden:isHiddenDim(name),sp:S.account.spirits||0};
+  const topAsc=p=>(p&&p.ascs&&p.ascs.length)?p.ascs.reduce((a,c)=>ai(c)>ai(a)?c:a):null;
   // Ascension cost to each breakpoint's top ascension: Elite copies (E) for copy-based
   // factions, shared Dimensional Spirits (S) for Dimensional. Plus an SI-met indicator.
-  const isDim=t.fac==="Dimensional";
-  const ladder=isDim?LDIM:(BASE_FACS.indexOf(t.fac)>=0?LBASE:(STAR_FACS.indexOf(t.fac)>=0?LSG:null));
-  const unit=isDim?"S":"E";
-  const pool=isDim?(S.account.spirits||0):((h&&h.e!=null)?h.e:0);
-  const curAsc=own?h.asc:"—";
-  const topAsc=p=>(p&&p.ascs&&p.ascs.length)?p.ascs.reduce((a,c)=>ai(c)>ai(a)?c:a):null;
   const eBadge=p=>{
-    if(!ladder)return"";const top=topAsc(p);if(!top)return"";
-    const req=Math.max(0,(ladder[top]||0)-(ladder[curAsc]||0));
+    const top=topAsc(p);if(!top)return"";
+    if(NO_ELITE.has(name))return ai(draft.asc)>=ai(top)?`<span class="bpe reached">ascension ✓</span>`:"";   // upgraded without copies: no cost to show
+    const req=Math.max(0,(ladder[top]||0)-(ladder[draft.asc]||0));
     if(req<=0)return `<span class="bpe reached">ascension ✓</span>`;
-    const have=Math.min(pool,req);
+    const pool=isDim?draft.sp:draft.e,have=Math.min(pool,req);
     return `<span class="bpe${have>=req?" ready":""}">${have}/${req} ${unit}</span>`;
   };
   const siBadge=(p,raw)=>{
     if(!p||!/SI/i.test(raw||""))return"";   // show only when the breakpoint mentions SI (incl. an explicit "SI 0")
-    const tgt=p.si||0,csi=h?h.si:-1;
+    const tgt=p.si||0,csi=draft.si;
     return csi>=tgt?`<span class="bpe reached">SI ✓</span>`:`<span class="bpe">${siLabel(csi)} → ${siLabel(tgt)}</span>`;
   };
   const bp=(lab,raw,p)=>`<div class="bprow"><span class="bplab">${lab}</span><span class="bpright"><span class="bpval${raw?"":" none"}">${raw?esc(raw):"—"}</span>${raw?`<span class="bpbadges">${eBadge(p)}${siBadge(p,raw)}</span>`:""}</span></div>`;
+  const info=()=>{
+    const own=draft.asc!=="—",cb=own?curBracket(t,draft.asc):null;
+    const cur=own?`<span class="pill ${pillClass(cb||"None")}" style="margin-right:8px">${cb||"pre-Min"}</span>${esc(draft.asc+" · "+siLabel(draft.si))}`:"Not owned";
+    sheet.querySelector("#hdInfo").innerHTML=
+       `<div class="hd-cur"><span class="hd-curlab">Investment</span><span class="hd-curval${own?"":" none"}">${cur}</span></div>`
+      +`<div class="hd-h">Breakpoints</div>`
+      +bp("Minimum",t.mnR,t.mn)+bp("Optimal",t.opR,t.op)+bp("Competitive",t.cpR,t.cp);
+  };
   const g=GUIDES[name];
   const guideBtn=g
     ?`<a class="herolink" href="${esc(g)}" target="_blank" rel="noopener noreferrer">Open hero guide ↗</a>`
     :`<button class="herolink disabled" type="button" disabled>No guide available</button>`;
   sheet.innerHTML=
-     `<div class="hd-top"><div><div class="hd-name">${esc(name)}${starred?" ★":""}</div><div class="hd-fac">${esc(t.fac)}</div></div><button class="resetic" id="heroClose" aria-label="Close">✕</button></div>`
-    +`<div class="hd-cur"><span class="hd-curlab">Current investment</span><span class="hd-curval${own?"":" none"}">${bandPill}${esc(cur)}</span></div>`
-    +(own?`<div class="ascnow">${ascNowMarkup(t.fac,t,h.asc,isDim?(S.account.spirits||0):(h.e||0))}</div>`:"")
-    +`<div class="hd-h">Investment breakpoints</div>`
-    +bp("Minimum",t.mnR,t.mn)+bp("Optimal",t.opR,t.op)+bp("Competitive",t.cpR,t.cp)
+     `<div class="hd-top"><div><div class="hd-name">${esc(name)}</div><div class="hd-fac">${esc(fac)}</div></div><div class="hd-right"><button class="resetic starbtn" id="heroStar" type="button"></button><button class="resetic" id="heroClose" aria-label="Close">✕</button></div></div>`
+    +`<div id="hdInfo"></div>`
+    +`<div class="hd-h" style="margin-top:16px">Your hero</div>`
+    +heroControlsHTML(fac,name)
+    +`<div class="setupactions"><button class="btn ghost" id="heroNO">Not owned</button><button class="btn primary" id="heroOK">Save</button></div>`
     +`<div class="hd-guide">${guideBtn}</div>`
     +`<div class="hd-foot">Breakpoints from the AFK Companions tier list by SaiLus.${g?" Hero guide linked from the same tier list (opens in a new tab).":""}</div>`;
-  document.getElementById("heroClose").onclick=()=>document.getElementById("heroDrawer").classList.remove("on");
-  const anb=sheet.querySelector("#ascNowBtn");
-  if(anb)anb.onclick=()=>{
-    const banked=isDim?(S.account.spirits||0):(h.e||0);
-    const q=quickAscend(t.fac,t,h.asc,banked);if(!q)return;
-    h.asc=q.target;
-    if(isDim)S.account.spirits=Math.max(0,(S.account.spirits||0)-q.cost);else h.e=Math.max(0,(h.e||0)-q.cost);
-    save();refreshHeroRow(name);                                       // keep the (persistent) roster row in sync
-    syncSpirits();                                                     // and the roster spirits stepper
-    renderRecs();heroDetail(name);
-  };
+  const star=sheet.querySelector("#heroStar");
+  const syncStar=()=>{const on=isStarred(name);star.textContent=on?"★":"☆";star.classList.toggle("on",on);star.title=on?"Remove from wishlist":"Add to wishlist";star.setAttribute("aria-label",star.title);};
+  star.onclick=()=>{toggleStar(name);syncStar();rerenderRecs();};
+  syncStar();
+  wireHeroControls(sheet,fac,draft,name,info);
+  info();
+  const close=()=>document.getElementById("heroDrawer").classList.remove("on");
+  sheet.querySelector("#heroClose").onclick=close;
+  sheet.querySelector("#heroNO").onclick=()=>{h.asc="—";h.si=-1;if(h.e!=null)h.e=0;save();close();rerenderRecs();};
+  sheet.querySelector("#heroOK").onclick=()=>{commitDraft(h,fac,draft);save();close();rerenderRecs();};
+  sheet.scrollTop=0;
   document.getElementById("heroDrawer").classList.add("on");
 }
 document.getElementById("heroDrawer").onclick=e=>{if(e.target.id==="heroDrawer")e.currentTarget.classList.remove("on");};
 document.getElementById("setupDrawer").onclick=e=>{if(e.target.id==="setupDrawer")closeSetup();};
-document.getElementById("editDrawer").onclick=e=>{if(e.target.id==="editDrawer")e.currentTarget.classList.remove("on");};
+function openHelp(){
+  const sheet=document.getElementById("helpSheet");
+  sheet.innerHTML=`<div class="hd-top"><div class="hd-name">How to use</div><button class="resetic" id="helpClose" aria-label="Close">✕</button></div>`
+    +`<div class="howto">
+    <p>1. <b>Recommendations</b> lists what to summon, ascend, and which SI items to raise next, ranked by the tier list. <b>Tap any hero</b> to see its Min / Optimal / Competitive breakpoints and set its ascension, SI level, and spare Elite copies (Save to keep the change).</p>
+    <p>2. <b>Search</b> to jump to any hero, including ones not listed in a section. <b>Bulk mode</b> steps through many heroes in a row.</p>
+    <p>3. The <b>☆</b> in a hero's sheet marks it for your wishlist (as many as you like); starred heroes show a ★ in the lists.</p>
+    <p>4. Dimensional heroes use a shared pool of <b>Dimensional Spirits</b>: set it in any Dimensional hero's sheet. You can also hide a Dimensional hero there; it then shows last in its section, marked hidden.</p>
+    <p>5. The <b>Teams</b> tab lets you build and save teams and lineups, see whether your roster can field them, and share them.</p>
+    <p>6. The <b>Tools</b> tab has calculators: a Realm of Shadows (Mythic Gate) Blessed Flame planner, plus Ascension and Signature Item cost references.</p>
+    <p>7. Top right: the <b>chart</b> icon opens your Account summary; the <b>Backup</b> button has <b>Backup</b> / <b>Restore</b> for everything (roster, wishlist, saved teams; not Tools) and a reset that clears it all.</p>
+    <p>Your data is saved only in this browser, so back up a copy to keep it safe.</p>
+  </div>`;
+  sheet.querySelector("#helpClose").onclick=()=>document.getElementById("helpDrawer").classList.remove("on");
+  document.getElementById("helpDrawer").classList.add("on");
+}
+document.getElementById("helpBtn").onclick=openHelp;
+document.getElementById("helpDrawer").onclick=e=>{if(e.target.id==="helpDrawer")e.currentTarget.classList.remove("on");};
 
 /* lock background scroll whenever any bottom sheet (drawer) is open */
 [...document.querySelectorAll(".drawer")].forEach(d=>new MutationObserver(()=>{
@@ -2041,6 +1933,7 @@ document.getElementById("editDrawer").onclick=e=>{if(e.target.id==="editDrawer")
 
 /* ---- Changelog ---- */
 const CHANGELOG=[
+  {d:"2026-10-21",tier:false,t:"Redesign: the Roster and Recommendations tabs are now one screen, so there's no more switching back and forth. Tap any hero to see its breakpoints and set its ascension, SI and copies right there (tap Save to keep it); the breakpoint costs update as you edit. A new search box jumps to any hero, and Bulk mode sits next to it. Star heroes in their sheet to mark them for your wishlist, as many as you like in any faction (your old wishlist and Stargazer target carry over as stars). Dimensional Spirits are now set in any Dimensional hero's sheet, and hidden Dimensional heroes stay listed at the bottom of their section, marked hidden. \"Ready to ascend\" is now \"Can reach next breakpoint\" and only shows when a hero qualifies. In the header: ? opens How to use, the chart icon opens your Account summary (hidden heroes no longer count toward heroes owned), and Backup holds Backup, Restore and the reset. Tools is a regular tab again. Every faction now has its own section, Celestial and Hypogean included, listing all of its heroes (awakened and other non-summonable ones tagged), followed by Stargazer Priority and SI Targets. Heroes upgraded without Elite copies no longer show copy controls or costs, and Awakened Thane's ascensions no longer count toward Elite used."},
   {d:"2026-10-20",tier:true,t:"Tier list update: Awakened Thane (Lightbearer) joins at A+ with investment breakpoints, per-mode ratings and a hero guide; like the other awakened heroes he is not summonable or stargazable. Leofric (Hypogean) arrives as an unranked placeholder. Kafka (S-) and Kikoru (A) are now ranked. Broad re-rate, mostly in one game mode: Medusa drops to S, Athena rises to S+, Mira and Lyca to S-, Awakened Baden to A+, Solise to A, Sonja, Lucretia and Mishka to C. Pets: Blazefang is now ranked S, Celestwing drops to S-. New guides for Flora; updated guides for Audrae, Satrana and Solise."},
   {d:"2026-09-28",tier:true,t:"Tier list update: two new Dimensional heroes, Kafka and Kikoru, arrive as unranked placeholders (investment breakpoints already listed, ratings to follow), each with a hero guide linked. Canisa & Ruke are now ranked: A, with investment breakpoints and strong Campaign, Forked Fate and Faction Tower ratings."},
   {d:"2026-09-10",t:"Heroes the tier list has not rated yet (no investment breakpoints at all) now show a blank pill and \"not rated yet\" in the summon and stargazer lists, instead of reading as \"max\" as if they were fully invested. They also no longer count toward a faction's open-work total."},
@@ -2115,7 +2008,7 @@ function parseImport(text){
       const m=line.match(/^([A-Za-z]+):\s*(.*)$/);
       if(!m) throw "Malformed wishlist line: "+line;
       const fac=FAC_ORDER.find(f=>f.toLowerCase()===m[1].toLowerCase());
-      if(!fac||!BASE_FACS.includes(fac)) throw "Unknown wishlist faction: "+m[1];
+      if(!fac) throw "Unknown wishlist faction: "+m[1];
       res.wishlist[fac]=m[2].split(",").map(s=>s.trim()).filter(Boolean);
       continue;
     }
@@ -2138,10 +2031,10 @@ function parseImport(text){
   return res;
 }
 function applyImport(res){
-  if(res.stargazer!=null) S.account.stargazer=aliasName(res.stargazer);
   if(res.spirits!=null){const n=parseInt(res.spirits);S.account.spirits=isNaN(n)?0:Math.max(0,n);}
   S.account.hiddenDims=(res.hidden||[]).map(aliasName).filter(n=>S.factions.Dimensional.some(h=>h.name===n));
-  BASE_FACS.forEach(f=>{S.wishlist[f]=(res.wishlist[f]||[]).map(aliasName).filter(n=>S.factions[f].some(h=>h.name===n)).slice(0,5);});
+  FAC_ORDER.forEach(f=>{S.wishlist[f]=cleanWish(S,f,res.wishlist[f]);});
+  if(res.stargazer)addWish(S,res.stargazer);   // legacy backups: the stargazer target becomes a starred hero
   FAC_ORDER.forEach(fac=>{
     const inc={};(res.factions[fac]||[]).forEach(ih=>inc[aliasName(ih.name)]=ih);
     (S.factions[fac]||[]).forEach(h=>{
@@ -2159,7 +2052,7 @@ function applyImport(res){
     saveTeams();
   }
 }
-document.getElementById("importBtn").onclick=()=>{const m=document.getElementById("impMsg");m.textContent="";m.className="impmsg";document.getElementById("impDrawer").classList.add("on");};
+function openRestore(){const m=document.getElementById("impMsg");m.textContent="";m.className="impmsg";document.getElementById("impDrawer").classList.add("on");}
 document.getElementById("impClose").onclick=()=>document.getElementById("impDrawer").classList.remove("on");
 document.getElementById("impDrawer").onclick=e=>{if(e.target.id==="impDrawer")e.currentTarget.classList.remove("on");};
 document.getElementById("impDo").onclick=()=>{
@@ -2167,7 +2060,7 @@ document.getElementById("impDo").onclick=()=>{
   try{
     const res=parseImport(document.getElementById("impIn").value);
     applyImport(res);
-    save();renderRoster();renderTeams();
+    save();renderRecs();renderTeams();
     document.getElementById("impDrawer").classList.remove("on");
     document.getElementById("impIn").value="";
     m.textContent="";m.className="impmsg";
@@ -2179,12 +2072,11 @@ document.getElementById("impDo").onclick=()=>{
     if(!armed){armed=true;rb.textContent="↺?";rb.classList.add("arm");rb.title="Tap again to clear everything";
       clearTimeout(t);t=setTimeout(()=>{armed=false;rb.textContent="⟲";rb.classList.remove("arm");rb.title="Reset everything (clears your roster)";},3000);return;}
     armed=false;clearTimeout(t);rb.textContent="⟲";rb.classList.remove("arm");rb.title="Reset everything (clears your roster)";
-    S=toState(SEED);sortKey="overall";noComp=false;save();savePrefs();renderRoster();
-    if(!document.getElementById("recsPane").classList.contains("hide"))renderRecs();
+    S=toState(SEED);sortKey="overall";noComp=false;recSearch="";save();savePrefs();renderRecs();
   };
 })();
 
-load();loadPrefs();loadTools();loadTeams();renderRoster();document.body.classList.add("hasbar");checkShareHash();
+load();loadPrefs();loadTools();loadTeams();showTab("recs");checkShareHash();
 </script>
 </body>
 </html>

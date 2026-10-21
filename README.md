@@ -8,32 +8,32 @@ community tier list.
 
 ## What it does
 
-- Track your roster: ascension tier, SI level, banked Elite copies per hero, and your
-  **Dimensional Spirits** pool.
-- Manage it in a **searchable, faction-filterable** hero list: tap a hero to set its state, or
-  use **Bulk mode** to step through many heroes one at a time for fast setup.
-- See an **account summary** at a glance: heroes owned out of the total, total Elite copies and
-  Dimensional Spirits invested, and how your roster breaks down by SI level and investment band.
-- Get prioritized recommendations: who to **summon**, who's **ready to ascend**, your
-  **stargazer** priority, **Dimensional** spirit investment, and which **SI** upgrades to chase.
-- On **Recommendations**, tap any hero for a detail card: its Minimum / Optimal / Competitive
-  breakpoints, the copies (E) or Dimensional Spirits (S) still needed for each, and a link to its guide.
+- Get prioritized recommendations: who to **summon**, which heroes **can reach their next
+  breakpoint** with what you have banked, your **stargazer** priority, **Dimensional** spirit
+  investment, and which **SI** upgrades to chase. Sort by Overall Score or any of the 8 game modes.
+- Tap any hero for its detail sheet: its Minimum / Optimal / Competitive breakpoints, the copies (E)
+  or Dimensional Spirits (S) still needed for each, a link to its guide, and the controls to set its
+  ascension, SI level, and banked Elite copies. The breakpoints update as you edit.
+- **Search** to jump straight to any hero, or use **Bulk mode** to step through many heroes one at
+  a time for fast setup.
 - See when your banked copies (or Dimensional Spirits) are enough to **ascend** a hero to its next
-  breakpoint, and apply it in one tap, in the hero's edit sheet and on Recommendations.
-- **Hide** specific Dimensional heroes you can't obtain from Recommendations and Bulk mode, while
-  keeping them on your roster.
+  breakpoint, and apply it in one tap.
+- **Star** heroes to mark them for your wishlist (as many as you like, any faction).
+- Track your shared **Dimensional Spirits** pool from any Dimensional hero's sheet, and **hide**
+  Dimensional heroes you can't obtain: they move to the bottom of their section, marked hidden.
+- See an **account summary** at a glance (chart icon in the header): heroes owned out of the total,
+  Stars obtained, total Elite copies and Dimensional Spirits invested, Emblems used, and how your
+  roster breaks down by SI level and investment band.
 - Build and save **Teams** (up to 5 heroes) and **Lineups** (up to 6 teams) on the **Teams** tab:
   set each hero's target investment (Min / Optimal / Competitive from the tier list, or a custom
   ascension and SI), see whether your current roster can field them, and **share** a team or lineup
   as a link, a chat-safe code, or plain readable text. *(Experimental.)*
-- Use the **Tools** calculators (in the **⋯** menu next to the tabs): a Realm of Shadows (Mythic
-  Gate) Blessed Flame planner (the stamina, wait time, or Army Units to your next stopping point),
-  plus Ascension and Signature Item cost references.
+- Use the **Tools** tab calculators: a Realm of Shadows (Mythic Gate) Blessed Flame planner (the
+  stamina, wait time, or Army Units to your next stopping point), plus Ascension and Signature Item
+  cost references.
 - Check the in-app **Changelog** (tap the date in the header, or the footer link) to see what
   changed, with an option to hide routine tier-list updates.
-- Sort recommendations by Overall Score or any of the 8 game modes.
-- Set per-faction wishlists and a stargazer target.
-- **Backup / Restore** everything as plain text (roster, wishlists, and saved teams) to keep a
+- **Backup / Restore** everything as plain text (roster, wishlist, and saved teams) to keep a
   copy or move it between devices.
 
 ## Privacy & how it works
@@ -46,17 +46,16 @@ community tier list.
 
 ## Usage
 
-1. Open the app. The roster starts empty (every hero "not owned").
-2. On the **Roster** tab, tap a hero to set its ascension, SI, and spare Elite copies; use the
-   search box and faction filters to find heroes, or **Bulk mode** to step through many at once.
-   Set your stargazer target, wishlists, and Dimensional Spirits in the **Wishlist / Dimensional
-   Spirits** section.
-3. Check the **Recommendations** tab for what to invest in next; tap any hero for its
-   breakpoints, costs, and guide.
+1. Open the app. The roster starts empty (every hero "not owned"). The **?** in the header explains
+   the basics.
+2. On **Recommendations**, tap a hero to see its breakpoints and set its ascension, SI, and spare
+   Elite copies (tap **Save** to keep the change). Use the search box to find any hero, or
+   **Bulk mode** to step through many at once. Tap the star to add a hero to your wishlist.
+3. Set your Dimensional Spirits in any Dimensional hero's sheet.
 4. On the **Teams** tab, build teams and lineups, see if your roster can field them, and share them.
-5. The **⋯** menu (next to the tabs) has the **Tools** calculators for the Realm of Shadows mode and
-   for ascension / Signature Item costs.
-6. Use **Backup** to save a text copy of everything; **Restore** to bring it back later.
+5. The **Tools** tab has calculators for the Realm of Shadows mode and for ascension / Signature
+   Item costs.
+6. Tap **Backup** in the header to save a text copy of everything, or to **Restore** it later.
 
 ## Credits
 
