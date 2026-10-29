@@ -405,7 +405,7 @@
 <body>
 <header>
   <div class="hbar">
-    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-10-20</span></div>
+    <div class="title">AFK Companions Planner<span id="tierDate" class="tierdate" title="View changelog">Tier data as of 2026-10-29</span></div>
     <div class="hr">
       <button class="resetic" id="helpBtn" title="How to use" aria-label="How to use">?</button>
       <button class="resetic" id="statsBtn" title="Account summary" aria-label="Account summary"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="20" x2="5" y2="13"></line><line x1="12" y1="20" x2="12" y2="5"></line><line x1="19" y1="20" x2="19" y2="10"></line></svg></button>
@@ -427,7 +427,7 @@
   <footer class="foot">
     <a href="#" id="changelogLink">Changelog</a><br>
     Unofficial fan-made tool. Not affiliated with, endorsed, or sponsored by Lilith Games. AFK Arena: Companions and all related content are the property of Lilith Games.<br>
-    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-10-20.<br>
+    Hero rankings and investment breakpoints are based on the <a href="https://afk-web.onrender.com/tier-list" target="_blank" rel="noopener noreferrer">AFK Companions Tier List</a> by SaiLus. Tier data as of 2026-10-29.<br>
     Your data is stored only in this browser. Use Backup to keep a copy.
   </footer>
 </div>
@@ -556,7 +556,7 @@ const TIER_ROWS=[
 ["Sung Jinwoo","Dimensional",71.6,"S+","A3 SI 20","A5 SI 20 < SI 30","T SI 30","S+,S+,SS,S,S+,S,SS,S"],
 ["Terrible Tornado","Dimensional",69.7,"S","A1 SI 20 < SI 30","A5 SI 30","","SS,SS,SS,SS,SS,S+,A,S+"],
 ["Athena","Dimensional",71.7,"S+","A1 SI 30","A5 Si 30","T SI 30","S+,S,S,S+,S+,S,SS,SS"],
-["Trishea","Wilder",69.4,"S","A1 SI 20","A3 < A5 SI 20","A5 T / SI 30","S,S,SS,SS,S+,S,S,S"],
+["Trishea","Wilder",68,"S","A1 SI 20","A3 < A5 SI 20","A5 T / SI 30","S,S,SS,SS,S+,S,S-,S"],
 ["Liberta","Celestial",70,"S","Mythic SI 20 < SI 30","A3 < A5 SI 30","A5 Si 30","S+,S,S+,S+,SSS,SS,S,SS"],
 ["Awakened Brutus","Mauler",68.8,"S","A SI 20","A SI 20","A5 SI 30","SS,SS,SS,B,D,S+,SS,SS"],
 ["Awakened Talene","Celestial",67.7,"S","A SI 20","A SI 30","A5 SI 30","A,SS,S-,S+,S+,S-,S+,S+"],
@@ -736,7 +736,7 @@ const GUIDES={
   "Terrible Tornado":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-first-impression-tatsumaki-1q0eekr",
   "Thane":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-thane-1uir6uw",
   "Treznor":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-treznor-1vy4yc6",
-  "Trishea":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-hero-deep-dive-trishea-1k9csjf",
+  "Trishea":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-trishea-1xg0ma3",
   "Vyloris":"https://afk-web.onrender.com/guides/afkarenacompanions-salty-mood-6633-hero-overview-vyloris-1w63fxk",
   "Walker":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-walker-1szadhl",
   "Warek":"https://afk-web.onrender.com/guides/afkarenacompanions-shodee-meta-snapshot-warek-1ui7ei4",
@@ -1933,6 +1933,7 @@ document.getElementById("helpDrawer").onclick=e=>{if(e.target.id==="helpDrawer")
 
 /* ---- Changelog ---- */
 const CHANGELOG=[
+  {d:"2026-10-29",tier:true,t:"Tier list update: Trishea's score drops slightly (69.4 to 68, rank still S), with one game-mode rating down from S to S-. Her hero guide now links to a newer meta snapshot."},
   {d:"2026-10-21",tier:false,t:"Redesign: the Roster and Recommendations tabs are now one screen, so there's no more switching back and forth. Tap any hero to see its breakpoints and set its ascension, SI and copies right there (tap Save to keep it); the breakpoint costs update as you edit. A new search box jumps to any hero, and Bulk mode sits next to it. Star heroes in their sheet to mark them for your wishlist, as many as you like in any faction (your old wishlist and Stargazer target carry over as stars). Dimensional Spirits are now set in any Dimensional hero's sheet, and hidden Dimensional heroes stay listed at the bottom of their section, marked hidden. \"Ready to ascend\" is now \"Can reach next breakpoint\" and only shows when a hero qualifies. In the header: ? opens How to use, the chart icon opens your Account summary (hidden heroes no longer count toward heroes owned), and Backup holds Backup, Restore and the reset. Tools is a regular tab again. Every faction now has its own section, Celestial and Hypogean included, listing all of its heroes (awakened and other non-summonable ones tagged), followed by Stargazer Priority and SI Targets. Heroes upgraded without Elite copies no longer show copy controls or costs, and Awakened Thane's ascensions no longer count toward Elite used."},
   {d:"2026-10-20",tier:true,t:"Tier list update: Awakened Thane (Lightbearer) joins at A+ with investment breakpoints, per-mode ratings and a hero guide; like the other awakened heroes he is not summonable or stargazable. Leofric (Hypogean) arrives as an unranked placeholder. Kafka (S-) and Kikoru (A) are now ranked. Broad re-rate, mostly in one game mode: Medusa drops to S, Athena rises to S+, Mira and Lyca to S-, Awakened Baden to A+, Solise to A, Sonja, Lucretia and Mishka to C. Pets: Blazefang is now ranked S, Celestwing drops to S-. New guides for Flora; updated guides for Audrae, Satrana and Solise."},
   {d:"2026-09-28",tier:true,t:"Tier list update: two new Dimensional heroes, Kafka and Kikoru, arrive as unranked placeholders (investment breakpoints already listed, ratings to follow), each with a hero guide linked. Canisa & Ruke are now ranked: A, with investment breakpoints and strong Campaign, Forked Fate and Faction Tower ratings."},
